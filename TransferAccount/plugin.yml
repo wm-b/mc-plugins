@@ -1,9 +1,9 @@
 name: Template
-main: com.inceris.template.Template
+main: com.inceris.trasnferaccount.TrasnferAccount
 version: 0.0.0
 api-version: 1.18
 author: Inceris
 commands:
-   Template:
-      description: Template command
-      permission: template.use
+   transferaccount:
+      description: Main command
+      permission: transferaccount.use

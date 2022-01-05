@@ -5,7 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Template extends JavaPlugin {
+public class TransferAccount extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
@@ -18,7 +18,7 @@ public class Template extends JavaPlugin {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (label.equalsIgnoreCase("template")) {
+		if (label.equalsIgnoreCase("transferaccount")) {
 			try {
 				
 			}
