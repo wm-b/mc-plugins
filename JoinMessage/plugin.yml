@@ -1,0 +1,5 @@
+name: JoinMessage
+main: com.inceris.joinmessage.JoinMessage
+version: 1.0.0
+api-version: 1.17
+author: Inceris

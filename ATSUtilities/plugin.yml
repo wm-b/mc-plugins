@@ -1,0 +1,36 @@
+name: ATSUtilities
+main: com.inceris.atsutilities.ATSUtilities
+version: 0.0.6
+api-version: 1.16
+author: Inceris
+commands:
+   atsutilities:
+      description: Main command
+      usage: /<command> [subcommand]
+      permission: atsutil.use
+      permission-message: You don't have <permission>
+   atsrtp:
+      description: Randomly releports to a slected biome
+      usage: /<command> [player] [world] [radius] [biome]
+      permission: atsutil.use
+      permission-message: You don't have <permission>
+   bc:
+      description: Broadcasts a message to the whole server
+      permission: atsutil.bc
+      permission-message: You don't have <permission>
+   broadcast:
+      description: Broadcasts a message to the whole server
+      permission: atsutil.bc
+      permission-message: You don't have <permission>
+   blink:
+      description: A short-range forward teleport that can't go through walls
+      permission: atsutil.blink
+      permission-message: You don't have <permission>
+   leap:
+      description: Leap in the direction you're moving
+      permission: atsutil.leap
+      permission-message: You don't have <permission>
+   brewatrandom:
+      description: Brew two random potions
+      permission: atsutil.brewatrandom
+      permission-message: You don't have <permission>

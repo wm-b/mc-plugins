@@ -1,0 +1,9 @@
+name: InvCopy
+main: com.inceris.invcopy.InvCopy
+version: 1.0.0
+api-version: 1.17
+author: Inceris
+commands:
+   invcopy:
+      description: InvCopy main command
+      permission: invcopy.use

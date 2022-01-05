@@ -1,0 +1,1482 @@
+cards:
+    1:
+        name: "Inceris"
+        rarity: "Mythic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The server owner"
+    2:
+        name: "Iciana"
+        rarity: "Mythic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A empathetic and"
+        - "kind admin"
+    3:
+        name: "soundsnsilence"
+        rarity: "Mythic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An OG player, admin, and"
+        - "master builder"
+    4:
+        name: "Heliosares"
+        rarity: "Mythic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A highly competent"
+        - "admin with the promotion"
+        - "speedrun record"
+    5:
+        name: "PrettyTrashX"
+        rarity: "Mythic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An ex-admin who helped"
+        - "found the server"
+    6:
+        name: "Inciana"
+        rarity: "Mythic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The legend speaks of"
+        - "an admin beyond"
+        - "comprehension"
+    7:
+        name: "IncShoot"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An emote of Inceris"
+        - "shooting a laptop"
+    8:
+        name: "Aboose"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The admin aboose emote"
+    9:
+        name: "Grim_t_Reaper"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The first non-staff player to"
+        - "ever join the server"
+    10:
+        name: "Toast___"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A head mod who goes"
+        - "well with butter"
+    11:
+        name: "sweetflower0101"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A kind OG player who is loyal"
+        - "to her friends"
+    12:
+        name: "ENFORCER_GAMING"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A stinky nerd SrMod"
+    13:
+        name: "BigShowchr19"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A very good mod and the"
+        - "server's biggest supporter"
+    14:
+        name: "Midatix"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An OG player known"
+        - "for her kindness"
+    15:
+        name: "Honorstar"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A loyal and hardworking"
+        - "SrMod and builder"
+    16:
+        name: "AugustusTheFriar"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An ex-admin who was the first"
+        - "to obtain the GOD rank"
+    17:
+        name: "smileontheradio"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The chief constructor of the"
+        - "server-wide rail project"
+    18:
+        name: "Morelis"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A nation known for"
+        - "its brews"
+    19:
+        name: "Holy Ranger Country"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A prosperous nation"
+    20:
+        name: "PogNation"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A prosperous nation"
+    21:
+        name: "Asgard"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A prosperous nation"
+    22:
+        name: "Sanctuary"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A prosperous nation"
+    23:
+        name: "The Rail Federation"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A nation dedicated to the rail"
+        - "project"
+    24:
+        name: "Tefrénas"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The server's oldest nation"
+    25:
+        name: "Leonia"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A prosperous nation"
+    26:
+        name: "Charles_Silver"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An exemplary and dedicated"
+        - "mod"
+    27:
+        name: "Ochoai"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A dedicated mod who"
+        - "strives for perfection"
+    28:
+        name: "JayizdeBest1234"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A mod with a squeaky voice"
+    29:
+        name: "LordOmni"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An infamous OG player"
+    30:
+        name: "A_Dank_man77"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A hyper-focused player who"
+        - "changed the future of the"
+        - "server's economy"
+    31:
+        name: "JordiMaa"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Loves Weird Al"
+    32:
+        name: "Nrompa"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A wonderful staff"
+        - "member who has"
+        - "been a POTM"
+    33:
+        name: "SomeGiraffe"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The twin of Iciana, bit of a"
+        - "nerd"
+    34:
+        name: "uzmun1"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A dedicated player and"
+        - "generous person"
+    35:
+        name: "BBSwagg"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A dedicated yet troublesome"
+        - "player"
+    36:
+        name: "bbylameox3"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An ex-mod and long-time"
+        - "player"
+    37:
+        name: "Alphonse82"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A player who enjoys"
+        - "licking windows"
+    38:
+        name: "Him89098"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Famously not a nerd"
+    39:
+        name: "radishempire"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Named after a vegetable"
+    40:
+        name: "Enderdragon"
+        rarity: "Special"
+        set: 1
+        subset: "Boss Mobs 1/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A bit of a loner"
+    41:
+        name: "Wither"
+        rarity: "Special"
+        set: 1
+        subset: "Boss Mobs 2/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Weird guy, likes skulls"
+    42:
+        name: "Elder Guardian"
+        rarity: "Special"
+        set: 1
+        subset: "Boss Mobs 3/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Makes weird noises"
+    43:
+        name: "Warden"
+        rarity: "Special"
+        set: 1
+        subset: "Boss Mobs 4/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Shrek lookin' fella"
+    44:
+        name: "Enderman"
+        rarity: "Special"
+        set: 1
+        subset: "Ender Mobs 1/3"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Lanky tall dude"
+    45:
+        name: "Endermite"
+        rarity: "Special"
+        set: 1
+        subset: "Ender Mobs 2/3"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Smol, cute. Does not"
+        - "know anything"
+    46:
+        name: "Shulker"
+        rarity: "Special"
+        set: 1
+        subset: "Ender Mobs 3/3"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Box. [{o.o}]"
+    47:
+        name: "Phantom"
+        rarity: "Special"
+        set: 1
+        subset: "Rare Monsters 1/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "9/10 players agree"
+        - "these shouldn't exist"
+    48:
+        name: "Stray"
+        rarity: "Special"
+        set: 1
+        subset: "Rare Monsters 2/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Skeletons with more"
+        - "calcium powers"
+    49:
+        name: "Charged Creeper"
+        rarity: "Special"
+        set: 1
+        subset: "Rare Monsters 3/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "That's a nice mansion you've"
+        - "got there"
+    50:
+        name: "Spider Jockey"
+        rarity: "Special"
+        set: 1
+        subset: "Rare Monsters 4/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Almost as cool as it is"
+        - "annoying"
+    51:
+        name: "Chicken Jockey"
+        rarity: "Special"
+        set: 1
+        subset: "Rare Monsters 5/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "More lethal than the"
+        - "enderdragon"
+    52:
+        name: "Zombie"
+        rarity: "Normal"
+        set: 1
+        subset: "Overworld Monsters 1/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Uuurrrggghhh"
+    53:
+        name: "Skeleton"
+        rarity: "Normal"
+        set: 1
+        subset: "Overworld Monsters 2/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The calcium bois"
+    54:
+        name: "Creeper"
+        rarity: "Normal"
+        set: 1
+        subset: "Overworld Monsters 3/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Ruins your day"
+    55:
+        name: "Spider"
+        rarity: "Normal"
+        set: 1
+        subset: "Overworld Monsters 4/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "You thought you were"
+        - "safe on that roof"
+    56:
+        name: "Witch"
+        rarity: "Normal"
+        set: 1
+        subset: "Overworld Monsters 5/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Where do they get all"
+        - "that glass?"
+    57:
+        name: "Cow"
+        rarity: "Normal"
+        set: 1
+        subset: "Farm Animals 1/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Moo"
+    58:
+        name: "Sheep"
+        rarity: "Normal"
+        set: 1
+        subset: "Farm Animals 2/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Baa"
+    59:
+        name: "Pig"
+        rarity: "Normal"
+        set: 1
+        subset: "Farm Animals 3/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Oink"
+    60:
+        name: "Chicken"
+        rarity: "Normal"
+        set: 1
+        subset: "Farm Animals 4/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Buck"
+    61:
+        name: "Horse"
+        rarity: "Normal"
+        set: 1
+        subset: "Farm Animals 5/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Neigh"
+    62:
+        name: "Moo2Mink"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Destroyer of elytras"
+    63:
+        name: "Vremenaz"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A player who likes the"
+        - "number 42"
+    64:
+        name: "kiahruh"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A player who likes chips"
+    65:
+        name: "BreadSenpai"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A player who goes well with"
+        - "peanut butter and jelly"
+    66:
+        name: "David_DiSanto"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A youngling who likes to"
+        - "suggest things"
+    67:
+        name: "iishimmeringz"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A shiny boi probably"
+    68:
+        name: "GuardianDown29"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Father of Mexico Joe"
+    69:
+        name: "Yhoggh"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A player who likes blue"
+    70:
+        name: "Pikachu0250"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Super effective against"
+        - "water types"
+    71:
+        name: "Regenold"
+        rarity: "Supreme"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The god of the server"
+    72:
+        name: "Ravoy"
+        rarity: "Supreme"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The greatest player"
+        - "of all time"
+    73:
+        name: "Uno Reverse"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "no u"
+    74:
+        name: "Wish"
+        rarity: "Mythic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Anything you want!"
+        - "... Well as long as"
+        - "Inc says it's ok"
+    75:
+        name: "Sparkshards"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A to-the-point mod who"
+        - "has had a large say on"
+        - "the economy balance"
+    76:
+        name: "Dead Bush"
+        rarity: "Legendary"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A bush that has died"
+    77:
+        name: "LucaIsNotAwake"
+        rarity: "Epic"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A sleepy boi who likes coffee"
+    78:
+        name: "Inc's Trident"
+        rarity: "Epic"
+        set: 1
+        subset: "Staff Items 1/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A trident that kills instantly."
+        - "A stream of them is the last"
+        - "thing some see"
+    79:
+        name: "Helio's Leaf"
+        rarity: "Epic"
+        set: 1
+        subset: "Staff Items 2/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "It's just a normal leaf."
+        - "Nothing to see here"
+    80:
+        name: "Sound's Scaffolding"
+        rarity: "Epic"
+        set: 1
+        subset: "Staff Items 3/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "The legends say that before staff"
+        - "were given the ability to fly,"
+        - "this took them to the high ground"
+    81:
+        name: "Icy's Pickle"
+        rarity: "Epic"
+        set: 1
+        subset: "Staff Items 4/4"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "When Icy takes out her"
+        - "pickle all should run"
+    82:
+        name: "fat_seal_eliz"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A long-serving staff member"
+        - "with good vibes"
+    83:
+        name: "Hymnler"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A long-time player who"
+        - "founded a great nation"
+    84:
+        name: "SirPete"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Among the kindest players"
+        - "the server has ever seen"
+    85:
+        name: "Sherbert"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Ochoai's cat. Meow"
+    86:
+        name: "Vaporwaves"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A player who prevented a"
+        - "server-breaking bug"
+    87:
+        name: "MidenTD"
+        rarity: "Special"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An OG player who founded"
+        - "one of the first nations"
+    88:
+        name: "BoomExplosion"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "REALLY wants to be a card"
+    89:
+        name: "Piglin"
+        rarity: "Normal"
+        set: 1
+        subset: "Nether Monsters 1/7"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Ya got gold?"
+    90:
+        name: "Piglin Brute"
+        rarity: "Normal"
+        subset: "Nether Monsters 2/7"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Give us ya gold"
+    91:
+        name: "Zombified Piglin"
+        rarity: "Normal"
+        set: 1
+        subset: "Nether Monsters 3/7"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Slightly baconified from the"
+        - "lightning"
+    92:
+        name: "Blaze"
+        rarity: "Normal"
+        set: 1
+        set: 1
+        subset: "Nether Monsters 4/7"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Being not on fire in front"
+        - "of a blaze is considered"
+        - "offensive to them"
+    93:
+        name: "Strider"
+        rarity: "Normal"
+        set: 1
+        subset: "Nether Monsters 5/7"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Only happy while in lava"
+    94:
+        name: "Ghast"
+        rarity: "Normal"
+        set: 1
+        subset: "Nether Monsters 6/7"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Their tears aren't"
+        - "for them"
+    95:
+        name: "Wither Skeleton"
+        rarity: "Normal"
+        set: 1
+        subset: "Nether Monsters 7/7"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "How much health are you on?"
+    96:
+        name: "SchizTeletubby"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A player who likes to annoy Inc"
+    97:
+        name: "Kartista317"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A gremlin who likes food"
+        - "and the arts which it"
+        - "voices through screeching"
+    98:
+        name: "idkmushii"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "An artist who enjoys"
+        - "building fun things"
+    99:
+        name: "LegendCloud"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Is poor"
+    100:
+        name: "DarkPoliana"
+        rarity: "Normal"
+        set: 1
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A fast reader who cries a lot"
+    101:
+        name: "Regenold the Holy One"
+        rarity: "Mythic"
+        set: 2
+        subset: "The Holy One 1/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Whosoever breaks the seal will"
+        - "know infinite power."
+    102:
+        name: "Front Legs of the Holy One"
+        rarity: "Legendary"
+        set: 2
+        subset: "The Holy One 2/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A pair of front legs, sealed by magic."
+        - "It is said that whoever breaks it"
+        - "shall know great power."
+    103:
+        name: "Hind Legs of the Holy One"
+        rarity: "Legendary"
+        set: 2
+        subset: "The Holy One 3/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A pair of hind legs, sealed by magic."
+        - "It is said that whoever breaks it"
+        - "shall know great power."
+    104:
+        name: "Torso of the Holy One"
+        rarity: "Legendary"
+        set: 2
+        subset: "The Holy One 4/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A torso, sealed by magic. It is"
+        - "said that whoever breaks it"
+        - "shall know great power."
+    105:
+        name: "Tail of the Holy One"
+        rarity: "Legendary"
+        set: 2
+        subset: "The Holy One 5/5"
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "A tail, sealed by magic. It is"
+        - "said that whoever breaks it"
+        - "shall know great power."
+    106:
+        name: "Reverse of Reverse"
+        rarity: "Legendary"
+        set: 2
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "You can activate your opponent's"
+        - "Uno Reverse cards as if they were"
+        - "your own"
+    107:
+        name: "Counterspell"
+        rarity: "Mythic"
+        set: 2
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Counter target card"
+    108:
+        name: "Yo Momma"
+        rarity: "Mythic"
+        set: 2
+        subset: []
+        cost: -1
+        type: []
+        subtype: []
+        effect: []
+        power: -1
+        defense: -1
+        lore:
+        - "Did a poo poo..."
+        - "and it was the stinkiest"
+        - "poo poo I did ever smell!"
