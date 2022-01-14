@@ -41,7 +41,7 @@ public class RuneCraftItems extends JavaPlugin {
 					ItemStack item = null;
 
 					if (args[2].equals("superpick"))
-						item = ItemList.superpick();
+						item = ItemList.superpick;
 
 					p.getInventory().addItem(item);
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
