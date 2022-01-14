@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -22,8 +21,6 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 
 public class BlockBreakListener implements Listener {
-
-	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
 
 	public List<Block> blockRadius(Block b) {
 		List<Block> blocks = new ArrayList<Block>();
@@ -48,7 +45,7 @@ public class BlockBreakListener implements Listener {
 		Player p = e.getPlayer();
 		ItemStack itemInHand = p.getInventory().getItemInMainHand();
 		if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-				.getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', rci.getConfig().getString("items.superpick.name")))) {
+				.getDisplayName().equals(ItemList.superpick.getItemMeta().getDisplayName())) {
 
 			if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected superpick break!");
 
