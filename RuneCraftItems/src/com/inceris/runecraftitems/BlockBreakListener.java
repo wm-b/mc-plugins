@@ -29,15 +29,12 @@ public class BlockBreakListener implements Listener {
 		List<Block> blocks = new ArrayList<Block>();
 
 		for (int i = -1; i < 2; i++) {
-			blocks.add(b.getRelative(1, i, 1));
-			blocks.add(b.getRelative(0, i, 1));
-			blocks.add(b.getRelative(-1, i, 1));
-			blocks.add(b.getRelative(1, i, 0));
-			blocks.add(b.getRelative(0, i, 0));
-			blocks.add(b.getRelative(-1, i, 0));
-			blocks.add(b.getRelative(1, i, -1));
-			blocks.add(b.getRelative(0, i, -1));
-			blocks.add(b.getRelative(-1, i, -1));
+			for (int j = -1; j < 2; j++) {
+				for (int k = -1; k < 2; k++) {
+					if (!(i == 0 && j == 0 && k == 0))
+						blocks.add(b.getRelative(i, j, k));
+				}
+			}
 		}
 
 		return blocks;
@@ -70,6 +67,7 @@ public class BlockBreakListener implements Listener {
 					p.sendMessage("[RCI] You can't use that here!");
 					break;
 				}
+				
 			}
 
 		}
