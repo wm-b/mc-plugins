@@ -28,34 +28,17 @@ public class BlockBreakListener implements Listener {
 	public List<Block> blockRadius(Block b) {
 		List<Block> blocks = new ArrayList<Block>();
 
-		blocks.add(b.getRelative(1, 1, 1));
-		blocks.add(b.getRelative(0, 1, 1));
-		blocks.add(b.getRelative(-1, 1, 1));
-		blocks.add(b.getRelative(1, 1, 0));
-		blocks.add(b.getRelative(0, 1, 0));
-		blocks.add(b.getRelative(-1, 1, 0));
-		blocks.add(b.getRelative(1, 1, -1));
-		blocks.add(b.getRelative(0, 1, -1));
-		blocks.add(b.getRelative(-1, 1, -1));
-
-		blocks.add(b.getRelative(1, 0, 1));
-		blocks.add(b.getRelative(0, 0, 1));
-		blocks.add(b.getRelative(-1, 0, 1));
-		blocks.add(b.getRelative(1, 0, 0));
-		blocks.add(b.getRelative(-1, 0, 0));
-		blocks.add(b.getRelative(1, 0, -1));
-		blocks.add(b.getRelative(0, 0, -1));
-		blocks.add(b.getRelative(-1, 0, -1));
-
-		blocks.add(b.getRelative(1, -1, 1));
-		blocks.add(b.getRelative(0, -1, 1));
-		blocks.add(b.getRelative(-1, -1, 1));
-		blocks.add(b.getRelative(1, -1, 0));
-		blocks.add(b.getRelative(0, -1, 0));
-		blocks.add(b.getRelative(-1, -1, 0));
-		blocks.add(b.getRelative(1, -1, -1));
-		blocks.add(b.getRelative(0, -1, -1));
-		blocks.add(b.getRelative(-1, -1, -1));
+		for (int i = -1; i < 2; i++) {
+			blocks.add(b.getRelative(1, i, 1));
+			blocks.add(b.getRelative(0, i, 1));
+			blocks.add(b.getRelative(-1, i, 1));
+			blocks.add(b.getRelative(1, i, 0));
+			blocks.add(b.getRelative(0, i, 0));
+			blocks.add(b.getRelative(-1, i, 0));
+			blocks.add(b.getRelative(1, i, -1));
+			blocks.add(b.getRelative(0, i, -1));
+			blocks.add(b.getRelative(-1, i, -1));
+		}
 
 		return blocks;
 	}
