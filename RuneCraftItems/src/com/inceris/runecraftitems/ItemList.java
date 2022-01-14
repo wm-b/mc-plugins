@@ -10,8 +10,9 @@ public class ItemList {
 	
 	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
 	
-	public static ItemStack superpick = superpick(new ItemStack(Material.NETHERITE_PICKAXE));
-	public static ItemStack superpick(ItemStack item) {
+	public static ItemStack superpick = superpick();
+	public static ItemStack superpick() {
+		ItemStack item = new ItemStack(Material.NETHERITE_PICKAXE);
 		item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
 		item.addEnchantment(Enchantment.DIG_SPEED, 5);
 		Damageable meta = (Damageable) item.getItemMeta();

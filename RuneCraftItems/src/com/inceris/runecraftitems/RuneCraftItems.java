@@ -1,7 +1,6 @@
 package com.inceris.runecraftitems;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -41,9 +40,8 @@ public class RuneCraftItems extends JavaPlugin {
 
 					ItemStack item = null;
 
-					if (args[2].equals("superpick")) {
-						item = ItemList.superpick(new ItemStack(Material.NETHERITE_PICKAXE));
-					}
+					if (args[2].equals("superpick"))
+						item = ItemList.superpick();
 
 					p.getInventory().addItem(item);
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
