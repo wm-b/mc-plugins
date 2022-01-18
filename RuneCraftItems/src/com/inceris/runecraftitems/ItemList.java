@@ -36,7 +36,6 @@ public class ItemList {
 		item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
 		Damageable meta = (Damageable) item.getItemMeta();
 		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', rci.getConfig().getString("items.grapplinghook.name")));
-		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', rci.getConfig().getString("items.superpick.name")));
 		List<String> lore = rci.getConfig().getStringList("items.grapplinghook.lore");
 		for (int i = 0; i < lore.size(); i++) {
 			lore.set(i, ChatColor.translateAlternateColorCodes('&', lore.get(i)));
