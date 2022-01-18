@@ -9,6 +9,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.inceris.runecraftitems.listeners.BlockBreakListener;
+import com.inceris.runecraftitems.listeners.ProjectileHitListener;
 
 public class RuneCraftItems extends JavaPlugin {
 	
@@ -20,6 +21,7 @@ public class RuneCraftItems extends JavaPlugin {
 		this.saveDefaultConfig();
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new BlockBreakListener(), this);
+		pm.registerEvents(new ProjectileHitListener(), this);
 
 	}
 
@@ -36,20 +38,23 @@ public class RuneCraftItems extends JavaPlugin {
 					return true;
 				}
 				
-				if (args[0].equals("give") && sender.hasPermission("runecraftitems.admin")) {
+				if (args[0].equalsIgnoreCase("give") && sender.hasPermission("runecraftitems.admin")) {
 					
 					Player p = getServer().getPlayer(args[1]);
 
 					ItemStack item = null;
 
-					if (args[2].equals("superpick"))
+					if (args[2].equalsIgnoreCase("superpick"))
 						item = ItemList.superpick;
+
+					if (args[2].equalsIgnoreCase("grapplinghook"))
+						item = ItemList.grapplingHook;
 
 					p.getInventory().addItem(item);
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
 					return true;
 
-				} else if (args[0].equals("debug") && sender.hasPermission("runecraftitems.admin")) {
+				} else if (args[0].equalsIgnoreCase("debug") && sender.hasPermission("runecraftitems.admin")) {
 					
 					debug = !debug;
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fDebug set to " + debug));

@@ -2,3 +2,9 @@ items:
     superpick:
         name: "&a&lSUPERPICK"
         durability: 100
+        lore:
+        - "&7Breaks blocks in a 3x3x3 area"
+    grapplinghook:
+        name: "&e&lGrappling Hook"
+        lore:
+        - "&7Pulls you toward the target location"
