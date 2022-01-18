@@ -1,4 +1,4 @@
-package com.inceris.runecraftitems;
+package com.inceris.runecraftitems.listeners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.inceris.runecraftitems.ItemList;
+import com.inceris.runecraftitems.RuneCraftItems;
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;

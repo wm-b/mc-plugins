@@ -8,6 +8,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.inceris.runecraftitems.listeners.BlockBreakListener;
+
 public class RuneCraftItems extends JavaPlugin {
 	
 	public static boolean debug = false;
@@ -34,7 +36,7 @@ public class RuneCraftItems extends JavaPlugin {
 					return true;
 				}
 				
-				if (args[0].equals("give")) {
+				if (args[0].equals("give") && sender.hasPermission("runecraftitems.admin")) {
 					
 					Player p = getServer().getPlayer(args[1]);
 
@@ -47,13 +49,13 @@ public class RuneCraftItems extends JavaPlugin {
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
 					return true;
 
-				} else if (args[0].equals("debug")) {
+				} else if (args[0].equals("debug") && sender.hasPermission("runecraftitems.admin")) {
 					
 					debug = !debug;
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fDebug set to " + debug));
 					return true;
 					
-				} else if (args[0].equalsIgnoreCase("reload")) {
+				} else if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("runecraftitems.admin")) {
 					this.reloadConfig();
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &aConfig reloaded."));
 					return true;
