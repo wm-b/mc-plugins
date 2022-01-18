@@ -23,6 +23,8 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
 
 public class BlockBreakListener implements Listener {
+	
+	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
 
 	public List<Block> blockRadius(Block b) {
 		List<Block> blocks = new ArrayList<Block>();
@@ -49,25 +51,32 @@ public class BlockBreakListener implements Listener {
 		if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
 				.getDisplayName().equals(ItemList.superpick.getItemMeta().getDisplayName())) {
 
-			if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected superpick break!");
+			if (RuneCraftItems.debug)
+				Bukkit.getLogger().info("Detected superpick break!");
 
 			List<Block> blocks = blockRadius(e.getBlock());
 
-			for (Block b : blocks) {
-				
-				LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
-				Location loc = new Location(localPlayer.getWorld(), b.getX(), b.getY(), b.getZ());
-				RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-				RegionQuery query = container.createQuery();
+			Bukkit.getScheduler().runTask(rci, new Runnable() {
+				@Override
+				public void run() {
 
-				if (query.testState(loc, localPlayer, Flags.BUILD)) {
-					b.breakNaturally(itemInHand);
-				} else {
-					p.sendMessage("[RCI] You can't use that here!");
-					break;
+					for (Block b : blocks) {
+
+						LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
+						Location loc = new Location(localPlayer.getWorld(), b.getX(), b.getY(), b.getZ());
+						RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+						RegionQuery query = container.createQuery();
+
+						if (query.testState(loc, localPlayer, Flags.BUILD)) {
+							b.breakNaturally(itemInHand);
+						} else {
+							p.sendMessage("[RCI] You can't use that here!");
+							break;
+						}
+
+					}
 				}
-				
-			}
+			});
 
 		}
 	}
