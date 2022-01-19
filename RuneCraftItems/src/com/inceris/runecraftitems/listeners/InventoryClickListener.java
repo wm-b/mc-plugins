@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.AnvilInventory;
+import org.bukkit.inventory.GrindstoneInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -29,8 +30,8 @@ public class InventoryClickListener implements Listener {
 				Inventory inv = e.getInventory();
 				Player p = (Player) human;
 
-				if (inv instanceof AnvilInventory) {
-					if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected anvil inventory click!");
+				if (inv instanceof AnvilInventory || inv instanceof GrindstoneInventory) {
+					if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected anvil/grindstone inventory click!");
 					AnvilInventory anvil = (AnvilInventory) inv;
 					ItemStack[] items = anvil.getContents();
 					
