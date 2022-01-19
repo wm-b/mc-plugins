@@ -9,6 +9,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.inceris.runecraftitems.listeners.BlockBreakListener;
+import com.inceris.runecraftitems.listeners.InventoryClickListener;
 import com.inceris.runecraftitems.listeners.ProjectileHitListener;
 
 public class RuneCraftItems extends JavaPlugin {
@@ -22,6 +23,7 @@ public class RuneCraftItems extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new BlockBreakListener(), this);
 		pm.registerEvents(new ProjectileHitListener(), this);
+		pm.registerEvents(new InventoryClickListener(), this);
 
 	}
 
