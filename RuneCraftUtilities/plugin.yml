@@ -3,6 +3,7 @@ main: com.inceris.runecraftutilities.RuneCraftUtilities
 version: 0.0.0
 api-version: 1.18
 author: Inceris
+depend: [WorldGuard, WorldEdit]
 commands:
    RuneCraftUtilities:
       description: RuneCraftUtilities command

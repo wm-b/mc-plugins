@@ -21,23 +21,26 @@ public class ItemUseListener implements Listener {
 	@EventHandler
 	public void onItemUse(PlayerInteractEvent e) {
 
-		Block b = e.getClickedBlock();
-		Player p = e.getPlayer();
+		if (e.getClickedBlock() != null) {
+			Block b = e.getClickedBlock();
+			Player p = e.getPlayer();
 
-		if (b.getType().equals(Material.GRASS_BLOCK)
-				|| p.getInventory().getItemInMainHand().getType().equals(Material.POWDER_SNOW_BUCKET)) {
+			if (b.getType().equals(Material.GRASS_BLOCK)
+					|| p.getInventory().getItemInMainHand().getType().equals(Material.POWDER_SNOW_BUCKET)) {
 
-			LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
-			Location loc = new Location(localPlayer.getWorld(), b.getX(), b.getY(), b.getZ());
-			RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-			RegionQuery query = container.createQuery();
+				LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
+				Location loc = new Location(localPlayer.getWorld(), b.getX(), b.getY(), b.getZ());
+				RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+				RegionQuery query = container.createQuery();
 
-			if (!query.testState(loc, localPlayer, Flags.BUILD) && !p.hasPermission("runecraftutilities.bypasspowdersnowplace")) {
-				e.setCancelled(true);
-				p.sendMessage(
-						ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&bU&8] &cYou can't use that here!"));
+				if (!query.testState(loc, localPlayer, Flags.BUILD)
+						&& !p.hasPermission("runecraftutilities.bypasspowdersnowplace")) {
+					e.setCancelled(true);
+					p.sendMessage(
+							ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&bU&8] &cYou can't use that here!"));
+				}
+
 			}
-
 		}
 	}
 }
