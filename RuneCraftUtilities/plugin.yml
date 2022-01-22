@@ -1,0 +1,10 @@
+name: RuneCraftUtilities
+main: com.inceris.runecraftutilities.RuneCraftUtilities
+version: 0.0.0
+api-version: 1.18
+author: Inceris
+commands:
+   RuneCraftUtilities:
+      description: RuneCraftUtilities command
+      permission: runecraftutilities.use
+      aliases: [rcu]
