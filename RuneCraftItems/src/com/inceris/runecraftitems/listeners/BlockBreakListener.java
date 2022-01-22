@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -70,7 +71,7 @@ public class BlockBreakListener implements Listener {
 						if (query.testState(loc, localPlayer, Flags.BUILD)) {
 							b.breakNaturally(itemInHand);
 						} else {
-							p.sendMessage("[RCI] You can't use that here!");
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&b9I&8] &cYou can't use that here!"));
 							break;
 						}
 
