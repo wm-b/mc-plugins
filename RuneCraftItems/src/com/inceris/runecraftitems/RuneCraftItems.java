@@ -15,7 +15,7 @@ import com.inceris.runecraftitems.listeners.InventoryClickListener;
 import com.inceris.runecraftitems.listeners.ProjectileHitListener;
 
 public class RuneCraftItems extends JavaPlugin {
-	
+
 	public static boolean debug = false;
 
 	@Override
@@ -38,12 +38,13 @@ public class RuneCraftItems extends JavaPlugin {
 		if (label.equalsIgnoreCase("runecraftitems") || label.equalsIgnoreCase("rci")) {
 			try {
 				if (args.length == 0) {
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &6Rune&5Craft&9Items &fdeveloped by &cInceris &ffor &9RuneCraft.us"));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"&8[&6R&5C&9I&8] &6Rune&5Craft&9Items &fdeveloped by &cInceris &ffor &9RuneCraft.us"));
 					return true;
 				}
-				
+
 				if (args[0].equalsIgnoreCase("give") && sender.hasPermission("runecraftitems.admin")) {
-					
+
 					Player p = getServer().getPlayer(args[1]);
 
 					ItemStack item = null;
@@ -55,18 +56,21 @@ public class RuneCraftItems extends JavaPlugin {
 						item = ItemList.grapplingHook;
 
 					p.getInventory().addItem(item);
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
 					return true;
 
 				} else if (args[0].equalsIgnoreCase("debug") && sender.hasPermission("runecraftitems.admin")) {
-					
+
 					debug = !debug;
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fDebug set to " + debug));
+					sender.sendMessage(
+							ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &fDebug set to " + debug));
 					return true;
-					
+
 				} else if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("runecraftitems.admin")) {
 					this.reloadConfig();
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &aConfig reloaded."));
+					sender.sendMessage(
+							ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &aConfig reloaded."));
 					return true;
 				} else if (args[0].equalsIgnoreCase("fix") && sender.hasPermission("runecraftitems.fix")) {
 					if (sender instanceof Player) {
@@ -78,16 +82,18 @@ public class RuneCraftItems extends JavaPlugin {
 								d.setDamage(0);
 							} else {
 								int fixTo = d.getDamage() - Integer.parseInt(args[1]);
-								if (fixTo < 0) fixTo = 0;
+								if (fixTo < 0)
+									fixTo = 0;
 								d.setDamage(fixTo);
 							}
 							p.getInventory().getItemInMainHand().setItemMeta(d);
 						}
 					}
 				}
-				
+
 			} catch (Exception e) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &cThere was a problem!"));
+				sender.sendMessage(
+						ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &cThere was a problem!"));
 				e.printStackTrace();
 			}
 		}
