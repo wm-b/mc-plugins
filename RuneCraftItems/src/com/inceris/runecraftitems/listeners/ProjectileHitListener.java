@@ -32,8 +32,8 @@ public class ProjectileHitListener implements Listener {
 				Location l = e.getHitBlock().getLocation();
 				Vector v = l.toVector().subtract(p.getLocation().toVector());
 				v.normalize();
-				v = v.multiply(1.5);
-				v.setY(v.getY() + 0.5);
+				v = v.multiply(2.5);
+				v.setY(v.getY() + 0.25);
 				p.setVelocity(v);
 
 			}
