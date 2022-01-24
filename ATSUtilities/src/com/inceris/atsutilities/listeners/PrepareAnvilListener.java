@@ -16,7 +16,7 @@ import com.inceris.atsutilities.ATSUtilities;
 
 public class PrepareAnvilListener implements Listener {
 	
-	private ItemStack generateResult(Enchantment enchantment, ItemStack base, ItemStack addition, ItemStack result, List<HumanEntity> viewers) {
+	private void generateResult(Enchantment enchantment, ItemStack base, ItemStack addition, ItemStack result, List<HumanEntity> viewers) {
 		Map<Enchantment, Integer> baseEnchants = base.getEnchantments();
 		Map<Enchantment, Integer> additionEnchants = addition.getEnchantments();
 
@@ -26,7 +26,7 @@ public class PrepareAnvilListener implements Listener {
 			if (baseEnchants.get(enchantment) == additionEnchants.get(enchantment)) {
 
 				if (ATSUtilities.debug)
-					Bukkit.getLogger().info("[ATSUtilities] Identified efficiency craft");
+					Bukkit.getLogger().info("[ATSUtilities] Identified " + enchantment + " craft");
 
 				int resultLevel = baseEnchants.get(enchantment) + 1;
 
@@ -44,7 +44,6 @@ public class PrepareAnvilListener implements Listener {
 				}
 			}
 		}
-		return result;
 	}
 
 	@EventHandler
