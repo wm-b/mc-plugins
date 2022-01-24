@@ -1,7 +1,7 @@
 name: ATSUtilities
 main: com.inceris.atsutilities.ATSUtilities
-version: 0.0.6
-api-version: 1.16
+version: 1.7.0
+api-version: 1.18
 author: Inceris
 commands:
    atsutilities:

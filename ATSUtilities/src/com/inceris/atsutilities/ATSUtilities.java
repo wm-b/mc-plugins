@@ -5,6 +5,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
+import com.inceris.atsutilities.listeners.PrepareAnvilListener;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
 
@@ -32,6 +33,7 @@ public class ATSUtilities extends JavaPlugin {
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new IronGolemDeathListener(), this);
 		pm.registerEvents(new DurabilityLossListener(), this);
+		pm.registerEvents(new PrepareAnvilListener(), this);
 	}
 
 	@Override
