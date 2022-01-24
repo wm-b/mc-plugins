@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import com.inceris.atsutilities.ATSUtilities;
 
@@ -18,7 +20,13 @@ public class PrepareAnvilListener implements Listener {
 	
 	private void generateResult(Enchantment enchantment, ItemStack base, ItemStack addition, ItemStack result, List<HumanEntity> viewers) {
 		Map<Enchantment, Integer> baseEnchants = base.getEnchantments();
+		
 		Map<Enchantment, Integer> additionEnchants = addition.getEnchantments();
+		
+		if (addition.getType().equals(Material.ENCHANTED_BOOK)) {
+			EnchantmentStorageMeta meta = (EnchantmentStorageMeta) addition.getItemMeta();
+			additionEnchants = meta.getStoredEnchants();
+		}
 
 		if (baseEnchants.containsKey(enchantment)
 				&& additionEnchants.containsKey(enchantment)) {
