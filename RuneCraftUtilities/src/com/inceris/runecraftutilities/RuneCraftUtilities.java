@@ -31,25 +31,25 @@ public class RuneCraftUtilities extends JavaPlugin {
 					sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
 							"&8[&6R&5C&bU&8] &6Rune&5Craft&bUtilities &fdeveloped by &cInceris &ffor &9RuneCraft.us"));
 					return true;
-				}
-			} else if (args[0].equalsIgnoreCase("fix") && sender.hasPermission("runecraftitems.fix")) {
-				if (sender instanceof Player) {
-					Player p = (Player) sender;
-					ItemMeta meta = p.getInventory().getItemInMainHand().getItemMeta();
-					if (meta instanceof Damageable) {
-						Damageable d = (Damageable) meta;
-						if (args.length == 1) {
-							d.setDamage(0);
-						} else {
-							int fixTo = d.getDamage() - Integer.parseInt(args[1]);
-							if (fixTo < 0)
-								fixTo = 0;
-							d.setDamage(fixTo);
+				} else if (args[0].equalsIgnoreCase("fix") && sender.hasPermission("runecraftitems.fix")) {
+					if (sender instanceof Player) {
+						Player p = (Player) sender;
+						ItemMeta meta = p.getInventory().getItemInMainHand().getItemMeta();
+						if (meta instanceof Damageable) {
+							Damageable d = (Damageable) meta;
+							if (args.length == 1) {
+								d.setDamage(0);
+							} else {
+								int fixTo = d.getDamage() - Integer.parseInt(args[1]);
+								if (fixTo < 0)
+									fixTo = 0;
+								d.setDamage(fixTo);
+							}
+							p.getInventory().getItemInMainHand().setItemMeta(d);
 						}
-						p.getInventory().getItemInMainHand().setItemMeta(d);
 					}
+					return true;
 				}
-				return true;
 			}
 		} catch (Exception e) {
 			sender.sendMessage(ChatColor.RED + "There was a problem!");
