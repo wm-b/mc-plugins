@@ -47,7 +47,7 @@ public class RuneCraftItems extends JavaPlugin {
 
 					Player p = getServer().getPlayer(args[1]);
 
-					ItemStack item = ItemList.getItem(args[2]);
+					ItemStack item = Items.getItem(args[2]);
 
 					if (item == null) {
 						sender.sendMessage(ChatColor.translateAlternateColorCodes('&',

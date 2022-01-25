@@ -3,7 +3,7 @@ package com.inceris.runecraftitems;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class ItemList {
+public class Items {
 	
 	public static ItemStack getItem(String name) {
 		ItemStack item = null;

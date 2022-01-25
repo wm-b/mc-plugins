@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
-import com.inceris.runecraftitems.ItemList;
+import com.inceris.runecraftitems.Items;
 import com.inceris.runecraftitems.RuneCraftItems;
 
 public class ProjectileHitListener implements Listener {
@@ -25,7 +25,7 @@ public class ProjectileHitListener implements Listener {
 			Player p = (Player) shooter;
 			ItemStack itemInHand = p.getInventory().getItemInMainHand();
 			if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-					.getDisplayName().equals(ItemList.grapplingHook.getItemMeta().getDisplayName())) {
+					.getDisplayName().equals(Items.grapplingHook.getItemMeta().getDisplayName())) {
 				
 				if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected grapplinghook hit!");
 				
