@@ -18,6 +18,12 @@ public class ItemList {
 		case "flytoken":
 			item = flyToken;
 			break;
+		case "ranktoken":
+			item = rankToken;
+			break;
+		case "mobfreezer":
+			item = mobFreezer;
+			break;
 		}
 		
 		return item;
@@ -33,5 +39,9 @@ public class ItemList {
 	public static ItemStack grapplingHook = Util.ConstructItem(Material.FISHING_ROD, "grapplinghook");
 	
 	public static ItemStack flyToken = Util.ConstructItem(Material.FEATHER, "flytoken");
+	
+	public static ItemStack rankToken = Util.ConstructItem(Material.NAME_TAG, "ranktoken");
+	
+	public static ItemStack mobFreezer = Util.ConstructItem(Material.CLOCK, "mobfreezer");
 	
 }

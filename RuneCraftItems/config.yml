@@ -12,3 +12,11 @@ items:
         name: "&b&lFly Token"
         lore:
         - "&7Grants &9/fly &7for 24 hours"
+    ranktoken:
+        name: "&6&lRank Token"
+        lore:
+        - "&7Upgrade your donor rank"
+    mobfreezer:
+        name: "&9&lMob Freezer"
+        lore:
+        - "&7Freeze the nearest mob"

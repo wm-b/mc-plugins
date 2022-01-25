@@ -23,6 +23,15 @@ public class ItemUseListener implements Listener {
 					.getDisplayName().equals(ItemList.flyToken.getItemMeta().getDisplayName())) {
 				Util.SendCommand("lp user " + p.getName() + " permission settemp essentials.fly true 1d");
 				itemInHand.setAmount(itemInHand.getAmount() - 1);
+				
+			} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
+					.getDisplayName().equals(ItemList.rankToken.getItemMeta().getDisplayName())) {
+				Util.SendCommand("lp user " + p.getName() + " promote donator");
+				itemInHand.setAmount(itemInHand.getAmount() - 1);
+				
+			} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
+					.getDisplayName().equals(ItemList.mobFreezer.getItemMeta().getDisplayName())) {
+				Util.SendCommand("freeze " + p.getName());
 			}
 		}
 	}
