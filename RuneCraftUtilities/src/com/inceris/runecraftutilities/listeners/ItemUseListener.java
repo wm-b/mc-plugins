@@ -1,4 +1,4 @@
-package com.inceris.runecraftutilities;
+package com.inceris.runecraftutilities.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

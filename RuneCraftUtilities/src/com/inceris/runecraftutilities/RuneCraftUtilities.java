@@ -6,6 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.inceris.runecraftutilities.listeners.ItemUseListener;
+
 public class RuneCraftUtilities extends JavaPlugin {
 	
 	@Override
