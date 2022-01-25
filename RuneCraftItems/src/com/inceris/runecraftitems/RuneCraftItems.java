@@ -5,8 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -72,23 +70,6 @@ public class RuneCraftItems extends JavaPlugin {
 					sender.sendMessage(
 							ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &aConfig reloaded."));
 					return true;
-				} else if (args[0].equalsIgnoreCase("fix") && sender.hasPermission("runecraftitems.fix")) {
-					if (sender instanceof Player) {
-						Player p = (Player) sender;
-						ItemMeta meta = p.getInventory().getItemInMainHand().getItemMeta();
-						if (meta instanceof Damageable) {
-							Damageable d = (Damageable) meta;
-							if (args.length == 1) {
-								d.setDamage(0);
-							} else {
-								int fixTo = d.getDamage() - Integer.parseInt(args[1]);
-								if (fixTo < 0)
-									fixTo = 0;
-								d.setDamage(fixTo);
-							}
-							p.getInventory().getItemInMainHand().setItemMeta(d);
-						}
-					}
 				}
 
 			} catch (Exception e) {
