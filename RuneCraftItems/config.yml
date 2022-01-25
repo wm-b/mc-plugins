@@ -8,3 +8,7 @@ items:
         name: "&e&lGrappling Hook"
         lore:
         - "&7Pulls you toward the target location"
+    flytoken:
+        name: "&b&lFly Token"
+        lore:
+        - "&7Grants &9/fly &7for 24 hours"
