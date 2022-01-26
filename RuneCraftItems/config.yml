@@ -25,3 +25,7 @@ items:
         lore:
         - "&7Disguise yourself as a"
         - "&7random peaceful animal"
+    eyeofthedragon:
+        name: "&5&lEye of the Dragon"
+        lore:
+        - "&7A re-usable ender pearl."

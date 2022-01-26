@@ -27,6 +27,9 @@ public class Items {
 		case "disguisecap":
 			item = disguiseCap;
 			break;
+		case "eyeofthedragon":
+			item = eyeOfTheDragon;
+			break;
 		}
 		
 		return item;
@@ -43,5 +46,6 @@ public class Items {
 	public static ItemStack rankToken = Util.ConstructItem(Material.NAME_TAG, "ranktoken");
 	public static ItemStack mobFreezer = Util.ConstructItem(Material.CLOCK, "mobfreezer");
 	public static ItemStack disguiseCap = Util.ConstructItem(Material.LEATHER_HELMET, "disguisecap");
+	public static ItemStack eyeOfTheDragon = Util.ConstructItem(Material.ENDER_PEARL, "eyeofthedragon");
 	
 }
