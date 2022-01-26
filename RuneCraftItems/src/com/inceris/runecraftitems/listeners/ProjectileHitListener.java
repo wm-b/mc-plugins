@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
@@ -47,6 +49,7 @@ public class ProjectileHitListener implements Listener {
 				if (ep.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && ep.getItemMeta().getDisplayName()
 						.equals(Items.eyeOfTheDragon.getItemMeta().getDisplayName())) {
 					p.getInventory().addItem(ep);
+					p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 255));
 				}
 			}
 		}
