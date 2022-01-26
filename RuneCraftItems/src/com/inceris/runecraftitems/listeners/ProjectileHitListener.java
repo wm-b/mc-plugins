@@ -46,7 +46,7 @@ public class ProjectileHitListener implements Listener {
 				ItemStack ep = ((EnderPearl) entity).getItem();
 				if (ep.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && ep.getItemMeta().getDisplayName()
 						.equals(Items.eyeOfTheDragon.getItemMeta().getDisplayName())) {
-					p.getInventory().addItem(Items.eyeOfTheDragon);
+					p.getInventory().addItem(ep);
 				}
 			}
 		}
