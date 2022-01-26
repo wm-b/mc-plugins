@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/spigot-api-1.18.1-R0.1-SNAPSHOT-shaded.jar"/>
 	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/Test Servers/1.18.1 Paper Test Server/plugins/worldguard-bukkit-7.0.6-dist.jar"/>
 	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/Test Servers/1.18.1 Paper Test Server/plugins/worldedit-bukkit-7.2.8.jar"/>
+	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/spigot-api-1.18.1-R0.1-SNAPSHOT-shaded.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -20,3 +20,8 @@ items:
         name: "&9&lMob Freezer"
         lore:
         - "&7Freeze the nearest mob"
+    disguisecap:
+        name: "&e&lDisguise Cap"
+        lore:
+        - "&7Disguise yourself as a"
+        - "&7random peaceful animal"

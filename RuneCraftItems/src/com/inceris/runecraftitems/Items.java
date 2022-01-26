@@ -24,6 +24,9 @@ public class Items {
 		case "mobfreezer":
 			item = mobFreezer;
 			break;
+		case "disguisecap":
+			item = disguiseCap;
+			break;
 		}
 		
 		return item;
@@ -35,13 +38,10 @@ public class Items {
 //		item.addEnchantment(Enchantment.DIG_SPEED, 5);
 		return item;
 	}
-	
 	public static ItemStack grapplingHook = Util.ConstructItem(Material.FISHING_ROD, "grapplinghook");
-	
 	public static ItemStack flyToken = Util.ConstructItem(Material.FEATHER, "flytoken");
-	
 	public static ItemStack rankToken = Util.ConstructItem(Material.NAME_TAG, "ranktoken");
-	
 	public static ItemStack mobFreezer = Util.ConstructItem(Material.CLOCK, "mobfreezer");
+	public static ItemStack disguiseCap = Util.ConstructItem(Material.LEATHER_HELMET, "disguisecap");
 	
 }

@@ -15,23 +15,27 @@ public class ItemUseListener implements Listener {
 	
 	@EventHandler
 	public void onItemUse(PlayerInteractEvent e) {
+		EquipmentSlot slot = e.getHand();
+		if (!(slot == null)) {
+			if (slot.equals(EquipmentSlot.HAND)) {
+				Player p = e.getPlayer();
+				ItemStack itemInHand = p.getInventory().getItemInMainHand();
+				if (!(itemInHand == null)) {
+					if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
+							.getDisplayName().equals(Items.flyToken.getItemMeta().getDisplayName())) {
+						Util.SendCommand("lp user " + p.getName() + " permission settemp essentials.fly true 1d");
+						itemInHand.setAmount(itemInHand.getAmount() - 1);
 
-		if (e.getHand().equals(EquipmentSlot.HAND)) {
-			Player p = e.getPlayer();
-			ItemStack itemInHand = p.getInventory().getItemInMainHand();
-			if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-					.getDisplayName().equals(Items.flyToken.getItemMeta().getDisplayName())) {
-				Util.SendCommand("lp user " + p.getName() + " permission settemp essentials.fly true 1d");
-				itemInHand.setAmount(itemInHand.getAmount() - 1);
-				
-			} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-					.getDisplayName().equals(Items.rankToken.getItemMeta().getDisplayName())) {
-				Util.SendCommand("lp user " + p.getName() + " promote donator");
-				itemInHand.setAmount(itemInHand.getAmount() - 1);
-				
-			} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-					.getDisplayName().equals(Items.mobFreezer.getItemMeta().getDisplayName())) {
-				Util.SendCommand("freeze " + p.getName());
+					} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand
+							.getItemMeta().getDisplayName().equals(Items.rankToken.getItemMeta().getDisplayName())) {
+						Util.SendCommand("lp user " + p.getName() + " promote donator");
+						itemInHand.setAmount(itemInHand.getAmount() - 1);
+
+					} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand
+							.getItemMeta().getDisplayName().equals(Items.mobFreezer.getItemMeta().getDisplayName())) {
+						Util.SendCommand("freeze " + p.getName());
+					}
+				}
 			}
 		}
 	}
