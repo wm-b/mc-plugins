@@ -24,18 +24,20 @@ public class ProjectileHitListener implements Listener {
 		if (shooter instanceof Player) {
 			Player p = (Player) shooter;
 			ItemStack itemInHand = p.getInventory().getItemInMainHand();
-			if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-					.getDisplayName().equals(Items.grapplingHook.getItemMeta().getDisplayName())) {
-				
-				if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected grapplinghook hit!");
-				
-				Location l = e.getHitBlock().getLocation();
-				Vector v = l.toVector().subtract(p.getLocation().toVector());
-				v.normalize();
-				v = v.multiply(2.5);
-				v.setY(v.getY() + 0.25);
-				p.setVelocity(v);
+			if (!(itemInHand == null)) {
+				if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
+						.getDisplayName().equals(Items.grapplingHook.getItemMeta().getDisplayName())) {
 
+					if (RuneCraftItems.debug)
+						Bukkit.getLogger().info("Detected grapplinghook hit!");
+
+					Location l = e.getHitBlock().getLocation();
+					Vector v = l.toVector().subtract(p.getLocation().toVector());
+					v.normalize();
+					v = v.multiply(2.5);
+					v.setY(v.getY() + 0.25);
+					p.setVelocity(v);
+				}
 			}
 		}
 	}
