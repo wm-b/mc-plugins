@@ -2,7 +2,6 @@ package com.inceris.runecraftitems.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,6 +16,7 @@ import org.bukkit.util.Vector;
 
 import com.inceris.runecraftitems.Items;
 import com.inceris.runecraftitems.RuneCraftItems;
+import com.inceris.runecraftitems.Util;
 
 public class ProjectileHitListener implements Listener {
 
@@ -29,8 +29,7 @@ public class ProjectileHitListener implements Listener {
 			Player p = (Player) shooter;
 			ItemStack itemInHand = p.getInventory().getItemInMainHand();
 			if (!(itemInHand == null)) {
-				if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-						.getDisplayName().equals(Items.grapplingHook.getItemMeta().getDisplayName())) {
+				if (Util.CheckItem(itemInHand, Items.grapplingHook)) {
 
 					if (RuneCraftItems.debug)
 						Bukkit.getLogger().info("Detected grapplinghook hit!");
@@ -46,8 +45,7 @@ public class ProjectileHitListener implements Listener {
 			
 			if (entity instanceof EnderPearl) {
 				ItemStack ep = ((EnderPearl) entity).getItem();
-				if (ep.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && ep.getItemMeta().getDisplayName()
-						.equals(Items.eyeOfTheDragon.getItemMeta().getDisplayName())) {
+				if (Util.CheckItem(ep, Items.eyeOfTheDragon)) {
 					p.getInventory().addItem(ep);
 					p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 255));
 				}
