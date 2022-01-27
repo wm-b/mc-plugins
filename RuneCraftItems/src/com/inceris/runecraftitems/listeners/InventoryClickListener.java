@@ -56,47 +56,52 @@ public class InventoryClickListener implements Listener {
 							}
 						}
 					}
-				} else if (e.getSlotType().equals(SlotType.ARMOR)) {
-					if (Util.checkItem(cursorItem, Items.disguiseCap)) {
-						String randomPeacefulMob = null;
-						switch (ThreadLocalRandom.current().nextInt(1, 6)) {
-						case 1:
-							randomPeacefulMob = "cow";
-							break;
-						case 2:
-							randomPeacefulMob = "sheep";
-							break;
-						case 3:
-							randomPeacefulMob = "pig";
-							break;
-						case 4:
-							randomPeacefulMob = "rabbit";
-							break;
-						case 5:
-							randomPeacefulMob = "chicken";
-							break;
+				}
+
+				if (cursorItem != null) {
+					if (e.getSlotType().equals(SlotType.ARMOR)) {
+						if (Util.checkItem(cursorItem, Items.disguiseCap)) {
+							String randomPeacefulMob = null;
+							switch (ThreadLocalRandom.current().nextInt(1, 6)) {
+							case 1:
+								randomPeacefulMob = "cow";
+								break;
+							case 2:
+								randomPeacefulMob = "sheep";
+								break;
+							case 3:
+								randomPeacefulMob = "pig";
+								break;
+							case 4:
+								randomPeacefulMob = "rabbit";
+								break;
+							case 5:
+								randomPeacefulMob = "chicken";
+								break;
+							}
+							Util.sendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
+
+						} else if (Util.checkItem(cursorItem, Items.cupidsWings)) {
+							Util.sendCommand("trailsid HEART " + p.getName());
 						}
-						Util.sendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
-						
-					} else if (Util.checkItem(cursorItem, Items.cupidsWings)) {
-						Util.sendCommand("trailsid HEART " + p.getName());
-					}
-					
-					if (Util.checkItem(currentItem, Items.disguiseCap)) {
-						Util.sendCommand("undisguiseplayer " + p.getName());
-						
 					}
 				}
-				
-				if (Util.checkItem(currentItem, Items.cupidsWings)) {
-					Util.sendCommand("trailsid NONE " + p.getName());
-					
-				} else if (Util.checkItem(currentItem, Items.stargazer)) {
-					p.removePotionEffect(PotionEffectType.GLOWING);
-					
-				} else if (Util.checkItem(currentItem, Items.pulsingHeart)) {
-					Util.sendCommand("trailsid NONE " + p.getName());
-					
+
+				if (currentItem != null) {
+					if (e.getSlotType().equals(SlotType.ARMOR) && Util.checkItem(currentItem, Items.disguiseCap)) {
+						Util.sendCommand("undisguiseplayer " + p.getName());
+					}
+
+					if (Util.checkItem(currentItem, Items.cupidsWings)) {
+						Util.sendCommand("trailsid NONE " + p.getName());
+
+					} else if (Util.checkItem(currentItem, Items.stargazer)) {
+						p.removePotionEffect(PotionEffectType.GLOWING);
+
+					} else if (Util.checkItem(currentItem, Items.pulsingHeart)) {
+						Util.sendCommand("trailsid NONE " + p.getName());
+
+					}
 				}
 			}
 		}
