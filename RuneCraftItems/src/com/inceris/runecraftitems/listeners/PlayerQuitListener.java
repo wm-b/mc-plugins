@@ -10,7 +10,7 @@ public class PlayerQuitListener implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		RCIPlayer.players.add(new RCIPlayer(e.getPlayer()));
+		RCIPlayer.players.remove(new RCIPlayer(e.getPlayer()));
 	}
 	
 }
