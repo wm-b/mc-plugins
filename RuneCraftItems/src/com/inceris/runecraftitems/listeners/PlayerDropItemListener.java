@@ -19,8 +19,8 @@ public class PlayerDropItemListener implements Listener {
 		
 		if (Util.checkItem(item, Items.stargazer)) {
 			p.removePotionEffect(PotionEffectType.GLOWING);
-		} else if (Util.checkItem(item, Items.stargazer)) {
-			p.removePotionEffect(PotionEffectType.GLOWING);
+		} else if (Util.checkItem(item, Items.pulsingHeart)) {
+			Util.sendCommand("trailsid NONE " + p.getName());
 		}
 	}
 }
