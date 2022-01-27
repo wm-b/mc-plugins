@@ -54,8 +54,7 @@ public class InventoryClickListener implements Listener {
 				} else if (e.getSlotType().equals(SlotType.ARMOR)) {
 					ItemStack currentItem = e.getCurrentItem();
 					ItemStack cursorItem = e.getCursor();
-					if (cursorItem.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && cursorItem.getItemMeta()
-							.getDisplayName().equals(Items.disguiseCap.getItemMeta().getDisplayName())) {
+					if (Util.CheckItem(cursorItem, Items.disguiseCap)) {
 						String randomPeacefulMob = null;
 						switch (ThreadLocalRandom.current().nextInt(1, 6)) {
 						case 1:
@@ -75,8 +74,7 @@ public class InventoryClickListener implements Listener {
 							break;
 						}
 						Util.SendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
-					} else if (currentItem.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && currentItem.getItemMeta()
-							.getDisplayName().equals(Items.disguiseCap.getItemMeta().getDisplayName())) {
+					} else if (Util.CheckItem(currentItem, Items.disguiseCap)) {
 						Util.SendCommand("undisguiseplayer " + p.getName());
 					}
 				}
