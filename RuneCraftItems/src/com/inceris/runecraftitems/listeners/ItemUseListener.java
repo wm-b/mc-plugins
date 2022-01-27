@@ -1,6 +1,5 @@
 package com.inceris.runecraftitems.listeners;
 
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,18 +20,15 @@ public class ItemUseListener implements Listener {
 				Player p = e.getPlayer();
 				ItemStack itemInHand = p.getInventory().getItemInMainHand();
 				if (!(itemInHand == null)) {
-					if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-							.getDisplayName().equals(Items.flyToken.getItemMeta().getDisplayName())) {
+					if (Util.CheckItem(itemInHand, Items.flyToken)) {
 						Util.SendCommand("lp user " + p.getName() + " permission settemp essentials.fly true 1d");
 						itemInHand.setAmount(itemInHand.getAmount() - 1);
 
-					} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand
-							.getItemMeta().getDisplayName().equals(Items.rankToken.getItemMeta().getDisplayName())) {
+					} else if (Util.CheckItem(itemInHand, Items.rankToken)) {
 						Util.SendCommand("lp user " + p.getName() + " promote donator");
 						itemInHand.setAmount(itemInHand.getAmount() - 1);
 
-					} else if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand
-							.getItemMeta().getDisplayName().equals(Items.mobFreezer.getItemMeta().getDisplayName())) {
+					} else if (Util.CheckItem(itemInHand, Items.mobFreezer)) {
 						Util.SendCommand("freeze " + p.getName());
 					}
 				}

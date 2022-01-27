@@ -34,4 +34,13 @@ public class Util {
 		return item;
 	}
 	
+	public static boolean CheckItem(ItemStack item, ItemStack against) {
+		if (item.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && item.getItemMeta()
+				.getDisplayName().equals(against.getItemMeta().getDisplayName())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

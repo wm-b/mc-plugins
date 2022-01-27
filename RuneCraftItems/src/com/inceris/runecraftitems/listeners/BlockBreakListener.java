@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 
 import com.inceris.runecraftitems.Items;
 import com.inceris.runecraftitems.RuneCraftItems;
+import com.inceris.runecraftitems.Util;
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
@@ -49,8 +49,7 @@ public class BlockBreakListener implements Listener {
 
 		Player p = e.getPlayer();
 		ItemStack itemInHand = p.getInventory().getItemInMainHand();
-		if (itemInHand.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10 && itemInHand.getItemMeta()
-				.getDisplayName().equals(Items.superpick.getItemMeta().getDisplayName())) {
+		if (Util.CheckItem(itemInHand, Items.superpick)) {
 
 			if (RuneCraftItems.debug)
 				Bukkit.getLogger().info("Detected superpick break!");
