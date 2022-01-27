@@ -17,7 +17,7 @@ public class RCIPlayer {
 	
 	public static RCIPlayer getRCIPlayer(Player p) {
 		for (RCIPlayer rcip : players) {
-			if (rcip.player.equals(p)) {
+			if (rcip.player.getUniqueId().equals(p.getUniqueId())) {
 				return rcip;
 			}
 		}
