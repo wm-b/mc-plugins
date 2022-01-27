@@ -9,23 +9,32 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.inceris.runecraftitems.listeners.BlockBreakListener;
+import com.inceris.runecraftitems.listeners.EntityDamageByEntityListener;
 import com.inceris.runecraftitems.listeners.InventoryClickListener;
 import com.inceris.runecraftitems.listeners.ItemUseListener;
+import com.inceris.runecraftitems.listeners.PlayerItemHeldListener;
+import com.inceris.runecraftitems.listeners.PlayerJoinListener;
+import com.inceris.runecraftitems.listeners.PlayerQuitListener;
 import com.inceris.runecraftitems.listeners.ProjectileHitListener;
 
 public class RuneCraftItems extends JavaPlugin {
 
-	public static boolean debug = false;
+	public boolean debug = false;
 
 	@Override
 	public void onEnable() {
 
 		this.saveDefaultConfig();
 		PluginManager pm = getServer().getPluginManager();
+		Util.registerPlayers();
 		pm.registerEvents(new BlockBreakListener(), this);
 		pm.registerEvents(new ProjectileHitListener(), this);
 		pm.registerEvents(new InventoryClickListener(), this);
 		pm.registerEvents(new ItemUseListener(), this);
+		pm.registerEvents(new PlayerItemHeldListener(), this);
+		pm.registerEvents(new PlayerJoinListener(), this);
+		pm.registerEvents(new PlayerQuitListener(), this);
+		pm.registerEvents(new EntityDamageByEntityListener(), this);
 
 	}
 
@@ -51,7 +60,7 @@ public class RuneCraftItems extends JavaPlugin {
 
 					if (item == null) {
 						sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-								"&8[&6R&5C&9I&8] &cItem called &e" + args[2] + "&f does not exist!"));
+								"&8[&6R&5C&9I&8] &cItem called &e" + args[2] + "&c does not exist!"));
 						return true;
 					} else {
 						p.getInventory().addItem(item);

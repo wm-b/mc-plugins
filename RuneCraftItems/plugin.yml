@@ -3,7 +3,7 @@ main: com.inceris.runecraftitems.RuneCraftItems
 version: 0.0.0
 api-version: 1.18
 author: Inceris
-depend: [WorldGuard, WorldEdit]
+depend: [WorldGuard, WorldEdit, SuperTrailsPro]
 commands:
    RuneCraftItems:
       description: Master command for RuneCraftItems

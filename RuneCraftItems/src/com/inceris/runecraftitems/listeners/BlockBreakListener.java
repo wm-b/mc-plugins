@@ -44,14 +44,14 @@ public class BlockBreakListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
-		if (RuneCraftItems.debug)
+		if (rci.debug)
 			Bukkit.getLogger().info("Detected block break!");
 
 		Player p = e.getPlayer();
 		ItemStack itemInHand = p.getInventory().getItemInMainHand();
-		if (Util.CheckItem(itemInHand, Items.superpick)) {
+		if (Util.checkItem(itemInHand, Items.superpick)) {
 
-			if (RuneCraftItems.debug)
+			if (rci.debug)
 				Bukkit.getLogger().info("Detected superpick break!");
 
 			List<Block> blocks = blockRadius(e.getBlock());

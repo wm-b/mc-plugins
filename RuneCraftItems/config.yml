@@ -25,7 +25,31 @@ items:
         lore:
         - "&7Disguise yourself as a"
         - "&7random peaceful animal"
-    eyeofthedragon:
-        name: "&5&lEye of the Dragon"
+    cupidsbow:
+        name: "&c&lCupid's Bow"
         lore:
-        - "&7A re-usable ender pearl."
+        - "&7Makes the target lovesick."
+    chocolatebar:
+        name: "&a&lChocolate Bar"
+        lore:
+        - "&7Heals you."
+    pulsingheart:
+        name: "&c&lPulsing Heart"
+        lore:
+        - "&7Hearts effect while holding."
+    cupidswings:
+        name: "&c&lCupid's Wings"
+        lore:
+        - "&7Hearts effect while wearing."
+    loveisblind:
+        name: "&c&lLove is Blind"
+        lore:
+        - "&7Inflicts blinded and slowed."
+    brokenheart:
+        name: "&4&lBroken Heart"
+        lore:
+        - "&7Inflicts poison."
+    stargazer:
+        name: "&9&lStargazer"
+        lore:
+        - "&7Makes you glow while holding."

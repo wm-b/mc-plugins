@@ -19,35 +19,59 @@ import com.inceris.runecraftitems.RuneCraftItems;
 import com.inceris.runecraftitems.Util;
 
 public class ProjectileHitListener implements Listener {
+	
+	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
 
 	@EventHandler
 	public void onProjectileHit(ProjectileHitEvent e) {
-		if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected projectile hit!");
+		if (rci.debug) Bukkit.getLogger().info("Detected projectile hit!");
+		
+		Player target = null;
+		Entity targetEntity = e.getHitEntity();
+		if (targetEntity instanceof Player) {
+			target = (Player) targetEntity;
+		}
+		
 		Entity entity = e.getEntity();
-		ProjectileSource shooter = e.getEntity().getShooter();
-		if (shooter instanceof Player) {
-			Player p = (Player) shooter;
-			ItemStack itemInHand = p.getInventory().getItemInMainHand();
-			if (!(itemInHand == null)) {
-				if (Util.CheckItem(itemInHand, Items.grapplingHook)) {
+		ProjectileSource shooterEntity = e.getEntity().getShooter();
+		if (shooterEntity instanceof Player) {
+			Player shooter = (Player) shooterEntity;
+			ItemStack itemInHand = shooter.getInventory().getItemInMainHand();
+			if (itemInHand != null) {
+				if (Util.checkItem(itemInHand, Items.grapplingHook)) {
 
-					if (RuneCraftItems.debug)
+					if (rci.debug)
 						Bukkit.getLogger().info("Detected grapplinghook hit!");
 
 					Location l = e.getHitBlock().getLocation();
-					Vector v = l.toVector().subtract(p.getLocation().toVector());
+					Vector v = l.toVector().subtract(shooter.getLocation().toVector());
 					v.normalize();
 					v = v.multiply(2.5);
 					v.setY(v.getY() + 0.25);
-					p.setVelocity(v);
+					shooter.setVelocity(v);
+					
+				} else if (Util.checkItem(itemInHand, Items.cupidsBow)) {
+					if (target != null) {
+						target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
+						Util.sendCommand("trailsid HEART " + target.getName());
+						
+						final Player targetPass = target;
+						Bukkit.getScheduler().runTaskLater(rci, new Runnable() {
+							@Override
+							public void run() {
+								Util.sendCommand("trailsid NONE " + targetPass.getName());
+							}
+						}, 200);
+						
+					}
 				}
 			}
 			
 			if (entity instanceof EnderPearl) {
 				ItemStack ep = ((EnderPearl) entity).getItem();
-				if (Util.CheckItem(ep, Items.eyeOfTheDragon)) {
-					p.getInventory().addItem(ep);
-					p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 255));
+				if (Util.checkItem(ep, Items.eyeOfTheDragon)) {
+					shooter.getInventory().addItem(ep);
+					shooter.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 255));
 				}
 			}
 		}

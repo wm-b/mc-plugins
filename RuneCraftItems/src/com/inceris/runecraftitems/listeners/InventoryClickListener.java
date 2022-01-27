@@ -21,10 +21,12 @@ import com.inceris.runecraftitems.Util;
 
 public class InventoryClickListener implements Listener {
 	
+	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
+	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 
-		if (RuneCraftItems.debug) Bukkit.getLogger().info("Detected inventory click!");
+		if (rci.debug) Bukkit.getLogger().info("Detected inventory click!");
 
 		if (!e.isCancelled()) {
 			HumanEntity human = e.getWhoClicked();
@@ -36,14 +38,14 @@ public class InventoryClickListener implements Listener {
 					Inventory inv = e.getInventory();
 
 					if (inv instanceof AnvilInventory) {
-						if (RuneCraftItems.debug)
+						if (rci.debug)
 							Bukkit.getLogger().info("Detected anvil/grindstone inventory click!");
 						AnvilInventory anvil = (AnvilInventory) inv;
 						ItemStack[] items = anvil.getContents();
 
 						for (ItemStack i : items) {
 							if (i.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10) {
-								if (RuneCraftItems.debug)
+								if (rci.debug)
 									Bukkit.getLogger().info("Detected RCItem click!");
 								e.setCancelled(true);
 								p.sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -54,7 +56,7 @@ public class InventoryClickListener implements Listener {
 				} else if (e.getSlotType().equals(SlotType.ARMOR)) {
 					ItemStack currentItem = e.getCurrentItem();
 					ItemStack cursorItem = e.getCursor();
-					if (Util.CheckItem(cursorItem, Items.disguiseCap)) {
+					if (Util.checkItem(cursorItem, Items.disguiseCap)) {
 						String randomPeacefulMob = null;
 						switch (ThreadLocalRandom.current().nextInt(1, 6)) {
 						case 1:
@@ -73,9 +75,17 @@ public class InventoryClickListener implements Listener {
 							randomPeacefulMob = "chicken";
 							break;
 						}
-						Util.SendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
-					} else if (Util.CheckItem(currentItem, Items.disguiseCap)) {
-						Util.SendCommand("undisguiseplayer " + p.getName());
+						Util.sendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
+						
+					} else if (Util.checkItem(cursorItem, Items.cupidsWings)) {
+						Util.sendCommand("trailsid HEART " + p.getName());
+					}
+					
+					if (Util.checkItem(currentItem, Items.disguiseCap)) {
+						Util.sendCommand("undisguiseplayer " + p.getName());
+						
+					} else if (Util.checkItem(currentItem, Items.cupidsWings)) {
+						Util.sendCommand("trailsid NONE " + p.getName());
 					}
 				}
 			}
