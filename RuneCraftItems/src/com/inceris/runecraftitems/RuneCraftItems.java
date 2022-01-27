@@ -46,7 +46,9 @@ public class RuneCraftItems extends JavaPlugin {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		try {
-			return RCI.cmd(sender, label, args);
+			if (label.equalsIgnoreCase("runecraftitems") || label.equalsIgnoreCase("rci")) {
+				return RCI.cmd(sender, args);
+			}
 		} catch (Exception e) {
 			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &cThere was a problem!"));
 			e.printStackTrace();
