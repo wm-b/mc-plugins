@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 
 import com.inceris.runecraftitems.Items;
 import com.inceris.runecraftitems.RuneCraftItems;
@@ -33,6 +34,8 @@ public class InventoryClickListener implements Listener {
 
 			if (human instanceof Player) {
 				Player p = (Player) human;
+				ItemStack currentItem = e.getCurrentItem();
+				ItemStack cursorItem = e.getCursor();
 				
 				if (e.getSlotType().equals(SlotType.RESULT)) {
 					Inventory inv = e.getInventory();
@@ -54,8 +57,6 @@ public class InventoryClickListener implements Listener {
 						}
 					}
 				} else if (e.getSlotType().equals(SlotType.ARMOR)) {
-					ItemStack currentItem = e.getCurrentItem();
-					ItemStack cursorItem = e.getCursor();
 					if (Util.checkItem(cursorItem, Items.disguiseCap)) {
 						String randomPeacefulMob = null;
 						switch (ThreadLocalRandom.current().nextInt(1, 6)) {
@@ -84,9 +85,18 @@ public class InventoryClickListener implements Listener {
 					if (Util.checkItem(currentItem, Items.disguiseCap)) {
 						Util.sendCommand("undisguiseplayer " + p.getName());
 						
-					} else if (Util.checkItem(currentItem, Items.cupidsWings)) {
-						Util.sendCommand("trailsid NONE " + p.getName());
 					}
+				}
+				
+				if (Util.checkItem(currentItem, Items.cupidsWings)) {
+					Util.sendCommand("trailsid NONE " + p.getName());
+					
+				} else if (Util.checkItem(currentItem, Items.stargazer)) {
+					p.removePotionEffect(PotionEffectType.GLOWING);
+					
+				} else if (Util.checkItem(currentItem, Items.pulsingHeart)) {
+					Util.sendCommand("trailsid NONE " + p.getName());
+					
 				}
 			}
 		}
