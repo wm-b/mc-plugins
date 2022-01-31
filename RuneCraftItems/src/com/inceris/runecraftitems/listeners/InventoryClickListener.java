@@ -36,8 +36,9 @@ public class InventoryClickListener implements Listener {
 				Player p = (Player) human;
 				ItemStack currentItem = e.getCurrentItem();
 				ItemStack cursorItem = e.getCursor();
+				SlotType slot = e.getSlotType();
 				
-				if (e.getSlotType().equals(SlotType.RESULT)) {
+				if (slot.equals(SlotType.RESULT)) {
 					Inventory inv = e.getInventory();
 
 					if (inv instanceof AnvilInventory) {
@@ -59,7 +60,7 @@ public class InventoryClickListener implements Listener {
 				}
 
 				if (cursorItem != null) {
-					if (e.getSlotType().equals(SlotType.ARMOR)) {
+					if (slot.equals(SlotType.ARMOR)) {
 						if (Util.checkItem(cursorItem, Items.disguiseCap)) {
 							String randomPeacefulMob = null;
 							switch (ThreadLocalRandom.current().nextInt(1, 6)) {
@@ -88,11 +89,11 @@ public class InventoryClickListener implements Listener {
 				}
 
 				if (currentItem != null) {
-					if (e.getSlotType().equals(SlotType.ARMOR) && Util.checkItem(currentItem, Items.disguiseCap)) {
+					if (slot.equals(SlotType.ARMOR) && Util.checkItem(currentItem, Items.disguiseCap)) {
 						Util.sendCommand("undisguiseplayer " + p.getName());
 					}
 
-					if (Util.checkItem(currentItem, Items.cupidsWings)) {
+					if (slot.equals(SlotType.ARMOR) && Util.checkItem(currentItem, Items.cupidsWings)) {
 						Util.sendCommand("trailsid NONE " + p.getName());
 
 					} else if (Util.checkItem(currentItem, Items.stargazer)) {
