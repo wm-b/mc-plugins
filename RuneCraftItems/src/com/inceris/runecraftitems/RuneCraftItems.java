@@ -12,10 +12,12 @@ import com.inceris.runecraftitems.listeners.EntityDamageByEntityListener;
 import com.inceris.runecraftitems.listeners.InventoryClickListener;
 import com.inceris.runecraftitems.listeners.ItemUseListener;
 import com.inceris.runecraftitems.listeners.PlayerDropItemListener;
+import com.inceris.runecraftitems.listeners.PlayerInteractEntityListener;
 import com.inceris.runecraftitems.listeners.PlayerItemHeldListener;
 import com.inceris.runecraftitems.listeners.PlayerJoinListener;
 import com.inceris.runecraftitems.listeners.PlayerQuitListener;
 import com.inceris.runecraftitems.listeners.ProjectileHitListener;
+import com.inceris.runecraftitems.util.Util;
 
 public class RuneCraftItems extends JavaPlugin {
 
@@ -36,6 +38,7 @@ public class RuneCraftItems extends JavaPlugin {
 		pm.registerEvents(new PlayerQuitListener(), this);
 		pm.registerEvents(new EntityDamageByEntityListener(), this);
 		pm.registerEvents(new PlayerDropItemListener(), this);
+		pm.registerEvents(new PlayerInteractEntityListener(), this);
 
 	}
 

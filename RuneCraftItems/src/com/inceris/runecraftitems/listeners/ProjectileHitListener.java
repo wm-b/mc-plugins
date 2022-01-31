@@ -14,9 +14,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
-import com.inceris.runecraftitems.Items;
 import com.inceris.runecraftitems.RuneCraftItems;
-import com.inceris.runecraftitems.Util;
+import com.inceris.runecraftitems.util.Items;
+import com.inceris.runecraftitems.util.Util;
 
 public class ProjectileHitListener implements Listener {
 	

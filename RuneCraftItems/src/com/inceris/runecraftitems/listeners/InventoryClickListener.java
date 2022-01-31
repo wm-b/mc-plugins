@@ -12,13 +12,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.AnvilInventory;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffectType;
 
-import com.inceris.runecraftitems.Items;
 import com.inceris.runecraftitems.RuneCraftItems;
-import com.inceris.runecraftitems.Util;
+import com.inceris.runecraftitems.util.Items;
+import com.inceris.runecraftitems.util.Util;
 
 public class InventoryClickListener implements Listener {
 	
@@ -36,10 +36,11 @@ public class InventoryClickListener implements Listener {
 				Player p = (Player) human;
 				ItemStack currentItem = e.getCurrentItem();
 				ItemStack cursorItem = e.getCursor();
-				SlotType slot = e.getSlotType();
+				SlotType slotType = e.getSlotType();
+				int slot = e.getSlot();
+				PlayerInventory inv = p.getInventory();
 				
-				if (slot.equals(SlotType.RESULT)) {
-					Inventory inv = e.getInventory();
+				if (slotType.equals(SlotType.RESULT)) {
 
 					if (inv instanceof AnvilInventory) {
 						if (rci.debug)
@@ -60,40 +61,44 @@ public class InventoryClickListener implements Listener {
 				}
 
 				if (cursorItem != null) {
-					if (slot.equals(SlotType.ARMOR)) {
-						if (Util.checkItem(cursorItem, Items.disguiseCap)) {
-							String randomPeacefulMob = null;
-							switch (ThreadLocalRandom.current().nextInt(1, 6)) {
-							case 1:
-								randomPeacefulMob = "cow";
-								break;
-							case 2:
-								randomPeacefulMob = "sheep";
-								break;
-							case 3:
-								randomPeacefulMob = "pig";
-								break;
-							case 4:
-								randomPeacefulMob = "rabbit";
-								break;
-							case 5:
-								randomPeacefulMob = "chicken";
-								break;
-							}
-							Util.sendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
-
-						} else if (Util.checkItem(cursorItem, Items.cupidsWings)) {
-							Util.sendCommand("trailsid HEART " + p.getName());
+					if (slot == 39 && Util.checkItem(cursorItem, Items.disguiseCap)) {
+						String randomPeacefulMob = null;
+						switch (ThreadLocalRandom.current().nextInt(1, 6)) {
+						case 1:
+							randomPeacefulMob = "cow";
+							break;
+						case 2:
+							randomPeacefulMob = "sheep";
+							break;
+						case 3:
+							randomPeacefulMob = "pig";
+							break;
+						case 4:
+							randomPeacefulMob = "rabbit";
+							break;
+						case 5:
+							randomPeacefulMob = "chicken";
+							break;
 						}
+						Util.sendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
+
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.cupidsWings)) {
+						Util.sendCommand("trailsid HEART " + p.getName());
+
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.neverLetGo)) {
+						Util.sendCommand("trailsid ENDROD " + p.getName());
+
 					}
 				}
 
 				if (currentItem != null) {
-					if (slot.equals(SlotType.ARMOR) && Util.checkItem(currentItem, Items.disguiseCap)) {
+					if (slot == 39 && Util.checkItem(currentItem, Items.disguiseCap)) {
 						Util.sendCommand("undisguiseplayer " + p.getName());
-					}
-
-					if (slot.equals(SlotType.ARMOR) && Util.checkItem(currentItem, Items.cupidsWings)) {
+					
+					} else if (slot == 38 && Util.checkItem(currentItem, Items.cupidsWings)) {
+						Util.sendCommand("trailsid NONE " + p.getName());
+					
+					} else if (slot == 38 && Util.checkItem(currentItem, Items.neverLetGo)) {
 						Util.sendCommand("trailsid NONE " + p.getName());
 
 					} else if (Util.checkItem(currentItem, Items.stargazer)) {

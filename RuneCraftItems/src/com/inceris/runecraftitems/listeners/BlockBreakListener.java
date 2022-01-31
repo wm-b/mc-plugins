@@ -12,9 +12,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.inceris.runecraftitems.Items;
+import com.inceris.runecraftitems.util.Items;
 import com.inceris.runecraftitems.RuneCraftItems;
-import com.inceris.runecraftitems.Util;
+import com.inceris.runecraftitems.util.Util;
 import com.sk89q.worldedit.util.Location;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;

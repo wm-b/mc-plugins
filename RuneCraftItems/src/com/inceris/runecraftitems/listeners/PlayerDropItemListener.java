@@ -7,8 +7,8 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
-import com.inceris.runecraftitems.Items;
-import com.inceris.runecraftitems.Util;
+import com.inceris.runecraftitems.util.Items;
+import com.inceris.runecraftitems.util.Util;
 
 public class PlayerDropItemListener implements Listener {
 	
