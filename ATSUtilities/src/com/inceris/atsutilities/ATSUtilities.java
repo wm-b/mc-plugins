@@ -10,6 +10,7 @@ import com.inceris.atsutilities.commands.BrewAtRandom;
 import com.inceris.atsutilities.commands.Broadcast;
 import com.inceris.atsutilities.commands.Leap;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
+import com.inceris.atsutilities.listeners.InventoryClickListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
 
 
@@ -17,10 +18,24 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.enchantments.Enchantment;
 
 public class ATSUtilities extends JavaPlugin {
 	
-	public static boolean debug = false;
+	public boolean debug = false;
+	public final Enchantment[] allowedEnchantments = new Enchantment[] {
+			Enchantment.DIG_SPEED,
+			Enchantment.DAMAGE_ALL,
+			Enchantment.DAMAGE_ARTHROPODS,
+			Enchantment.DAMAGE_UNDEAD,
+			Enchantment.ARROW_DAMAGE,
+			Enchantment.IMPALING,
+			Enchantment.PROTECTION_ENVIRONMENTAL,
+			Enchantment.PROTECTION_FIRE,
+			Enchantment.PROTECTION_EXPLOSIONS,
+			Enchantment.PROTECTION_PROJECTILE,
+			Enchantment.DURABILITY,
+			};
 
 	@Override
 	public void onEnable() {
@@ -28,6 +43,7 @@ public class ATSUtilities extends JavaPlugin {
 		pm.registerEvents(new IronGolemDeathListener(), this);
 		pm.registerEvents(new DurabilityLossListener(), this);
 		pm.registerEvents(new PrepareAnvilListener(), this);
+		pm.registerEvents(new InventoryClickListener(), this);
 	}
 
 	@Override

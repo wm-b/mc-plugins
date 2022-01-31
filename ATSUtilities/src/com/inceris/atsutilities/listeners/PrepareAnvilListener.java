@@ -3,7 +3,6 @@ package com.inceris.atsutilities.listeners;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
@@ -18,14 +17,30 @@ import com.inceris.atsutilities.ATSUtilities;
 
 public class PrepareAnvilListener implements Listener {
 	
+	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
+	
+	private Map<Enchantment, Integer> enchantedBook(ItemStack item) {
+		EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+		return meta.getStoredEnchants();
+	}
+	
 	private void generateResult(Enchantment enchantment, ItemStack base, ItemStack addition, ItemStack result, List<HumanEntity> viewers) {
-		Map<Enchantment, Integer> baseEnchants = base.getEnchantments();
 		
-		Map<Enchantment, Integer> additionEnchants = addition.getEnchantments();
+		Map<Enchantment, Integer> baseEnchants = null;
+		Map<Enchantment, Integer> additionEnchants = null;
+
+		Material baseType = base.getType();
+		if (base.getType().equals(Material.ENCHANTED_BOOK)) {
+			baseEnchants = enchantedBook(base);
+		} else {
+			baseEnchants = base.getEnchantments();
+		}
 		
-		if (addition.getType().equals(Material.ENCHANTED_BOOK)) {
-			EnchantmentStorageMeta meta = (EnchantmentStorageMeta) addition.getItemMeta();
-			additionEnchants = meta.getStoredEnchants();
+		Material additionType = addition.getType();
+		if (additionType.equals(Material.ENCHANTED_BOOK)) {
+			additionEnchants = enchantedBook(addition);
+		} else {
+			additionEnchants = addition.getEnchantments();
 		}
 
 		if (baseEnchants.containsKey(enchantment)
@@ -33,23 +48,22 @@ public class PrepareAnvilListener implements Listener {
 
 			if (baseEnchants.get(enchantment) == additionEnchants.get(enchantment)) {
 
-				if (ATSUtilities.debug)
-					Bukkit.getLogger().info("[ATSUtilities] Identified " + enchantment + " craft");
+				if (atsu.debug)
+					atsu.getLogger().info("Identified " + enchantment + " craft");
 
-				int resultLevel = baseEnchants.get(enchantment) + 1;
-
-				boolean allowedPlayerViewing = false;
-
-				for (HumanEntity h : viewers) {
-
-					if (h.hasPermission("atsutilities.prestige." + (resultLevel - enchantment.getMaxLevel())))
-						allowedPlayerViewing = true;
-
+				if (result.getType().equals(Material.ENCHANTED_BOOK)) {
+					EnchantmentStorageMeta meta = (EnchantmentStorageMeta) result.getItemMeta();
+					meta.addStoredEnchant(enchantment, baseEnchants.get(enchantment) + 1, true);
+					result.setItemMeta(meta);
+				} else {
+					result.addUnsafeEnchantment(enchantment, baseEnchants.get(enchantment) + 1);
 				}
+			}
 
-				if (allowedPlayerViewing) {
-					result.addUnsafeEnchantment(enchantment, resultLevel);
-				}
+		} else if (!baseType.equals(Material.ENCHANTED_BOOK) && additionType.equals(Material.ENCHANTED_BOOK)) {
+
+			for (Map.Entry<Enchantment, Integer> e : additionEnchants.entrySet()) {
+				result.addUnsafeEnchantment(e.getKey(), e.getValue());
 			}
 		}
 	}
@@ -57,25 +71,17 @@ public class PrepareAnvilListener implements Listener {
 	@EventHandler
 	public void onSmithItem(PrepareAnvilEvent e) {
 
-		if (ATSUtilities.debug)
-			Bukkit.getLogger().info("[ATSUtilities] PrepareAnvilEvent called");
+		if (atsu.debug)
+			atsu.getLogger().info("PrepareAnvilEvent called");
 
 		AnvilInventory inv = e.getInventory();
 		ItemStack base = inv.getItem(0);
 		ItemStack addition = inv.getItem(1);
 
 		if (base != null && addition != null) {
-			generateResult(Enchantment.DIG_SPEED, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.DAMAGE_ALL, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.DAMAGE_ARTHROPODS, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.DAMAGE_UNDEAD, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.ARROW_DAMAGE, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.IMPALING, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.PROTECTION_ENVIRONMENTAL, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.PROTECTION_FIRE, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.PROTECTION_EXPLOSIONS, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.PROTECTION_PROJECTILE, base, addition, e.getResult(), e.getViewers());
-			generateResult(Enchantment.DURABILITY, base, addition, e.getResult(), e.getViewers());
+			for (Enchantment enchantment : atsu.allowedEnchantments) {
+				generateResult(enchantment, base, addition, e.getResult(), e.getViewers());
+			}
 		}
 	}
 }
