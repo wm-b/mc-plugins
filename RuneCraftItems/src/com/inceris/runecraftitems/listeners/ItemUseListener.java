@@ -1,9 +1,13 @@
 package com.inceris.runecraftitems.listeners;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +43,24 @@ public class ItemUseListener implements Listener {
 						item.setAmount(item.getAmount() - 1);
 
 					} else if (Util.checkItem(item, Items.mobFreezer)) {
-						Util.sendCommand("freeze " + name);
+						List<Entity> entityArray = p.getNearbyEntities(5, 5, 5);
+						
+						double i = 1000;
+						Entity entityToFreeze = null;
+						for (Entity entity : entityArray) {
+							double d = entity.getLocation().distanceSquared(p.getLocation());
+							if (d < i && entity instanceof LivingEntity && entity.getCustomName() == null
+									&& !(entity instanceof Player)) {
+								i = d;
+								entityToFreeze = entity;
+							}
+						}
+						
+						if (entityToFreeze != null) {
+							Util.sendCommand("freeze " + p.getName());
+						} else {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &cNo mob in range!"));
+						}
 						
 					} else if (Util.checkItem(item, Items.chocolateBar)) {
 						RCIPlayer rcip = RCIPlayer.getRCIPlayer(p);
