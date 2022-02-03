@@ -53,3 +53,23 @@ items:
         name: "&9&lStargazer"
         lore:
         - "&7Makes you glow while holding."
+    pokeball:
+        name: "&9&lPokeball"
+        lore:
+        - "&7Catch a mob and release it later."
+    doubleedgedsword:
+        name: "&c&lDouble-Edged Sword"
+        lore:
+        - "&7Nothing good ever came free."
+    runecraftessence:
+        name: "&b&lRunecraft Essence"
+        lore:
+        - "&7Makes you faster when held."
+    totemofrunecraft:
+        name: "&d&lTotem of Runecraft"
+        lore:
+        - "&7Like an enchanted gapple but better."
+    invisibilitycloak:
+        name: "&8&lInvisibility Cloak"
+        lore:
+        - "&7Makes you invisible while wearing."

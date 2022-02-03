@@ -26,18 +26,19 @@ public class PlayerItemHeldListener implements Listener {
 				
 			} else if (Util.checkItem(itemInNewSlot, Items.stargazer)) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60000000, 0));
+				
+			} else if (Util.checkItem(itemInNewSlot, Items.doubleEdgedSword)) {
+				p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60000000, 0));
+				
+			} else if (Util.checkItem(itemInNewSlot, Items.runecraftEssence)) {
+				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60000000, 0));
+				
 			}
 			
 		} 
 		
 		if (itemInPreviousSlot != null) {
-			
-			if (Util.checkItem(itemInPreviousSlot, Items.pulsingHeart)) {
-				Util.sendCommand("trailsid NONE " + p.getName());
-				
-			} else if (Util.checkItem(itemInPreviousSlot, Items.stargazer)) {
-				p.removePotionEffect(PotionEffectType.GLOWING);
-			}
+			Util.checkRemoveItemEffects(p, itemInPreviousSlot);
 		}
 	}
 

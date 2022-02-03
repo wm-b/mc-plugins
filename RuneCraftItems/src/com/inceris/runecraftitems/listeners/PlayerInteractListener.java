@@ -14,6 +14,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.inceris.runecraftitems.RuneCraftItems;
 import com.inceris.runecraftitems.util.Items;
@@ -21,7 +23,7 @@ import com.inceris.runecraftitems.util.RCIPlayer;
 import com.inceris.runecraftitems.util.RTP;
 import com.inceris.runecraftitems.util.Util;
 
-public class ItemUseListener implements Listener {
+public class PlayerInteractListener implements Listener {
 	
 	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
 	
@@ -118,6 +120,21 @@ public class ItemUseListener implements Listener {
 						}
 						p.getInventory().setHelmet(item);
 						p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+						
+					} else if (Util.checkItem(item, Items.totemOfRunecraft)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 100, 256));
+						p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 2400, 4));
+						p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 6000, 0));
+						p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 1));
+						Bukkit.getScheduler().runTaskLater(rci, new Runnable() {
+							@Override
+							public void run() {
+								p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5900, 0));
+							}
+						}, 101);
+						
+						p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+						
 					}
 				}
 			}

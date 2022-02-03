@@ -12,6 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffectType;
 
 public class Util {
 	private static RuneCraftItems rci = (RuneCraftItems) RuneCraftItems.getPlugin(RuneCraftItems.class);
@@ -47,5 +48,22 @@ public class Util {
 		Collection<? extends Player> players = rci.getServer().getOnlinePlayers();
 		for (Player p : players)
 			RCIPlayer.players.add(new RCIPlayer(p));
+	}
+	
+	public static void checkRemoveItemEffects(Player p, ItemStack item) {
+		
+		if (Util.checkItem(item, Items.pulsingHeart)) {
+		Util.sendCommand("trailsid NONE " + p.getName());
+		
+		} else if (Util.checkItem(item, Items.stargazer)) {
+			p.removePotionEffect(PotionEffectType.GLOWING);
+			
+		} else if (Util.checkItem(item, Items.doubleEdgedSword)) {
+			p.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+			
+		} else if (Util.checkItem(item, Items.runecraftEssence)) {
+			p.removePotionEffect(PotionEffectType.SPEED);
+			
+		}
 	}
 }

@@ -9,11 +9,13 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.inceris.runecraftitems.RuneCraftItems;
@@ -37,6 +39,7 @@ public class InventoryClickListener implements Listener {
 				ItemStack currentItem = e.getCurrentItem();
 				ItemStack cursorItem = e.getCursor();
 				SlotType slotType = e.getSlotType();
+				ClickType clickType = e.getClick();
 				int slot = e.getSlot();
 				PlayerInventory inv = p.getInventory();
 				
@@ -60,7 +63,7 @@ public class InventoryClickListener implements Listener {
 					}
 				}
 
-				if (cursorItem != null) {
+				if (cursorItem != null && !clickType.equals(ClickType.SHIFT_LEFT) && !clickType.equals(ClickType.SHIFT_RIGHT)) {
 					if (slot == 39 && Util.checkItem(cursorItem, Items.disguiseCap)) {
 						String randomPeacefulMob = null;
 						switch (ThreadLocalRandom.current().nextInt(1, 6)) {
@@ -88,6 +91,9 @@ public class InventoryClickListener implements Listener {
 					} else if (slot == 38 && Util.checkItem(cursorItem, Items.neverLetGo)) {
 						Util.sendCommand("trailsid ENDROD " + p.getName());
 
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.invisibilityCloak)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 60000000, 0));
+						
 					}
 				}
 
@@ -101,12 +107,11 @@ public class InventoryClickListener implements Listener {
 					} else if (slot == 38 && Util.checkItem(currentItem, Items.neverLetGo)) {
 						Util.sendCommand("trailsid NONE " + p.getName());
 
-					} else if (Util.checkItem(currentItem, Items.stargazer)) {
-						p.removePotionEffect(PotionEffectType.GLOWING);
-
-					} else if (Util.checkItem(currentItem, Items.pulsingHeart)) {
-						Util.sendCommand("trailsid NONE " + p.getName());
-
+					} else if (Util.checkItem(currentItem, Items.invisibilityCloak)) {
+						p.removePotionEffect(PotionEffectType.INVISIBILITY);
+						
+					} else {
+						Util.checkRemoveItemEffects(p, currentItem);
 					}
 				}
 			}

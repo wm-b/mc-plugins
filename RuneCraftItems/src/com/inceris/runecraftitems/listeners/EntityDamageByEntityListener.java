@@ -39,6 +39,10 @@ public class EntityDamageByEntityListener implements Listener {
 					Damageable d = (Damageable) l;
 					d.setHealth(0);
 				}
+			} else if (Util.checkItem(item, Items.doubleEdgedSword)) {
+				if (l instanceof Damageable) {
+					p.setHealth(p.getHealth() / 2);
+				}
 			}
 			
 		}

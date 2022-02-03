@@ -68,6 +68,21 @@ public class Items {
 			case "ricksflowers":
 				item = ricksFlowers;
 				break;
+			case "pokeball":
+				item = pokeball;
+				break;
+			case "runecraftessence":
+				item = runecraftEssence;
+				break;
+			case "doubleedgedsword":
+				item = doubleEdgedSword;
+				break;
+			case "totemofrunecraft":
+				item = totemOfRunecraft;
+				break;
+			case "invisibilitycloak":
+				item = invisibilityCloak;
+				break;
 			}
 			return item;
 		} catch (Exception e) {
@@ -119,5 +134,10 @@ public class Items {
 	public static ItemStack grapefruit = Util.constructItem(Material.POPPED_CHORUS_FRUIT, "grapefruit");
 	public static ItemStack ricksFlowers = Util.constructItem(Material.PEONY, "ricksflowers");
 	public static ItemStack cupidsCrown = Util.constructItem(Material.AMETHYST_CLUSTER, "cupidscrown");
+	public static ItemStack pokeball = Util.constructItem(Material.MAGMA_CREAM, "pokeball");
+	public static ItemStack doubleEdgedSword = Util.constructItem(Material.NETHERITE_SWORD, "doubleedgedsword");
+	public static ItemStack runecraftEssence = Util.constructItem(Material.SNOWBALL, "runecraftessence");
+	public static ItemStack totemOfRunecraft = Util.constructItem(Material.TOTEM_OF_UNDYING, "totemofrunecraft");
+	public static ItemStack invisibilityCloak = Util.constructItem(Material.ELYTRA, "invisibilitycloak");
 	
 }
