@@ -46,7 +46,7 @@ public class PrepareAnvilListener implements Listener {
 		if (baseEnchants.containsKey(enchantment)
 				&& additionEnchants.containsKey(enchantment)) {
 
-			if (baseEnchants.get(enchantment) == additionEnchants.get(enchantment)) {
+			if (baseEnchants.get(enchantment).equals(additionEnchants.get(enchantment))) {
 
 				if (atsu.debug)
 					atsu.getLogger().info("Identified " + enchantment + " craft");
@@ -61,9 +61,10 @@ public class PrepareAnvilListener implements Listener {
 			}
 
 		} else if (!baseType.equals(Material.ENCHANTED_BOOK) && additionType.equals(Material.ENCHANTED_BOOK)) {
-
 			for (Map.Entry<Enchantment, Integer> e : additionEnchants.entrySet()) {
-				result.addUnsafeEnchantment(e.getKey(), e.getValue());
+				if (e.getKey().canEnchantItem(base)) {
+					result.addUnsafeEnchantment(e.getKey(), e.getValue());
+				}
 			}
 		}
 	}
@@ -80,7 +81,9 @@ public class PrepareAnvilListener implements Listener {
 
 		if (base != null && addition != null) {
 			for (Enchantment enchantment : atsu.allowedEnchantments) {
-				generateResult(enchantment, base, addition, e.getResult(), e.getViewers());
+				if (e.getResult() != null) {
+					generateResult(enchantment, base, addition, e.getResult(), e.getViewers());
+				}
 			}
 		}
 	}
