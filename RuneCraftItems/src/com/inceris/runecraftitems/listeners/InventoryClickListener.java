@@ -94,6 +94,16 @@ public class InventoryClickListener implements Listener {
 					} else if (slot == 38 && Util.checkItem(cursorItem, Items.invisibilityCloak)) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 60000000, 0));
 						
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.aresChestplate)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60000000, 0));
+						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60000000, 0));
+						Util.sendCommand("trailsid PINKCONFETTI " + p.getName());
+						
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.brolysRage)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60000000, 2));
+						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60000000, 6));
+						p.setHealth(6);
+						
 					}
 				}
 
@@ -109,6 +119,15 @@ public class InventoryClickListener implements Listener {
 
 					} else if (Util.checkItem(currentItem, Items.invisibilityCloak)) {
 						p.removePotionEffect(PotionEffectType.INVISIBILITY);
+						
+					} else if (Util.checkItem(currentItem, Items.aresChestplate)) {
+						p.removePotionEffect(PotionEffectType.REGENERATION);
+						p.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+						Util.sendCommand("trailsid NONE " + p.getName());
+						
+					} else if (Util.checkItem(currentItem, Items.brolysRage)) {
+						p.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+						p.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
 						
 					} else {
 						Util.checkRemoveItemEffects(p, currentItem);

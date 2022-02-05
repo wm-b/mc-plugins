@@ -7,10 +7,15 @@ public class RCIPlayer {
 	public static ArrayList<RCIPlayer> players = new ArrayList<>();
 
 	public boolean healOnCooldown = false;
-
 	public boolean grapefruitOnCooldown = false;
+	public boolean thunderstoneOnCooldown = false;
+	public boolean smgsStaffOnCooldown = false;
+	public boolean lokisSceptreOnCooldown = false;
+	public boolean theRingOnCooldown = false;
+	public boolean escobarsSaltOnCooldown = false;
+	public boolean vaccineOnCooldown = false;
 
-	Player player;
+	private Player player;
 
 	public RCIPlayer(Player player) {
 		this.player = player;

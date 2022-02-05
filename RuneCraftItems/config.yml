@@ -73,3 +73,51 @@ items:
         name: "&8&lInvisibility Cloak"
         lore:
         - "&7Makes you invisible while wearing."
+    thunderbow:
+        name: "&6&lThunder Bow"
+        lore:
+        - "&7Has a chance to strike lightning where you hit."
+    thunderstone:
+        name: "&6&lThunderstone"
+        lore:
+        - "&7Turns creepers into charged creepers."
+    areschestplate:
+        name: "&4&lAres' Chestplate"
+        lore:
+        - "&7Gives you strength and regeneration while wearing."
+    obsidianiksteacup:
+        name: "&d&lObsidianik's Teacup"
+        lore:
+        - "&7Gives you strength, resistance and regeneration."
+    brolysrage:
+        name: "&4&lBroly's Rage"
+        lore:
+        - "&7Gives you massive strength at cost of your health."
+    smgsstaff:
+        name: "&e&lSMG's Staff"
+        lore:
+        - "&7Inflicts nausea and weakness on nearby players."
+    thering:
+        name: "&6&lThe Ring"
+        lore:
+        - "&7Makes you invisible ... at a price."
+    kfc:
+        name: "&4&lKFC"
+        lore:
+        - "&7Endless finger-licking-good food."
+    medusasrose:
+        name: "&4&lMedusa's Rose"
+        lore:
+        - "&7Gives you strength at cost of your health."
+    lokissceptre:
+        name: "&6&lLoki's Sceptre"
+        lore:
+        - "&7Turns you invisible while confusing nearby players."
+    escobarssalt:
+        name: "&e&lEscobar's Salt"
+        lore:
+        - "&7Confuses a target."
+    vaccine:
+        name: "&a&lVaccine"
+        lore:
+        - "&7Removes effects from players in a large radius."

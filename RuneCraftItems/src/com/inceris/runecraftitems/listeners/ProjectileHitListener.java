@@ -2,6 +2,7 @@ package com.inceris.runecraftitems.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -28,6 +29,8 @@ public class ProjectileHitListener implements Listener {
 		
 		Player target = null;
 		Entity targetEntity = e.getHitEntity();
+		Block targetBlock = e.getHitBlock();
+		
 		if (targetEntity instanceof Player) {
 			target = (Player) targetEntity;
 		}
@@ -38,19 +41,23 @@ public class ProjectileHitListener implements Listener {
 			Player shooter = (Player) shooterEntity;
 			ItemStack itemInHand = shooter.getInventory().getItemInMainHand();
 			if (itemInHand != null) {
-				if (Util.checkItem(itemInHand, Items.grapplingHook)) {
+				if (targetBlock != null) {
+					if (Util.checkItem(itemInHand, Items.grapplingHook)) {
 
-					if (rci.debug)
-						Bukkit.getLogger().info("Detected grapplinghook hit!");
+						if (rci.debug)
+							Bukkit.getLogger().info("Detected grapplinghook hit!");
 
-					Location l = e.getHitBlock().getLocation();
-					Vector v = l.toVector().subtract(shooter.getLocation().toVector());
-					v.normalize();
-					v = v.multiply(2.5);
-					v.setY(v.getY() + 0.25);
-					shooter.setVelocity(v);
-					
-				} else if (Util.checkItem(itemInHand, Items.cupidsBow)) {
+						Location l = targetBlock.getLocation();
+						Vector v = l.toVector().subtract(shooter.getLocation().toVector());
+						v.normalize();
+						v = v.multiply(2.5);
+						v.setY(v.getY() + 0.25);
+						shooter.setVelocity(v);
+						
+					}
+				}
+				
+				if (Util.checkItem(itemInHand, Items.cupidsBow)) {
 					if (target != null) {
 						target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
 						Util.sendCommand("trailsid HEART " + target.getName());
@@ -64,6 +71,16 @@ public class ProjectileHitListener implements Listener {
 						}, 200);
 						
 					}
+					
+				} else if (Util.checkItem(itemInHand, Items.thunderBow)) {
+					if (Util.percentChance(15)) {
+						if (targetBlock != null) {
+							shooter.getWorld().strikeLightning(targetBlock.getLocation());
+						} else if (target != null) {
+							target.getWorld().strikeLightning(target.getLocation());
+						}
+					}
+					
 				}
 			}
 			

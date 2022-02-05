@@ -5,6 +5,9 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 public class Items {
 	public static ItemStack getItem(String name) {
@@ -83,6 +86,42 @@ public class Items {
 			case "invisibilitycloak":
 				item = invisibilityCloak;
 				break;
+			case "thunderbow":
+				item = thunderBow;
+				break;
+			case "thunderstone":
+				item = thunderstone;
+				break;
+			case "areschestplate":
+				item = aresChestplate;
+				break;
+			case "obsidianiksteacup":
+				item = obsidianiksTeacup;
+				break;
+			case "brolysrage":
+				item = brolysRage;
+				break;
+			case "smgsstaff":
+				item = smgsStaff;
+				break;
+			case "thering":
+				item = theRing;
+				break;
+			case "kfc":
+				item = kfc;
+				break;
+			case "medusasrose":
+				item = medusasRose;
+				break;
+			case "lokissceptre":
+				item = lokisSceptre;
+				break;
+			case "escobarssalt":
+				item = escobarsSalt;
+				break;
+			case "vaccine":
+				item = vaccine;
+				break;
 			}
 			return item;
 		} catch (Exception e) {
@@ -91,33 +130,16 @@ public class Items {
 		}
 	}
 
-	public static ItemStack superpick = superpick();
-
-	private static ItemStack superpick() {
-		ItemStack item = Util.constructItem(Material.NETHERITE_PICKAXE, "superpick");
-		return item;
-	}
-
-	public static ItemStack neverLetGo = neverLetGo();
-
-	private static ItemStack neverLetGo() {
-		ItemStack item = Util.constructItem(Material.DIAMOND_CHESTPLATE, "neverletgo");
-		item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 8);
-		item.addEnchantment(Enchantment.BINDING_CURSE, 1);
-		return item;
-	}
-
-	public static ItemStack incsSword = incsSword();
-
-	private static ItemStack incsSword() {
-		ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
-		item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&4&lInc's Sword"));
-		item.setItemMeta(meta);
-		return item;
-	}
-
+	public static ItemStack thunderBow = Util.constructItem(Material.BOW, "thunderbow");
+	public static ItemStack thunderstone = Util.constructItem(Material.YELLOW_DYE, "thunderstone");
+	public static ItemStack aresChestplate = Util.constructItem(Material.NETHERITE_CHESTPLATE, "areschestplate");
+	public static ItemStack brolysRage = Util.constructItem(Material.LEATHER_CHESTPLATE, "brolysrage");
+	public static ItemStack smgsStaff = Util.constructItem(Material.BLAZE_ROD, "smgsstaff");
+	public static ItemStack theRing = Util.constructItem(Material.GOLD_NUGGET, "thering");
+	public static ItemStack kfc = Util.constructItem(Material.COOKED_CHICKEN, "kfc");
+	public static ItemStack medusasRose = Util.constructItem(Material.WITHER_ROSE, "medusasrose");
+	public static ItemStack lokisSceptre = Util.constructItem(Material.BLAZE_ROD, "lokissceptre");
+	public static ItemStack vaccine = Util.constructItem(Material.SPECTRAL_ARROW, "vaccine");
 	public static ItemStack grapplingHook = Util.constructItem(Material.FISHING_ROD, "grapplinghook");
 	public static ItemStack flyToken = Util.constructItem(Material.FEATHER, "flytoken");
 	public static ItemStack rankToken = Util.constructItem(Material.NAME_TAG, "ranktoken");
@@ -139,5 +161,56 @@ public class Items {
 	public static ItemStack runecraftEssence = Util.constructItem(Material.SNOWBALL, "runecraftessence");
 	public static ItemStack totemOfRunecraft = Util.constructItem(Material.TOTEM_OF_UNDYING, "totemofrunecraft");
 	public static ItemStack invisibilityCloak = Util.constructItem(Material.ELYTRA, "invisibilitycloak");
+
+	public static ItemStack superpick = superpick();
+	private static ItemStack superpick() {
+		ItemStack item = Util.constructItem(Material.NETHERITE_PICKAXE, "superpick");
+		return item;
+	}
+
+	public static ItemStack neverLetGo = neverLetGo();
+	private static ItemStack neverLetGo() {
+		ItemStack item = Util.constructItem(Material.DIAMOND_CHESTPLATE, "neverletgo");
+		item.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 8);
+		item.addEnchantment(Enchantment.BINDING_CURSE, 1);
+		return item;
+	}
+
+	public static ItemStack incsSword = incsSword();
+	private static ItemStack incsSword() {
+		ItemStack item = new ItemStack(Material.NETHERITE_SWORD);
+		item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&4&lInc's Sword"));
+		item.setItemMeta(meta);
+		return item;
+	}
+	
+	public static ItemStack obsidianiksTeacup = obsidianiksTeacup();
+	private static ItemStack obsidianiksTeacup() {
+		ItemStack item = Util.constructItem(Material.POTION, "obsidianiksteacup");
+		
+		ItemMeta meta = item.getItemMeta();
+		PotionMeta pmeta = (PotionMeta) meta;
+		PotionData pdata = new PotionData(PotionType.WATER);
+		pmeta.setBasePotionData(pdata);
+		item.setItemMeta(meta);
+		
+		return item;
+	}
+	
+	public static ItemStack escobarsSalt = escobarsSalt();
+	private static ItemStack escobarsSalt() {
+		ItemStack item = Util.constructItem(Material.SUGAR, "escobarssalt");
+		
+
+		item.addUnsafeEnchantment(Enchantment.DIG_SPEED, 10);
+		item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
+		item.addUnsafeEnchantment(Enchantment.DURABILITY, 20);
+		item.addUnsafeEnchantment(Enchantment.MENDING, 10);
+		item.addUnsafeEnchantment(Enchantment.KNOCKBACK, 5);
+		
+		return item;
+	}
 	
 }

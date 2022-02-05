@@ -108,11 +108,9 @@ public class PlayerInteractListener implements Listener {
 								}
 							}, 200);
 						} else {
-							p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&6R&5C&9I&8] &cThis item is on cooldown!"));
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+									"&8[&6R&5C&9I&8] &cThis item is on cooldown!"));
 						}
-						
-					} else if (Util.checkItem(item, Items.ricksFlowers) && e.getClickedBlock() != null) {
-						e.setCancelled(true);
 						
 					} else if (Util.checkItem(item, Items.cupidsCrown)) {
 						if (e.getClickedBlock() != null) {
@@ -135,7 +133,110 @@ public class PlayerInteractListener implements Listener {
 						
 						p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 						
-					}
+					} else if (Util.checkItem(item, Items.obsidianiksTeacup)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 600, 2));
+						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 2));
+						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 1));
+						
+						p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+						
+					} else if (Util.checkItem(item, Items.smgsStaff)) {
+						RCIPlayer rcip = RCIPlayer.getRCIPlayer(p);
+						if (!rcip.smgsStaffOnCooldown) {
+							for (Entity entity : p.getNearbyEntities(5, 5, 5)) {
+								if (entity instanceof Player) {
+									Player player = (Player) entity;
+									player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 600, 1));
+									player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 600, 0));
+								}
+							}
+							rcip.smgsStaffOnCooldown = true;
+							Bukkit.getScheduler().runTaskLater(rci, new Runnable() {
+								@Override
+								public void run() {
+									rcip.smgsStaffOnCooldown = false;
+								}
+							}, 2400);
+						} else {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+									"&8[&6R&5C&9I&8] &cThis item is on cooldown!"));
+						}
+
+					} else if (Util.checkItem(item, Items.lokisSceptre)) {
+						RCIPlayer rcip = RCIPlayer.getRCIPlayer(p);
+						if (!rcip.lokisSceptreOnCooldown) {
+							p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 0));
+							for (Entity entity : p.getNearbyEntities(5, 5, 5)) {
+								if (entity instanceof Player) {
+									Player player = (Player) entity;
+									player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 1));
+								}
+							}
+							rcip.lokisSceptreOnCooldown = true;
+							Bukkit.getScheduler().runTaskLater(rci, new Runnable() {
+								@Override
+								public void run() {
+									rcip.lokisSceptreOnCooldown = false;
+								}
+							}, 3600);
+						} else {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+									"&8[&6R&5C&9I&8] &cThis item is on cooldown!"));
+						}
+
+					} else if (Util.checkItem(item, Items.vaccine)) {
+						RCIPlayer rcip = RCIPlayer.getRCIPlayer(p);
+						if (!rcip.vaccineOnCooldown) {
+							p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 300, 0));
+							for (Entity entity : p.getNearbyEntities(25, 25, 25)) {
+								if (entity instanceof Player) {
+									Player player = (Player) entity;
+									for (PotionEffect effect : player.getActivePotionEffects())
+										player.removePotionEffect(effect.getType());
+								}
+							}
+							rcip.vaccineOnCooldown = true;
+							Bukkit.getScheduler().runTaskLater(rci, new Runnable() {
+								@Override
+								public void run() {
+									rcip.vaccineOnCooldown = false;
+								}
+							}, 3600);
+						} else {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+									"&8[&6R&5C&9I&8] &cThis item is on cooldown!"));
+						}
+
+					} else if (Util.checkItem(item, Items.theRing)) {
+						RCIPlayer rcip = RCIPlayer.getRCIPlayer(p);
+						if (!rcip.theRingOnCooldown) {
+							p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1200, 0));
+							rcip.theRingOnCooldown = true;
+							Bukkit.getScheduler().runTaskLater(rci, new Runnable() {
+								@Override
+								public void run() {
+									rcip.theRingOnCooldown = false;
+									p.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 600, 0));
+								}
+							}, 1200);
+						} else {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+									"&8[&6R&5C&9I&8] &cThis item is on cooldown!"));
+						}
+
+					} else if (Util.checkItem(item, Items.medusasRose)) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 600, 4));
+						p.setHealth(p.getHealth() - 10);
+						if (e.getClickedBlock() != null) {
+							e.setCancelled(true);
+						}
+
+					} else if (e.getClickedBlock() != null && (
+								Util.checkItem(item, Items.ricksFlowers)
+							)) {
+						e.setCancelled(true);
+						
+					} 
 				}
 			}
 		}
