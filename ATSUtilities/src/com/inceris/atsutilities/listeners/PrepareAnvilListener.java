@@ -64,8 +64,8 @@ public class PrepareAnvilListener implements Listener {
 			additionEnchants = addition.getEnchantments();
 		}
 
-		if (baseEnchants.containsKey(enchantment)
-				|| additionEnchants.containsKey(enchantment)) {
+		if ((baseEnchants.containsKey(enchantment) || additionEnchants.containsKey(enchantment))
+				&& enchantment.canEnchantItem(base)) {
 
 			int additionEnchantLevel = 0;
 			if (additionEnchants.get(enchantment) != null) {
