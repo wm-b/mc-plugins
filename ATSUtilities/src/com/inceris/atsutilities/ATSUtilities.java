@@ -9,6 +9,7 @@ import com.inceris.atsutilities.commands.Blink;
 import com.inceris.atsutilities.commands.BrewAtRandom;
 import com.inceris.atsutilities.commands.Broadcast;
 import com.inceris.atsutilities.commands.Leap;
+import com.inceris.atsutilities.listeners.AsyncPlayerChatListener;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
 import com.inceris.atsutilities.listeners.InventoryClickListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
@@ -44,6 +45,7 @@ public class ATSUtilities extends JavaPlugin {
 		pm.registerEvents(new DurabilityLossListener(), this);
 		pm.registerEvents(new PrepareAnvilListener(), this);
 		pm.registerEvents(new InventoryClickListener(), this);
+		pm.registerEvents(new AsyncPlayerChatListener(), this);
 	}
 
 	@Override
