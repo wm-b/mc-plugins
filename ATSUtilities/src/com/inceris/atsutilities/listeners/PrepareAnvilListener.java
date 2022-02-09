@@ -65,7 +65,7 @@ public class PrepareAnvilListener implements Listener {
 		}
 
 		if ((baseEnchants.containsKey(enchantment) || additionEnchants.containsKey(enchantment))
-				&& enchantment.canEnchantItem(base)) {
+				&& (enchantment.canEnchantItem(base) || base.getType().equals(Material.ENCHANTED_BOOK))) {
 
 			int additionEnchantLevel = 0;
 			if (additionEnchants.get(enchantment) != null) {
@@ -82,13 +82,13 @@ public class PrepareAnvilListener implements Listener {
 				int resultLevel = baseEnchantLevel + 1;
 				if (allowedPlayerViewing(viewers, enchantment, resultLevel)) {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						putEnchantmentOnBook(result, enchantment, resultLevel);
+						result = putEnchantmentOnBook(result, enchantment, resultLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, resultLevel);
 					}
 				} else {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
+						result = putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, baseEnchantLevel);
 					}
@@ -98,20 +98,20 @@ public class PrepareAnvilListener implements Listener {
 
 				if (allowedPlayerViewing(viewers, enchantment, additionEnchantLevel)) {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						putEnchantmentOnBook(result, enchantment, additionEnchantLevel);
+						result = putEnchantmentOnBook(result, enchantment, additionEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, additionEnchantLevel);
 					}
 				} else {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
+						result = putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, baseEnchantLevel);
 					}
 				}
 			} else {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
+						result = putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, baseEnchantLevel);
 					}
