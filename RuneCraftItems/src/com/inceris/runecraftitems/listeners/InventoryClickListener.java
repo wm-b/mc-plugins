@@ -13,8 +13,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.AnvilInventory;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -41,23 +41,24 @@ public class InventoryClickListener implements Listener {
 				SlotType slotType = e.getSlotType();
 				ClickType clickType = e.getClick();
 				int slot = e.getSlot();
-				PlayerInventory inv = p.getInventory();
-				
-				if (slotType.equals(SlotType.RESULT)) {
+				Inventory inv = e.getInventory();
 
-					if (inv instanceof AnvilInventory) {
+				if (inv instanceof AnvilInventory) {
+					if (slotType.equals(SlotType.RESULT)) {
+						
 						if (rci.debug)
 							Bukkit.getLogger().info("Detected anvil/grindstone inventory click!");
 						AnvilInventory anvil = (AnvilInventory) inv;
-						ItemStack[] items = anvil.getContents();
 
-						for (ItemStack i : items) {
+						for (ItemStack i : anvil.getContents()) {
 							if (i.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10) {
-								if (rci.debug)
+								if (rci.debug) {
 									Bukkit.getLogger().info("Detected RCItem click!");
+								}
 								e.setCancelled(true);
 								p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 										"&8[&6R&5C&9I&8] &cYou can't alter this item!"));
+								break;
 							}
 						}
 					}

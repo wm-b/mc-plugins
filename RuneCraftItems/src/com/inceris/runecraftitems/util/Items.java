@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
@@ -165,6 +166,9 @@ public class Items {
 	public static ItemStack superpick = superpick();
 	private static ItemStack superpick() {
 		ItemStack item = Util.constructItem(Material.NETHERITE_PICKAXE, "superpick");
+		Damageable meta = (Damageable) item.getItemMeta();
+		meta.setDamage(Material.NETHERITE_PICKAXE.getMaxDurability() - 100);
+		item.setItemMeta(meta);
 		return item;
 	}
 
