@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.inceris.atsutilities.listeners.PrepareAnvilListener;
 import com.inceris.atsutilities.commands.ATSRTP;
+import com.inceris.atsutilities.commands.ATSU;
 import com.inceris.atsutilities.commands.Blink;
 import com.inceris.atsutilities.commands.BrewAtRandom;
 import com.inceris.atsutilities.commands.Broadcast;
@@ -13,7 +14,7 @@ import com.inceris.atsutilities.listeners.AsyncPlayerChatListener;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
 import com.inceris.atsutilities.listeners.InventoryClickListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
-
+import com.inceris.atsutilities.listeners.PlayerInteractListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -46,6 +47,7 @@ public class ATSUtilities extends JavaPlugin {
 		pm.registerEvents(new PrepareAnvilListener(), this);
 		pm.registerEvents(new InventoryClickListener(), this);
 		pm.registerEvents(new AsyncPlayerChatListener(), this);
+		pm.registerEvents(new PlayerInteractListener(), this);
 	}
 
 	@Override
@@ -61,17 +63,8 @@ public class ATSUtilities extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		try {
-			if (label.equalsIgnoreCase("atsutilities")) {
-				
-				if (args.length == 0) {
-					sender.sendMessage("ATSUtilities developed for play.atownyserver.com by Inceris");
-				}
-				
-				if (args[0].equalsIgnoreCase("debug")) {
-					debug = !debug;
-					sender.sendMessage("[ATSUtilities] Debug mode set to " + debug);
-				}
-
+			if (label.equalsIgnoreCase("atsutilities") || label.equalsIgnoreCase("atsu")) {
+				ATSU.cmd(sender, args);
 				return true;
 			}
 			
