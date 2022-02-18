@@ -15,6 +15,27 @@ public class Items {
 		try {
 			ItemStack item = null;
 			switch (name.toLowerCase()) {
+			case "stoneone":
+				item = stoneOne;
+				break;
+			case "stonetwo":
+				item = stoneTwo;
+				break;
+			case "stonethree":
+				item = stoneThree;
+				break;
+			case "stonefour":
+				item = stoneFour;
+				break;
+			case "stonefive":
+				item = stoneFive;
+				break;
+			case "stonesix":
+				item = stoneSix;
+				break;
+			case "stoneseven":
+				item = stoneSeven;
+				break;
 			case "stargazer":
 				item = stargazer;
 				break;
@@ -131,6 +152,13 @@ public class Items {
 		}
 	}
 
+	public static ItemStack stoneOne = Util.constructItem(Material.AMETHYST_SHARD, "stoneone");
+	public static ItemStack stoneTwo = Util.constructItem(Material.AMETHYST_SHARD, "stonetwo");
+	public static ItemStack stoneThree = Util.constructItem(Material.AMETHYST_SHARD, "stonethree");
+	public static ItemStack stoneFour = Util.constructItem(Material.AMETHYST_SHARD, "stonefour");
+	public static ItemStack stoneFive = Util.constructItem(Material.AMETHYST_SHARD, "stonefive");
+	public static ItemStack stoneSix = Util.constructItem(Material.AMETHYST_SHARD, "stonesix");
+	public static ItemStack stoneSeven = Util.constructItem(Material.AMETHYST_SHARD, "stoneseven");
 	public static ItemStack thunderBow = Util.constructItem(Material.BOW, "thunderbow");
 	public static ItemStack thunderstone = Util.constructItem(Material.YELLOW_DYE, "thunderstone");
 	public static ItemStack aresChestplate = Util.constructItem(Material.NETHERITE_CHESTPLATE, "areschestplate");

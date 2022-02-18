@@ -67,9 +67,9 @@ public class Util {
 		}
 	}
 	
-	public static boolean percentChance(int percent) {
-		int r = (int) (Math.random() * (100 - 1) + 1);
-		if (r <= percent) {
+	public static boolean percentChance(double percent) {
+		double r = Math.random();
+		if (r <= (percent / 100)) {
 			return true;
 		} else {
 			return false;

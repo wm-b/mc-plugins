@@ -1,4 +1,42 @@
+stones:
+    enabled: false
+    droprates:
+        break-log: 0.005 # Stone One
+        break-stone: 0.005 # Stone Two
+        kill-mob: 0.003 # Stone Three
+        jump: 0.001 # Stone Four
+        fish: 0.008 # Stone Five
+        hoe: 0.002 # Stone Six
+        craft: 0.001 # Stone Seven
 items:
+    stoneone:
+        name: "&d&lSpecial &8&lStone &a&lOne"
+        lore:
+        - "&7It's a stone"
+    stonetwo:
+        name: "&d&lSpecial &8&lStone &b&lTwo"
+        lore:
+        - "&7It's a stone"
+    stonethree:
+        name: "&d&lSpecial &8&lStone &c&lThree"
+        lore:
+        - "&7It's a stone"
+    stonefour:
+        name: "&d&lSpecial &8&lStone &d&lFour"
+        lore:
+        - "&7It's a stone"
+    stonefive:
+        name: "&d&lSpecial &8&lStone &e&lFive"
+        lore:
+        - "&7It's a stone"
+    stonesix:
+        name: "&d&lSpecial &8&lStone &f&lSix"
+        lore:
+        - "&7It's a stone"
+    stoneseven:
+        name: "&d&lSpecial &8&lStone &9&lSeven"
+        lore:
+        - "&7It's a stone"
     superpick:
         name: "&a&lSUPERPICK"
         durability: 100

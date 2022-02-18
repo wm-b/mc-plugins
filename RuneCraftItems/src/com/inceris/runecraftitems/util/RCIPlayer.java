@@ -14,6 +14,7 @@ public class RCIPlayer {
 	public boolean theRingOnCooldown = false;
 	public boolean escobarsSaltOnCooldown = false;
 	public boolean vaccineOnCooldown = false;
+	public boolean jumpStoneChanceOnCooldown = false;
 
 	private Player player;
 

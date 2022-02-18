@@ -235,8 +235,22 @@ public class PlayerInteractListener implements Listener {
 								Util.checkItem(item, Items.ricksFlowers)
 							)) {
 						e.setCancelled(true);
-						
-					} 
+
+					} else if (rci.getConfig().getBoolean("stones.enabled")) {
+						if (e.getClickedBlock() != null) {
+							Material m = e.getClickedBlock().getType();
+							if ((item.getType().equals(Material.WOODEN_HOE) || item.getType().equals(Material.STONE_HOE)
+									|| item.getType().equals(Material.IRON_HOE)
+									|| item.getType().equals(Material.GOLDEN_HOE)
+									|| item.getType().equals(Material.DIAMOND_HOE)
+									|| item.getType().equals(Material.NETHERITE_HOE))
+									&& (m.equals(Material.GRASS) || m.equals(Material.DIRT))) {
+								if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.hoe"))) {
+									p.getInventory().addItem(Items.stoneSix);
+								}
+							}
+						}
+					}
 				}
 			}
 		}

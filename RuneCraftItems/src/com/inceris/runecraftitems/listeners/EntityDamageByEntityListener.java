@@ -11,10 +11,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.inceris.runecraftitems.RuneCraftItems;
 import com.inceris.runecraftitems.util.Items;
 import com.inceris.runecraftitems.util.Util;
 
 public class EntityDamageByEntityListener implements Listener {
+	
+	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
@@ -44,7 +47,17 @@ public class EntityDamageByEntityListener implements Listener {
 					p.setHealth(p.getHealth() / 2);
 				}
 			}
-			
+
+			if (rci.getConfig().getBoolean("stones.enabled")) {
+				if (entity instanceof Damageable && !(entity instanceof Player)) {
+					Damageable damaged = (Damageable) entity;
+					if (damaged.getHealth() <= 0) {
+						if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.kill-mob"))) {
+							p.getInventory().addItem(Items.stoneThree);
+						}
+					}
+				}
+			}
 		}
 	}
 	

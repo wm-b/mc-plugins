@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -78,6 +79,23 @@ public class BlockBreakListener implements Listener {
 				}
 			});
 
+		}
+
+		if (rci.getConfig().getBoolean("stones.enabled")) {
+			Material m = e.getBlock().getType();
+			if (m.equals(Material.OAK_LOG) || m.equals(Material.SPRUCE_LOG) || m.equals(Material.JUNGLE_LOG)
+					|| m.equals(Material.DARK_OAK_LOG) || m.equals(Material.BIRCH_LOG)
+					|| m.equals(Material.ACACIA_LOG)) {
+				if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.break-log"))) {
+					p.getInventory().addItem(Items.stoneOne);
+				}
+			} else if (m.equals(Material.STONE) || m.equals(Material.DEEPSLATE) || m.equals(Material.TUFF)
+					|| m.equals(Material.ANDESITE) || m.equals(Material.DIORITE)
+					|| m.equals(Material.CALCITE) || m.equals(Material.GRANITE)) {
+				if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.break-stone"))) {
+					p.getInventory().addItem(Items.stoneTwo);
+				}
+			}
 		}
 	}
 
