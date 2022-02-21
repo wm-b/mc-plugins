@@ -10,7 +10,7 @@ public class PlayerJoinListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		RCIPlayer.players.remove(new RCIPlayer(e.getPlayer()));
+		RCIPlayer.players.add(new RCIPlayer(e.getPlayer()));
 	}
 	
 }
