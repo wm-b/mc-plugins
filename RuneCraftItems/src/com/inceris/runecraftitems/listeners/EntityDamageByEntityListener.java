@@ -51,7 +51,7 @@ public class EntityDamageByEntityListener implements Listener {
 			if (rci.getConfig().getBoolean("stones.enabled")) {
 				if (entity instanceof Damageable && !(entity instanceof Player)) {
 					Damageable damaged = (Damageable) entity;
-					if (damaged.getHealth() <= 0) {
+					if (e.getDamage() >= damaged.getHealth()) {
 						if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.kill-mob"))) {
 							p.getInventory().addItem(Items.stoneThree);
 						}
