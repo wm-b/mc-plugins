@@ -17,7 +17,7 @@ public class PlayerFishListener implements Listener {
 	public void onPlayerFish(PlayerFishEvent e) {
 		if (rci.getConfig().getBoolean("stones.enabled")) {
 			State state = e.getState();
-			if (state.equals(State.CAUGHT_ENTITY) || state.equals(State.CAUGHT_FISH)) {
+			if (state.equals(State.CAUGHT_FISH)) {
 				if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.fish"))) {
 					e.getPlayer().getInventory().addItem(Items.stoneFive);
 				}
