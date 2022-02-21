@@ -64,6 +64,14 @@ public class AsyncPlayerChatListener implements Listener {
 						+ "be with you as soon as they can!");
 				sendMessageToPlayer(p, "");
 				sendMessageToPlayer(p, "&7To review our rules to see if you think this is the case, use &9/rules&7!");
+				
+			} else if ((message.contains("how".toLowerCase()) && message.contains("claim".toLowerCase()))
+					&& (message.contains("do".toLowerCase()) || message.contains("land".toLowerCase()))) {
+				sendMessageToPlayer(p, "");
+				sendMessageToPlayers(e.getRecipients(), "&8[&4Server&8] &7To claim land, type &9/t claim&7!");
+				sendMessageToPlayer(p, "");
+				sendMessageToPlayer(p, "&7For more detail, check &9/townybasics&7!");
+				
 			}
 		}
 	}
