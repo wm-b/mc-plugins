@@ -1,6 +1,7 @@
 package com.inceris.atsutilities.listeners;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -32,6 +33,14 @@ public class PlayerInteractListener implements Listener {
 						ConsoleCommandSender console = atsu.getServer().getConsoleSender();
 						Bukkit.dispatchCommand((CommandSender) console, "prestigeRankup " + p.getName());
 						inv.setItemInMainHand(new ItemStack(Material.AIR));
+						
+					} else if (atsu.denyTallGrass) {
+						if (item.getType().equals(Material.TALL_GRASS) && e.getClickedBlock() != null) {
+							p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+									"&4&lThou shalt not placeth the grass of sin."));
+							e.setCancelled(true);
+
+						}
 					}
 				}
 			}

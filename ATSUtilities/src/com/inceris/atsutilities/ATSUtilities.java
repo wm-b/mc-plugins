@@ -14,6 +14,7 @@ import com.inceris.atsutilities.listeners.AsyncPlayerChatListener;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
 import com.inceris.atsutilities.listeners.InventoryClickListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
+import com.inceris.atsutilities.listeners.PlayerCommandPreprocessListener;
 import com.inceris.atsutilities.listeners.PlayerInteractListener;
 
 import org.bukkit.Bukkit;
@@ -23,7 +24,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.enchantments.Enchantment;
 
 public class ATSUtilities extends JavaPlugin {
-	
+
+	public boolean denyTallGrass = false;
 	public boolean debug = false;
 	public final Enchantment[] allowedEnchantments = new Enchantment[] {
 			Enchantment.DIG_SPEED,
@@ -48,6 +50,7 @@ public class ATSUtilities extends JavaPlugin {
 		pm.registerEvents(new InventoryClickListener(), this);
 		pm.registerEvents(new AsyncPlayerChatListener(), this);
 		pm.registerEvents(new PlayerInteractListener(), this);
+		pm.registerEvents(new PlayerCommandPreprocessListener(), this);
 	}
 
 	@Override

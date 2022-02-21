@@ -17,6 +17,10 @@ public class ATSU {
 		if (args.length == 0) {
 			sender.sendMessage("ATSUtilities developed for play.atownyserver.com by Inceris");
 			
+		} else if (args[0].equalsIgnoreCase("denysin") && sender.hasPermission("atsutilities.admin")) {
+			atsu.denyTallGrass = !atsu.denyTallGrass;
+			sender.sendMessage("[ATSUtilities] DenyTallGrass mode set to " + atsu.denyTallGrass);
+			
 		} else if (args[0].equalsIgnoreCase("debug") && sender.hasPermission("atsutilities.admin")) {
 			atsu.debug = !atsu.debug;
 			sender.sendMessage("[ATSUtilities] Debug mode set to " + atsu.debug);
