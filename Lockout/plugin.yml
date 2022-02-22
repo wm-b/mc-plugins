@@ -1,0 +1,9 @@
+name: Lockout
+main: com.inceris.lockout.Lockout
+version: 0.0.1
+api-version: 1.18
+author: Inceris
+commands:
+   lockout:
+      description: Lockout command
+      permission: lockout.use
