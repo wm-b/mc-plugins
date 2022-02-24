@@ -26,7 +26,7 @@ public class Objective {
 	public final static Objective useGrindstone = new Objective("Use a grindstone", false, false);
 	public final static Objective useFletchingTable = new Objective("Use a fletching table", false, false);
 	public final static Objective useCartographyTable = new Objective("Use a cartography table", false, false);
-	public final static Objective useBlastFurnaces = new Objective("Use a blast furnace", false, false);
+	public final static Objective useBlastFurnace = new Objective("Use a blast furnace", false, false);
 	public final static Objective useSmoker = new Objective("Use a smoker", false, false);
 	public final static Objective useCampfire = new Objective("Use a campfire", false, false);
 
@@ -109,7 +109,7 @@ public class Objective {
 	public final static Objective catchFish = new Objective("Catch a fish", false, false);
 	public final static Objective rideMinecart = new Objective("Ride a minecart", false, false);
 	public final static Objective sailBoat = new Objective("Sail a boat", false, false);
-	public final static Objective tradeWithVillager = new Objective("Trade with a villager", false, false);
+	public final static Objective levelUpVillager = new Objective("Level up a villager", false, false);
 	public final static Objective buildSnowman = new Objective("Build a snowman", false, false);
 	public final static Objective createIronGolem = new Objective("Create an iron golem", false, false);
 	public final static Objective dieToDripstone = new Objective("Die to falling dripstone", false, false);
@@ -190,21 +190,23 @@ public class Objective {
 		
 		for (Objective o : gi.getObjectives()) {
 			if (o.equals(objective)) {
-				o.setComplete(true);
-			}
-		}
+				gi.getObjectives().remove(o);
 
-		gi.getScoreboard().resetScores(ChatColor.GRAY + objective.getDescription());
-		gi.getScoreboard().getObjective("Objectives").getScore(ChatColor.translateAlternateColorCodes('&',
-				"&" + gi.getTeams().get(p) + objective.getDescription())).setScore(0);
-		gi.refreshScoreboard();
-		
-		gi.getPlayerScores().put(p, gi.getPlayerScores().get(p) + 1);
-		gi.messagePlayers(p.getName() + " completed: " + objective.getDescription());
-		
-		for (Player player : gi.getPlayerScores().keySet()) {
-			if (gi.getPlayerScores().get(player) >= 8) {
-				Util.stopGameWithWinner(player);
+				gi.getScoreboard().resetScores(ChatColor.GRAY + objective.getDescription());
+				gi.getScoreboard().getObjective("Objectives").getScore(ChatColor.translateAlternateColorCodes('&',
+						"&" + gi.getTeams().get(p) + objective.getDescription())).setScore(0);
+				gi.refreshScoreboard();
+
+				gi.getPlayerScores().put(p, gi.getPlayerScores().get(p) + 1);
+				gi.messagePlayers(p.getName() + " completed: " + objective.getDescription());
+
+				for (Player player : gi.getPlayerScores().keySet()) {
+					if (gi.getPlayerScores().get(player) >= 8) {
+						Util.stopGameWithWinner(player);
+					}
+				}
+				
+				o.setComplete(true);
 			}
 		}
 	}
@@ -290,7 +292,7 @@ public class Objective {
 		Objective[] objectives = new Objective[] { wearLeatherPiece, wearLeatherSet, wearChainmailPiece,
 				wearChainmailSet, wearIronPiece, wearIronSet, wearGoldPiece, wearGoldSet, wearDiamondPiece,
 				wearDiamondSet, wearTurtleHelmet, useAnvil, useComposter, useFurnace, useLoom, useGrindstone,
-				useFletchingTable, useCartographyTable, useBlastFurnaces, useSmoker, useCampfire, breedSheep, breedCow,
+				useFletchingTable, useCartographyTable, useBlastFurnace, useSmoker, useCampfire, breedSheep, breedCow,
 				breedPig, breedRabbit, breedWolf, breedChicken, breedBee, breedCat, breedAxolotl, breedFox, breedHorse,
 				breedPolarBear, breedPanda, killOpponent, killZombie, killSpider, killCreeper, killZombieVillager,
 				killSkeleton, killSilverfish, killIronGolem, killWitch, killWitherSkeleton, killBlaze, killPhantom,
@@ -304,7 +306,7 @@ public class Objective {
 				eatEnchantedGoldenApple, dontDie, dontTakeDamage, dontFall, dontCatchFire, dontPickUpObsidian,
 				dont5Hearts, dontGetSlowed, dontGetPoisoned, dontDieByBed, tradeWithPiglin, reachBedrock,
 				swimWithDolphins, brewPotion, enchantItem, goToSleep, gainAbsorption, catchFish, rideMinecart, sailBoat,
-				tradeWithVillager, buildSnowman, createIronGolem, dieToDripstone, dieToAnvil, dieToTNT, suffocate,
+				levelUpVillager, buildSnowman, createIronGolem, dieToDripstone, dieToAnvil, dieToTNT, suffocate,
 				goOutWithABang, getMiningFatigue, getResurrected, catchBook, sleepAlone, levitate };
 		return objectives;
 	}
