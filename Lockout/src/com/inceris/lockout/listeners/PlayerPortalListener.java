@@ -26,11 +26,11 @@ public class PlayerPortalListener implements Listener {
 			if (event.getCause() == TeleportCause.NETHER_PORTAL) {
 				Location location;
 				if (player.getWorld().equals(world)) {
-					location = new Location(nether, event.getFrom().getBlockX() / 8, event.getFrom().getBlockY(),
-							event.getFrom().getBlockZ() / 8);
+					location = new Location(nether, event.getFrom().getBlockX() / 3, event.getFrom().getBlockY(),
+							event.getFrom().getBlockZ() / 3);
 				} else {
-					location = new Location(world, event.getFrom().getBlockX() * 8, event.getFrom().getBlockY(),
-							event.getFrom().getBlockZ() * 8);
+					location = new Location(world, event.getFrom().getBlockX() * 3, event.getFrom().getBlockY(),
+							event.getFrom().getBlockZ() * 3);
 				}
 				event.setTo(location);
 			}
