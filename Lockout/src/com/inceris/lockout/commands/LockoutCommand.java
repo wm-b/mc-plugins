@@ -10,51 +10,59 @@ import com.inceris.lockout.util.Util;
 public class LockoutCommand {
 
 	public static Lockout pl = Lockout.getPlugin(Lockout.class);
-	
+
 	public static boolean cmd(CommandSender sender, String[] args) {
 		if (args.length == 0) {
 			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9play.atownyserver.com"));
 			return true;
-			
-		} else if (args[0].equalsIgnoreCase("start")) {
+
+		} else if (args[0].equalsIgnoreCase("start") && sender.hasPermission("lockout.admin")) {
 			if (pl.getServer().getPlayer(args[1]) != null && pl.getServer().getPlayer(args[2]) != null) {
 
-				Player[] players = new Player[] { pl.getServer().getPlayer(args[1]),
-						pl.getServer().getPlayer(args[2]) };
-				
-				for (Player p : players) {
-					p.sendMessage(Util.format("Your game is starting! Please wait..."));
-				}
-				
-				if (GameInstance.get(players[0]) == null && GameInstance.get(players[1]) == null) {
-					new GameInstance(players[0], players[1]);
+				if (args[1].equalsIgnoreCase(args[2])) {
+
+					sender.sendMessage(Util.format("You can't start a game with yourself!"));
+					return true;
+
 				} else {
-					sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
+
+					Player[] players = new Player[] { pl.getServer().getPlayer(args[1]),
+							pl.getServer().getPlayer(args[2]) };
+
+					for (Player p : players) {
+						p.sendMessage(Util.format("Your game is starting! Please wait..."));
+					}
+
+					if (GameInstance.get(players[0]) == null && GameInstance.get(players[1]) == null) {
+						new GameInstance(players[0], players[1]);
+					} else {
+						sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
+					}
 				}
-				
+
 			} else {
 				sender.sendMessage(Util.format("&9/lockout start [player 1] [player 2]"));
 				return true;
 			}
-			
-		} else if (args[0].equalsIgnoreCase("stop")) {
+
+		} else if (args[0].equalsIgnoreCase("stop") && sender.hasPermission("lockout.admin")) {
 			if (args.length == 1 && sender instanceof Player) {
-				GameInstance.get((Player)sender).reset();
+				GameInstance.get((Player) sender).reset();
 				return true;
 			} else if (pl.getServer().getPlayer(args[1]) != null) {
 				GameInstance.get(pl.getServer().getPlayer(args[1])).reset();
 				return true;
 			}
-			
-		} else if (args[0].equalsIgnoreCase("forcewin")) {
+
+		} else if (args[0].equalsIgnoreCase("forcewin") && sender.hasPermission("lockout.admin")) {
 			if (pl.getServer().getPlayer(args[1]) != null && args.length > 1) {
 				Util.stopGameWithWinner(pl.getServer().getPlayer(args[1]));
 				return true;
 			} else {
 				sender.sendMessage(Util.format("&9/lockout forcewin [player]"));
 			}
-			
-		} else if (args[0].equalsIgnoreCase("objectives")) {
+
+		} else if (args[0].equalsIgnoreCase("objectives") && sender.hasPermission("lockout.admin")) {
 			if (sender instanceof Player) {
 				GameInstance gi = GameInstance.get((Player) sender);
 				if (gi == null) {
@@ -63,8 +71,8 @@ public class LockoutCommand {
 					sender.sendMessage(Util.format(gi.printObjectives()));
 				}
 			}
-			
-		} else if (args[0].equalsIgnoreCase("info")) {
+
+		} else if (args[0].equalsIgnoreCase("info") && sender.hasPermission("lockout.admin")) {
 			if (args.length == 1) {
 				if (sender instanceof Player) {
 					GameInstance gi = GameInstance.get((Player) sender);
@@ -84,13 +92,13 @@ public class LockoutCommand {
 				sender.sendMessage(Util.format("Active: " + gi.isActive()));
 				sender.sendMessage(Util.format("Start Time: " + gi.getStartTime()));
 			}
-			
+
 		} else {
 			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9play.atownyserver.com"));
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 }
