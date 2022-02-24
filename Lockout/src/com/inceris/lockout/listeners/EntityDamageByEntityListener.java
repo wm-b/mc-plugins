@@ -31,7 +31,7 @@ import com.inceris.lockout.util.Objective;
 
 public class EntityDamageByEntityListener implements Listener {
 
-	private static Lockout pl = (Lockout) Lockout.getPlugin(Lockout.class);
+	public static Lockout pl = Lockout.getPlugin(Lockout.class);
 	
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
@@ -41,7 +41,7 @@ public class EntityDamageByEntityListener implements Listener {
 		if (damager instanceof Player && entity instanceof Damageable && entity instanceof LivingEntity) {
 			Damageable d = (Damageable) entity;
 			if (d.getHealth() <= e.getDamage()) {
-				Player p = (Player) entity;
+				Player p = (Player) damager;
 				for (GameInstance gi : pl.gameInstances) {
 					if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();

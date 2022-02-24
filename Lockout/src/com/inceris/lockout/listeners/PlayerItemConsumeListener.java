@@ -14,7 +14,7 @@ import com.inceris.lockout.util.Objective;
 
 public class PlayerItemConsumeListener implements Listener {
 
-	private static Lockout pl = (Lockout) Lockout.getPlugin(Lockout.class);
+	public static Lockout pl = Lockout.getPlugin(Lockout.class);
 	
 	@EventHandler
 	public void onPlayerItemConsume(PlayerItemConsumeEvent e) {
@@ -111,6 +111,9 @@ public class PlayerItemConsumeListener implements Listener {
 					
 				} else if (type.equals(Material.ENCHANTED_GOLDEN_APPLE) && objectives.contains(Objective.eatEnchantedGoldenApple)) {
 					Objective.complete(gi, Objective.eatEnchantedGoldenApple, p);
+					
+				} else if (type.equals(Material.SWEET_BERRIES) && objectives.contains(Objective.eatSweetBerries)) {
+					Objective.complete(gi, Objective.eatSweetBerries, p);
 					
 				}
 			}
