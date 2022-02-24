@@ -23,69 +23,78 @@ public class EntityPickupItemListener implements Listener {
 			for (GameInstance gi : pl.gameInstances) {
 				if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
-					if (e.getItem().getItemStack().getType().equals(Material.DIAMOND)
+					Material m = e.getItem().getItemStack().getType();
+					
+					if (m.equals(Material.DIAMOND)
 							&& objectives.contains(Objective.obtainDiamond)) {
 						Objective.complete(gi, Objective.obtainDiamond, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.REDSTONE)
+					} else if (m.equals(Material.REDSTONE)
 							&& objectives.contains(Objective.obtainRedstone)) {
 						Objective.complete(gi, Objective.obtainRedstone, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.LAPIS_LAZULI)
+					} else if (m.equals(Material.LAPIS_LAZULI)
 							&& objectives.contains(Objective.obtainLapis)) {
 						Objective.complete(gi, Objective.obtainLapis, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.COAL)
+					} else if (m.equals(Material.COAL)
 							&& objectives.contains(Objective.obtainCoal)) {
 						Objective.complete(gi, Objective.obtainCoal, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.RAW_IRON)
+					} else if (m.equals(Material.RAW_IRON)
 							&& objectives.contains(Objective.obtainRawIron)) {
 						Objective.complete(gi, Objective.obtainRawIron, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.RAW_GOLD)
+					} else if (m.equals(Material.RAW_GOLD)
 							&& objectives.contains(Objective.obtainRawGold)) {
 						Objective.complete(gi, Objective.obtainRawGold, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.IRON_INGOT)
+					} else if (m.equals(Material.IRON_INGOT)
 							&& objectives.contains(Objective.obtainIronIngot)) {
 						Objective.complete(gi, Objective.obtainIronIngot, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.GOLD_INGOT)
+					} else if (m.equals(Material.GOLD_INGOT)
 							&& objectives.contains(Objective.obtainGoldIngot)) {
 						Objective.complete(gi, Objective.obtainGoldIngot, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.TUFF)
+					} else if (m.equals(Material.TUFF)
 							&& objectives.contains(Objective.obtainTuff)) {
 						Objective.complete(gi, Objective.obtainTuff, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.GRANITE)
+					} else if (m.equals(Material.GRANITE)
 							&& objectives.contains(Objective.obtainGranite)) {
 						Objective.complete(gi, Objective.obtainGranite, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.ANDESITE)
+					} else if (m.equals(Material.ANDESITE)
 							&& objectives.contains(Objective.obtainAndesite)) {
 						Objective.complete(gi, Objective.obtainAndesite, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.DIORITE)
+					} else if (m.equals(Material.DIORITE)
 							&& objectives.contains(Objective.obtainDiorite)) {
 						Objective.complete(gi, Objective.obtainDiorite, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.COBBLED_DEEPSLATE)
+					} else if (m.equals(Material.COBBLED_DEEPSLATE)
 							&& objectives.contains(Objective.obtainDeepslate)) {
 						Objective.complete(gi, Objective.obtainDeepslate, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.ANCIENT_DEBRIS)
+					} else if (m.equals(Material.ANCIENT_DEBRIS)
 							&& objectives.contains(Objective.obtainAncientDebris)) {
 						Objective.complete(gi, Objective.obtainAncientDebris, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.NETHERITE_INGOT)
+					} else if (m.equals(Material.NETHERITE_INGOT)
 							&& objectives.contains(Objective.obtainNetheriteIngot)) {
 						Objective.complete(gi, Objective.obtainNetheriteIngot, p);
 						
-					} else if (e.getItem().getItemStack().getType().equals(Material.BEACON)
+					} else if (m.equals(Material.BEACON)
 							&& objectives.contains(Objective.obtainBeacon)) {
 						Objective.complete(gi, Objective.obtainBeacon, p);
+						
+					} else if (objectives.contains(Objective.dontPickUpObsidian) && m.equals(Material.OBSIDIAN)) {
+						for (Player player : gi.getPlayerScores().keySet()) {
+							if (!p.equals(player)) {
+								Objective.complete(gi, Objective.dontPickUpObsidian, player);
+							}
+						}
 						
 					}
 				}

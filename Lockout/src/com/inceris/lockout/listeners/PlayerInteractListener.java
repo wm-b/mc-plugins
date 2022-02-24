@@ -7,11 +7,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.ItemStack;
 
 import com.inceris.lockout.Lockout;
 import com.inceris.lockout.util.GameInstance;
 import com.inceris.lockout.util.Objective;
+import com.inceris.lockout.util.Util;
 
 public class PlayerInteractListener implements Listener {
 
@@ -24,77 +25,81 @@ public class PlayerInteractListener implements Listener {
 		for (GameInstance gi : pl.gameInstances) {
 			if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
 				List<Objective> objectives = gi.getObjectives();
-				PlayerInventory inv = p.getInventory();
-				if ((inv.getArmorContents()[0].getType().equals(Material.LEATHER_HELMET)
-						|| inv.getArmorContents()[1].getType().equals(Material.LEATHER_CHESTPLATE)
-						|| inv.getArmorContents()[2].getType().equals(Material.LEATHER_LEGGINGS)
-						|| inv.getArmorContents()[3].getType().equals(Material.LEATHER_BOOTS))
-						&& objectives.contains(Objective.wearLeatherPiece)) {
-					Objective.complete(gi, Objective.wearLeatherPiece, p);
+				ItemStack[] ac = p.getInventory().getArmorContents();
 
-				} else if ((inv.getArmorContents()[0].getType().equals(Material.CHAINMAIL_HELMET)
-						|| inv.getArmorContents()[1].getType().equals(Material.CHAINMAIL_CHESTPLATE)
-						|| inv.getArmorContents()[2].getType().equals(Material.CHAINMAIL_LEGGINGS)
-						|| inv.getArmorContents()[3].getType().equals(Material.CHAINMAIL_BOOTS))
-						&& objectives.contains(Objective.wearChainmailPiece)) {
-					Objective.complete(gi, Objective.wearChainmailPiece, p);
+				Util.checkWearingArmorPiece(gi, p, objectives, Objective.wearLeatherPiece, ac,
+						Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS,
+						Material.LEATHER_BOOTS);
 
-				} else if ((inv.getArmorContents()[0].getType().equals(Material.IRON_HELMET)
-						|| inv.getArmorContents()[1].getType().equals(Material.IRON_CHESTPLATE)
-						|| inv.getArmorContents()[2].getType().equals(Material.IRON_LEGGINGS)
-						|| inv.getArmorContents()[3].getType().equals(Material.IRON_BOOTS))
-						&& objectives.contains(Objective.wearIronPiece)) {
-					Objective.complete(gi, Objective.wearIronPiece, p);
+				Util.checkWearingArmorPiece(gi, p, objectives, Objective.wearChainmailPiece, ac,
+						Material.CHAINMAIL_HELMET, Material.CHAINMAIL_CHESTPLATE, Material.CHAINMAIL_LEGGINGS,
+						Material.CHAINMAIL_BOOTS);
 
-				} else if ((inv.getArmorContents()[0].getType().equals(Material.GOLDEN_HELMET)
-						|| inv.getArmorContents()[1].getType().equals(Material.GOLDEN_CHESTPLATE)
-						|| inv.getArmorContents()[2].getType().equals(Material.GOLDEN_LEGGINGS)
-						|| inv.getArmorContents()[3].getType().equals(Material.GOLDEN_BOOTS))
-						&& objectives.contains(Objective.wearGoldPiece)) {
-					Objective.complete(gi, Objective.wearGoldPiece, p);
+				Util.checkWearingArmorPiece(gi, p, objectives, Objective.wearIronPiece, ac,
+						Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS,
+						Material.IRON_BOOTS);
 
-				} else if ((inv.getArmorContents()[0].getType().equals(Material.DIAMOND_HELMET)
-						|| inv.getArmorContents()[1].getType().equals(Material.DIAMOND_CHESTPLATE)
-						|| inv.getArmorContents()[2].getType().equals(Material.DIAMOND_LEGGINGS)
-						|| inv.getArmorContents()[3].getType().equals(Material.DIAMOND_BOOTS))
-						&& objectives.contains(Objective.wearDiamondPiece)) {
-					Objective.complete(gi, Objective.wearDiamondPiece, p);
+				Util.checkWearingArmorPiece(gi, p, objectives, Objective.wearGoldPiece, ac,
+						Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS,
+						Material.GOLDEN_BOOTS);
 
-				} else if (inv.getArmorContents()[0].getType().equals(Material.LEATHER_HELMET)
-						&& inv.getArmorContents()[1].getType().equals(Material.LEATHER_CHESTPLATE)
-						&& inv.getArmorContents()[2].getType().equals(Material.LEATHER_LEGGINGS)
-						&& inv.getArmorContents()[3].getType().equals(Material.LEATHER_BOOTS)
-						&& objectives.contains(Objective.wearLeatherSet)) {
-					Objective.complete(gi, Objective.wearLeatherSet, p);
+				Util.checkWearingArmorPiece(gi, p, objectives, Objective.wearDiamondPiece, ac,
+						Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS,
+						Material.DIAMOND_BOOTS);
 
-				} else if (inv.getArmorContents()[0].getType().equals(Material.CHAINMAIL_HELMET)
-						&& inv.getArmorContents()[1].getType().equals(Material.CHAINMAIL_CHESTPLATE)
-						&& inv.getArmorContents()[2].getType().equals(Material.CHAINMAIL_LEGGINGS)
-						&& inv.getArmorContents()[3].getType().equals(Material.CHAINMAIL_BOOTS)
-						&& objectives.contains(Objective.wearChainmailSet)) {
-					Objective.complete(gi, Objective.wearChainmailSet, p);
+				Util.checkWearingArmorSet(gi, p, objectives, Objective.wearLeatherSet, ac,
+						Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS,
+						Material.LEATHER_BOOTS);
 
-				} else if (inv.getArmorContents()[0].getType().equals(Material.IRON_HELMET)
-						&& inv.getArmorContents()[1].getType().equals(Material.IRON_CHESTPLATE)
-						&& inv.getArmorContents()[2].getType().equals(Material.IRON_LEGGINGS)
-						&& inv.getArmorContents()[3].getType().equals(Material.IRON_BOOTS)
-						&& objectives.contains(Objective.wearIronSet)) {
-					Objective.complete(gi, Objective.wearIronSet, p);
+				Util.checkWearingArmorSet(gi, p, objectives, Objective.wearChainmailSet, ac,
+						Material.CHAINMAIL_HELMET, Material.CHAINMAIL_CHESTPLATE, Material.CHAINMAIL_LEGGINGS,
+						Material.CHAINMAIL_BOOTS);
 
-				} else if (inv.getArmorContents()[0].getType().equals(Material.GOLDEN_HELMET)
-						&& inv.getArmorContents()[1].getType().equals(Material.GOLDEN_CHESTPLATE)
-						&& inv.getArmorContents()[2].getType().equals(Material.GOLDEN_LEGGINGS)
-						&& inv.getArmorContents()[3].getType().equals(Material.GOLDEN_BOOTS)
-						&& objectives.contains(Objective.wearGoldSet)) {
-					Objective.complete(gi, Objective.wearGoldSet, p);
+				Util.checkWearingArmorSet(gi, p, objectives, Objective.wearIronSet, ac,
+						Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS,
+						Material.IRON_BOOTS);
 
-				} else if (inv.getArmorContents()[0].getType().equals(Material.DIAMOND_HELMET)
-						&& inv.getArmorContents()[1].getType().equals(Material.DIAMOND_CHESTPLATE)
-						&& inv.getArmorContents()[2].getType().equals(Material.DIAMOND_LEGGINGS)
-						&& inv.getArmorContents()[3].getType().equals(Material.DIAMOND_BOOTS)
-						&& objectives.contains(Objective.wearDiamondSet)) {
-					Objective.complete(gi, Objective.wearDiamondSet, p);
+				Util.checkWearingArmorSet(gi, p, objectives, Objective.wearGoldSet, ac,
+						Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS,
+						Material.GOLDEN_BOOTS);
 
+				Util.checkWearingArmorSet(gi, p, objectives, Objective.wearDiamondSet, ac,
+						Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS,
+						Material.DIAMOND_BOOTS);
+
+				if (e.getClickedBlock() != null) {
+					Material b = e.getClickedBlock().getType();
+					if (objectives.contains(Objective.useAnvil) && b.equals(Material.ANVIL)) {
+						Objective.complete(gi, Objective.useAnvil, p);
+						
+					} else if (objectives.contains(Objective.useComposter) && b.equals(Material.COMPOSTER)) {
+						Objective.complete(gi, Objective.useComposter, p);
+						
+					} else if (objectives.contains(Objective.useFurnace) && b.equals(Material.FURNACE)) {
+						Objective.complete(gi, Objective.useFurnace, p);
+						
+					} else if (objectives.contains(Objective.useLoom) && b.equals(Material.LOOM)) {
+						Objective.complete(gi, Objective.useLoom, p);
+						
+					} else if (objectives.contains(Objective.useGrindstone) && b.equals(Material.GRINDSTONE)) {
+						Objective.complete(gi, Objective.useGrindstone, p);
+						
+					} else if (objectives.contains(Objective.useFletchingTable) && b.equals(Material.FLETCHING_TABLE)) {
+						Objective.complete(gi, Objective.useFletchingTable, p);
+						
+					} else if (objectives.contains(Objective.useCartographyTable) && b.equals(Material.CARTOGRAPHY_TABLE)) {
+						Objective.complete(gi, Objective.useCartographyTable, p);
+						
+					} else if (objectives.contains(Objective.useBlastFurnace) && b.equals(Material.BLAST_FURNACE)) {
+						Objective.complete(gi, Objective.useBlastFurnace, p);
+						
+					} else if (objectives.contains(Objective.useSmoker) && b.equals(Material.SMOKER)) {
+						Objective.complete(gi, Objective.useSmoker, p);
+						
+					} else if (objectives.contains(Objective.useCampfire) && b.equals(Material.CAMPFIRE)) {
+						Objective.complete(gi, Objective.useCampfire, p);
+						
+					}
 				}
 			}
 		}

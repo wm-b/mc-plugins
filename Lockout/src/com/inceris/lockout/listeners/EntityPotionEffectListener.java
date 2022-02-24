@@ -35,6 +35,23 @@ public class EntityPotionEffectListener implements Listener {
 					} else if (pet.equals(PotionEffectType.SLOW_DIGGING) && objectives.contains(Objective.getMiningFatigue)) {
 						Objective.complete(gi, Objective.getMiningFatigue, p);
 						
+					} else if (pet.equals(PotionEffectType.LEVITATION) && objectives.contains(Objective.levitate)) {
+						Objective.complete(gi, Objective.levitate, p);
+						
+					} else if (pet.equals(PotionEffectType.POISON) && objectives.contains(Objective.dontGetPoisoned)) {
+						for (Player player : gi.getPlayerScores().keySet()) {
+							if (!p.equals(player)) {
+								Objective.complete(gi, Objective.dontGetPoisoned, player);
+							}
+						}
+						
+					} else if (pet.equals(PotionEffectType.SLOW) && objectives.contains(Objective.dontGetSlowed)) {
+						for (Player player : gi.getPlayerScores().keySet()) {
+							if (!p.equals(player)) {
+								Objective.complete(gi, Objective.dontGetSlowed, player);
+							}
+						}
+						
 					}
 				}
 			}
