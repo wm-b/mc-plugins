@@ -3,6 +3,7 @@ package com.inceris.lockout.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Objective {
@@ -51,7 +52,7 @@ public class Objective {
 	public final static Objective killBlaze = new Objective("Kill a blaze", false, false);
 	public final static Objective killPhantom = new Objective("Kill a phantom", false, false);
 
-	public final static Objective obtainDiamonds = new Objective("Obtain diamonds", false, false);
+	public final static Objective obtainDiamond = new Objective("Obtain a diamond", false, false);
 	public final static Objective obtainRedstone = new Objective("Obtain redstone", false, false);
 	public final static Objective obtainLapis = new Objective("Obtain lapis", false, false);
 	public final static Objective obtainCoal = new Objective("Obtain coal", false, false);
@@ -192,16 +193,27 @@ public class Objective {
 				o.setComplete(true);
 			}
 		}
+
+		gi.getScoreboard().resetScores(ChatColor.GRAY + objective.getDescription());
+		gi.getScoreboard().getObjective("Objectives").getScore(ChatColor.translateAlternateColorCodes('&',
+				"&" + gi.getTeams().get(p) + objective.getDescription())).setScore(0);
+		gi.refreshScoreboard();
 		
 		gi.getPlayerScores().put(p, gi.getPlayerScores().get(p) + 1);
 		gi.messagePlayers(p.getName() + " completed: " + objective.getDescription());
+		
+		for (Player player : gi.getPlayerScores().keySet()) {
+			if (gi.getPlayerScores().get(player) >= 8) {
+				Util.stopGameWithWinner(player);
+			}
+		}
 	}
 	
 	public static List<Objective> chooseObjectives(boolean hard) {
 		List<Objective> objectives = new ArrayList<Objective>();
 		Objective[] fullList = buildObjectiveArray();
 		
-		while (objectives.size() <= 15) {
+		while (objectives.size() < 15) {
 			
 			int r1 = Util.randomNumberBetween(1, 100);
 			
@@ -282,7 +294,7 @@ public class Objective {
 				breedPig, breedRabbit, breedWolf, breedChicken, breedBee, breedCat, breedAxolotl, breedFox, breedHorse,
 				breedPolarBear, breedPanda, killOpponent, killZombie, killSpider, killCreeper, killZombieVillager,
 				killSkeleton, killSilverfish, killIronGolem, killWitch, killWitherSkeleton, killBlaze, killPhantom,
-				killIllager, killEnderDragon, killWither, killElderGuardian, obtainDiamonds, obtainRedstone,
+				killIllager, killEnderDragon, killWither, killElderGuardian, obtainDiamond, obtainRedstone,
 				obtainLapis, obtainCoal, obtainRawIron, obtainRawGold, obtainIronIngot, obtainGoldIngot, obtainStone,
 				obtainTuff, obtainGranite, obtainAndesite, obtainDiorite, obtainDeepslate, obtainAncientDebris,
 				obtainNetheriteIngot, obtainBeacon, eatApple, eatMushroomSoup, eatBread, eatPork, eatChicken, eatBeef,

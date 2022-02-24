@@ -1,25 +1,21 @@
 package com.inceris.lockout.util;
 
-import java.util.List;
-
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import com.inceris.lockout.Lockout;
+import com.onarandombox.MultiverseCore.MultiverseCore;
+import com.onarandombox.MultiverseCore.api.MVWorldManager;
 
 public class Util {
-
-	private static Lockout pl = (Lockout) Lockout.getPlugin(Lockout.class);
 	
-	public static void initialise() {
-
-		List<String> WorldsStrings = pl.getConfig().getStringList("Worlds");
-		
-		for (String s : WorldsStrings) {
-			if (pl.getServer().getWorld(s) != null) {
-				pl.gameInstances.add(new GameInstance(pl.getServer().getWorld(s), false, 0));
-			}
-		}
-		
+	public static Lockout pl = Lockout.getPlugin(Lockout.class);
+	public static MultiverseCore mv = MultiverseCore.getPlugin(MultiverseCore.class);
+	public static MVWorldManager worldManager = mv.getMVWorldManager();
+	
+	public static void l(String s) {
+		pl.getLogger().info(Util.format(s));
 	}
 	
 	public static int randomNumberBetween(int min, int max) {
@@ -35,23 +31,22 @@ public class Util {
 		}
 	}
 	
-	public static GameInstance chooseWorld() {
-		int i = 0;
-		while (true) {
-			int r = randomNumberBetween(1, pl.gameInstances.size());
-			int j = 1;
-			for (GameInstance gw : pl.gameInstances) {
-				if (r == j && gw.isActive() == false) {
-					return gw;
-				}
-				j++;
+	public static String worldName(Player p1, Player p2) {
+		return p1.getName() + "vs" + p2.getName();
+	}
+	
+	public static void winner(Player p) {
+		p.sendMessage(Util.format("You are the winner!"));
+	}
+	
+	public static void stopGameWithWinner(Player p) {
+		winner(p);
+		Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+			@Override
+			public void run() {
+				GameInstance.get(p).reset();
 			}
-			if (i > 100) {
-				break;
-			}
-			i++;
-		}
-		return null;
+		}, 50);
 	}
 	
 	public static String format(String message) {

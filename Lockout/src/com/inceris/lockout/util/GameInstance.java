@@ -5,20 +5,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
+import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Scoreboard;
 
 import com.inceris.lockout.Lockout;
 
 public class GameInstance {
 
-	private static Lockout pl = (Lockout) Lockout.getPlugin(Lockout.class);
+	public static Lockout pl = Lockout.getPlugin(Lockout.class);
 	
 	private World world;
+	private World nether;
+	private World end;
 	private boolean active;
 	private long startTime;
 	private List<Objective> objectives;
 	private Map<Player, Integer> playerScores;
+	private Map<Player, Character> teams;
+
+	private Scoreboard scoreboard;
 
 	public World getWorld() {
 		return world;
@@ -26,6 +36,22 @@ public class GameInstance {
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+
+	public World getNether() {
+		return nether;
+	}
+
+	public void setNether(World nether) {
+		this.nether = nether;
+	}
+
+	public World getEnd() {
+		return end;
+	}
+
+	public void setEnd(World end) {
+		this.end = end;
 	}
 
 	public boolean isActive() {
@@ -60,20 +86,116 @@ public class GameInstance {
 		this.playerScores = scores;
 	}
 
-	public GameInstance(World inWorld, boolean inActive, long inStartTime) {
-		world = inWorld;
-		active = inActive;
-		startTime = inStartTime;
-		objectives = new ArrayList<Objective>();
-		playerScores = new HashMap<Player, Integer>();
+	public Map<Player, Character> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Map<Player, Character> teams) {
+		this.teams = teams;
+	}
+
+	public Scoreboard getScoreboard() {
+		return scoreboard;
+	}
+
+	public void setScoreboard(Scoreboard scoreboard) {
+		this.scoreboard = scoreboard;
 	}
 	
-	public GameInstance() {
-		world = null;
-		active = false;
-		startTime = 0;
-		objectives = null;
-		playerScores = null;
+
+	public GameInstance(Player p1, Player p2) {
+		String worldName = Util.worldName(p1, p2);
+		boolean generatedWorld = false;
+
+		if (pl.getServer().getWorld(worldName) == null) {
+			generatedWorld = true;
+			Util.worldManager.addWorld(worldName, World.Environment.NORMAL, null, WorldType.NORMAL, true, null);
+		}
+		if (pl.getServer().getWorld(worldName + "_nether") == null) {
+			generatedWorld = true;
+			Util.worldManager.addWorld(worldName + "_nether", World.Environment.NETHER, null, WorldType.NORMAL, true, null);
+		}
+		if (pl.getServer().getWorld(worldName + "_the_end") == null) {
+			generatedWorld = true;
+			Util.worldManager.addWorld(worldName + "_the_end", World.Environment.THE_END, null, WorldType.NORMAL, true, null);
+		}
+
+//				WorldCreator wc = new WorldCreator(worldName);
+//				wc.environment(World.Environment.NORMAL);
+//				wc.type(WorldType.NORMAL);
+//				wc.createWorld();
+//				
+//				wc = new WorldCreator(worldName + "_nether");
+//				wc.environment(World.Environment.NETHER);
+//				wc.type(WorldType.NORMAL);
+//				wc.createWorld();
+//				
+//				wc = new WorldCreator(worldName + "_the_end");
+//				wc.environment(World.Environment.THE_END);
+//				wc.type(WorldType.NORMAL);
+//				wc.createWorld();
+
+		if (generatedWorld) {
+			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+				@Override
+				public void run() {
+					world = pl.getServer().getWorld(worldName);
+					nether = pl.getServer().getWorld(worldName + "_nether");
+					end = pl.getServer().getWorld(worldName + "_the_end");
+					active = true;
+					startTime = System.currentTimeMillis();
+					objectives = Objective.chooseObjectives(false);
+					playerScores = new HashMap<Player, Integer>();
+					getPlayerScores().put(p1, 0);
+					getPlayerScores().put(p2, 0);
+					teams = new HashMap<Player, Character>();
+					getTeams().put(p1, 'b');
+					getTeams().put(p2, 'e');
+					scoreboard = scoreboard();
+					p1.setScoreboard(scoreboard);
+					p2.setScoreboard(scoreboard);
+					pl.gameInstances.add(GameInstance.this);
+					RTP.rtp(p1, world, 100);
+					RTP.rtp(p2, world, 100);
+				}
+			}, 100);
+		} else {
+			world = pl.getServer().getWorld(worldName);
+			nether = pl.getServer().getWorld(worldName + "_nether");
+			end = pl.getServer().getWorld(worldName + "_the_end");
+			active = true;
+			startTime = System.currentTimeMillis();
+			objectives = Objective.chooseObjectives(false);
+			playerScores = new HashMap<Player, Integer>();
+			getPlayerScores().put(p1, 0);
+			getPlayerScores().put(p2, 0);
+			teams = new HashMap<Player, Character>();
+			getTeams().put(p1, 'b');
+			getTeams().put(p2, 'e');
+			scoreboard = scoreboard();
+			p1.setScoreboard(scoreboard);
+			p2.setScoreboard(scoreboard);
+			pl.gameInstances.add(GameInstance.this);
+			RTP.rtp(p1, world, 100);
+			RTP.rtp(p2, world, 100);
+		}
+
+	}
+	
+	public void refreshScoreboard() {
+		for (Player p : playerScores.keySet()) {
+			p.setScoreboard(scoreboard);
+		}
+	}
+	
+	private Scoreboard scoreboard() {
+			Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+			org.bukkit.scoreboard.Objective obj = board.registerNewObjective("Objectives", "Objectives", "Objectives");
+			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+			for (Objective o : objectives) {
+				obj.getScore(ChatColor.GRAY + o.getDescription()).setScore(0);
+			}
+			return board;
 	}
 	
 	public String printObjectives() {
@@ -104,10 +226,40 @@ public class GameInstance {
 	}
 	
 	public void reset() {
-		this.setActive(false);
-		this.setStartTime(0);
-		this.setObjectives(new ArrayList<Objective>());
-		this.setPlayerScores(new HashMap<Player, Integer>());
+		if (this.isActive()) {
+			for (Player p : playerScores.keySet()) {
+				p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+			}
+			Util.worldManager.unloadWorld(world.getName());
+			Util.worldManager.unloadWorld(nether.getName());
+			Util.worldManager.unloadWorld(end.getName());
+			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+				@Override
+				public void run() {
+					Util.l("Deleteing world " + world.getName());
+					Util.mv.deleteWorld(world.getName());
+				}
+			}, 50);
+			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+				@Override
+				public void run() {
+					Util.l("Deleteing world " + nether.getName());
+					Util.mv.deleteWorld(nether.getName());
+				}
+			}, 100);
+			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+				@Override
+				public void run() {
+					Util.l("Deleteing world " + end.getName());
+					Util.mv.deleteWorld(end.getName());
+					Util.l("Finished deleting");
+					active = false;
+					startTime = 0;
+					objectives = new ArrayList<Objective>();
+					playerScores = new HashMap<Player, Integer>();
+				}
+			}, 150);
+		}
 	}
 	
 	public void messagePlayers(String message) {
@@ -115,4 +267,5 @@ public class GameInstance {
 			p.sendMessage(Util.format(message));
 		}
 	}
+	
 }
