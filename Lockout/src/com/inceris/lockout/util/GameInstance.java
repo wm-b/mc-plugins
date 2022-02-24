@@ -7,9 +7,14 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.CompassMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -120,21 +125,6 @@ public class GameInstance {
 			Util.worldManager.addWorld(worldName + "_the_end", World.Environment.THE_END, null, WorldType.NORMAL, true, null);
 		}
 
-//				WorldCreator wc = new WorldCreator(worldName);
-//				wc.environment(World.Environment.NORMAL);
-//				wc.type(WorldType.NORMAL);
-//				wc.createWorld();
-//				
-//				wc = new WorldCreator(worldName + "_nether");
-//				wc.environment(World.Environment.NETHER);
-//				wc.type(WorldType.NORMAL);
-//				wc.createWorld();
-//				
-//				wc = new WorldCreator(worldName + "_the_end");
-//				wc.environment(World.Environment.THE_END);
-//				wc.type(WorldType.NORMAL);
-//				wc.createWorld();
-
 		if (generatedWorld) {
 			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 				@Override
@@ -142,6 +132,9 @@ public class GameInstance {
 					world = pl.getServer().getWorld(worldName);
 					nether = pl.getServer().getWorld(worldName + "_nether");
 					end = pl.getServer().getWorld(worldName + "_the_end");
+					world.getWorldBorder().setSize(4001);
+					nether.getWorldBorder().setSize(1334);
+					end.getWorldBorder().setSize(4001);
 					active = true;
 					startTime = System.currentTimeMillis();
 					objectives = Objective.chooseObjectives(false);
@@ -154,6 +147,16 @@ public class GameInstance {
 					scoreboard = scoreboard();
 					p1.setScoreboard(scoreboard);
 					p2.setScoreboard(scoreboard);
+					p1.getInventory().setContents(new ItemStack[] {});
+					p2.getInventory().setContents(new ItemStack[] {});
+					p1.getInventory().addItem(compass(p2));
+					p2.getInventory().addItem(compass(p1));
+					p1.setHealth(20);
+					p1.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
+					p2.setHealth(20);
+					p2.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
+					p1.setExp(0);
+					p2.setExp(0);
 					pl.gameInstances.add(GameInstance.this);
 					RTP.rtp(p1, world, 100);
 					RTP.rtp(p2, world, 100);
@@ -175,6 +178,16 @@ public class GameInstance {
 			scoreboard = scoreboard();
 			p1.setScoreboard(scoreboard);
 			p2.setScoreboard(scoreboard);
+			p1.getInventory().setContents(new ItemStack[] {});
+			p2.getInventory().setContents(new ItemStack[] {});
+			p1.getInventory().addItem(compass(p2));
+			p2.getInventory().addItem(compass(p1));
+			p1.setHealth(20);
+			p1.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
+			p2.setHealth(20);
+			p2.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
+			p1.setExp(0);
+			p2.setExp(0);
 			pl.gameInstances.add(GameInstance.this);
 			RTP.rtp(p1, world, 100);
 			RTP.rtp(p2, world, 100);
@@ -253,6 +266,10 @@ public class GameInstance {
 					Util.l("Deleteing world " + end.getName());
 					Util.mv.deleteWorld(end.getName());
 					Util.l("Finished deleting");
+					for (Player p : playerScores.keySet()) {
+						p.getInventory().setContents(new ItemStack[] {});
+						p.setExp(0);
+					}
 					active = false;
 					startTime = 0;
 					objectives = new ArrayList<Objective>();
@@ -266,6 +283,16 @@ public class GameInstance {
 		for (Player p : playerScores.keySet()) {
 			p.sendMessage(Util.format(message));
 		}
+	}
+	
+	public ItemStack compass(Player p) {
+		ItemStack compass = new ItemStack(Material.COMPASS);
+		CompassMeta meta = (CompassMeta) compass.getItemMeta();
+		meta.setDisplayName(p.getName() + " Tracker");
+		meta.setLodestoneTracked(true);
+		meta.setLodestone(p.getLocation());
+		compass.setItemMeta(meta);
+		return compass;
 	}
 	
 }
