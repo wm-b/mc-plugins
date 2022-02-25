@@ -2,6 +2,7 @@ package com.inceris.lockout.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -41,11 +42,21 @@ public class RTP {
 
 	public static boolean CheckLocation(Location l) {
 		if (!l.getBlock().getType().toString().toLowerCase().equals("water")
-				&& !l.getBlock().getType().toString().toLowerCase().equals("lava")
-				&& !l.getBlock().getType().toString().toLowerCase().equals("kelp")
-				&& !l.getBlock().getType().toString().toLowerCase().equals("kelp_plant")
-				&& !l.getBlock().getType().toString().toLowerCase().equals("seagrass")
-				&& !l.getBlock().getType().toString().toLowerCase().equals("tall_seagrass")) {
+				&& !l.getBlock().getType().equals(Material.LAVA)
+				&& !l.getBlock().getType().equals(Material.KELP)
+				&& !l.getBlock().getType().equals(Material.KELP_PLANT)
+				&& !l.getBlock().getType().equals(Material.SEAGRASS)
+				&& !l.getBlock().getType().equals(Material.TALL_SEAGRASS)
+				&& !l.getBlock().getType().equals(Material.TUBE_CORAL)
+				&& !l.getBlock().getType().equals(Material.BRAIN_CORAL)
+				&& !l.getBlock().getType().equals(Material.BUBBLE_CORAL)
+				&& !l.getBlock().getType().equals(Material.FIRE_CORAL)
+				&& !l.getBlock().getType().equals(Material.HORN_CORAL)
+				&& !l.getBlock().getType().equals(Material.TUBE_CORAL_FAN)
+				&& !l.getBlock().getType().equals(Material.BRAIN_CORAL_FAN)
+				&& !l.getBlock().getType().equals(Material.BUBBLE_CORAL_FAN)
+				&& !l.getBlock().getType().equals(Material.FIRE_CORAL_FAN)
+				&& !l.getBlock().getType().equals(Material.HORN_CORAL_FAN)) {
 			return true;
 		}
 		return false;
@@ -71,6 +82,8 @@ public class RTP {
 				TPPlayer(pl, player, destination);
 				break;
 			}
+			
+			radius++;
 		}
 		if (i == 10000)
 			player.sendMessage(Util.format("Could not find a safe location to teleport you to!"));
