@@ -28,7 +28,6 @@ import com.inceris.lockout.listeners.PlayerInteractEntityListener;
 import com.inceris.lockout.listeners.PlayerInteractListener;
 import com.inceris.lockout.listeners.PlayerItemConsumeListener;
 import com.inceris.lockout.listeners.PlayerMoveListener;
-import com.inceris.lockout.listeners.PlayerPortalListener;
 import com.inceris.lockout.listeners.PlayerQuitListener;
 import com.inceris.lockout.listeners.PlayerRespawnListener;
 import com.inceris.lockout.listeners.VillagerAcquireTradeListener;
@@ -45,7 +44,6 @@ public class Lockout extends JavaPlugin {
 		pm.registerEvents(new EntityDamageByEntityListener(), this);
 		pm.registerEvents(new EntityDamageListener(), this);
 		pm.registerEvents(new PlayerItemConsumeListener(), this);
-		pm.registerEvents(new PlayerPortalListener(), this);
 		pm.registerEvents(new PlayerQuitListener(), this);
 		pm.registerEvents(new PlayerInteractListener(), this);
 		pm.registerEvents(new InventoryClickListener(), this);

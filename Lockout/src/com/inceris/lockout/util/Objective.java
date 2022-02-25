@@ -198,7 +198,7 @@ public class Objective {
 				gi.refreshScoreboard();
 
 				gi.getPlayerScores().put(p, gi.getPlayerScores().get(p) + 1);
-				gi.messagePlayers(gi.getTeams().get(p) + p.getName() + "&f completed: &7" + objective.getDescription());
+				gi.messagePlayers("&" + gi.getTeams().get(p) + p.getName() + "&7 completed&8: &f" + objective.getDescription());
 
 				for (Player player : gi.getPlayerScores().keySet()) {
 					if (gi.getPlayerScores().get(player) >= 8) {

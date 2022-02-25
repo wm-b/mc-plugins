@@ -5,18 +5,23 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.PortalType;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.inceris.lockout.Lockout;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
+import com.onarandombox.MultiverseNetherPortals.MultiverseNetherPortals;
 
 public class Util {
 
 	public static Lockout pl = Lockout.getPlugin(Lockout.class);
 	public static MultiverseCore mv = MultiverseCore.getPlugin(MultiverseCore.class);
 	public static MVWorldManager worldManager = mv.getMVWorldManager();
+	public static MultiverseNetherPortals np = (MultiverseNetherPortals) Bukkit.getServer().getPluginManager()
+			.getPlugin("Multiverse-NetherPortals");
 
 	public static void l(String s) {
 		pl.getLogger().info(Util.format(s));
@@ -33,6 +38,20 @@ public class Util {
 		} else {
 			return false;
 		}
+	}
+
+	public static void linkWorldPortals(World world, World nether, World end) {
+		np.addWorldLink(world.getName(), nether.getName(), PortalType.NETHER);
+		np.addWorldLink(nether.getName(), world.getName(), PortalType.NETHER);
+		np.addWorldLink(world.getName(), end.getName(), PortalType.ENDER);
+		np.addWorldLink(end.getName(), world.getName(), PortalType.ENDER);
+	}
+
+	public static void unlinkWorldPortals(World world, World nether, World end) {
+		np.removeWorldLink(world.getName(), nether.getName(), PortalType.NETHER);
+		np.removeWorldLink(nether.getName(), world.getName(), PortalType.NETHER);
+		np.removeWorldLink(world.getName(), end.getName(), PortalType.ENDER);
+		np.removeWorldLink(end.getName(), world.getName(), PortalType.ENDER);
 	}
 
 	public static String worldName(Player p1, Player p2) {
@@ -75,8 +94,8 @@ public class Util {
 		}
 	}
 
-	public static void checkWearingArmorSet(GameInstance gi, Player p, List<Objective> objectives,
-			Objective objective, ItemStack[] ac, Material m1, Material m2, Material m3, Material m4) {
+	public static void checkWearingArmorSet(GameInstance gi, Player p, List<Objective> objectives, Objective objective,
+			ItemStack[] ac, Material m1, Material m2, Material m3, Material m4) {
 		if (objectives.contains(objective)) {
 			boolean found = true;
 			for (ItemStack item : ac) {

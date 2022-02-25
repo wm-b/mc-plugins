@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import com.inceris.lockout.util.GameInstance;
 
 public class PlayerPortalListener implements Listener {
+	
 	@EventHandler
 	public void onPortal(PlayerPortalEvent event) {
 		Player player = event.getPlayer();
@@ -37,8 +38,7 @@ public class PlayerPortalListener implements Listener {
 
 			if (event.getCause().equals(TeleportCause.END_PORTAL)) {
 				if (player.getWorld().equals(world)) {
-					Location loc = new Location(end, 100, 50, 0); // This is the vanilla location for obsidian
-																		// platform.
+					Location loc = new Location(end, 100, 50, 0);
 					event.setTo(loc);
 					Block block = loc.getBlock();
 					for (int x = block.getX() - 2; x <= block.getX() + 2; x++) {

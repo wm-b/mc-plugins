@@ -60,6 +60,25 @@ public class LockoutCommand {
 				return true;
 			} else {
 				sender.sendMessage(Util.format("&9/lockout forcewin [player]"));
+				return true;
+			}
+
+		} else if (args[0].equalsIgnoreCase("scoreboard") && sender.hasPermission("lockout.admin")) {
+			if (sender instanceof Player && pl.getServer().getPlayer(args[1]) != null) {
+				Player p = (Player) sender;
+				Player target = pl.getServer().getPlayer(args[1]);
+				GameInstance gi = GameInstance.get(target);
+				if (gi == null) {
+					sender.sendMessage(Util.format("That player is not in a game of lockout!"));
+					return true;
+				} else {
+					gi.getScoreboardViewers().add(p);
+					p.setScoreboard(gi.getScoreboard());
+					return true;
+				}
+			} else {
+				sender.sendMessage(Util.format("&9/lockout scoreboard [player]"));
+				return true;
 			}
 
 		} else if (args[0].equalsIgnoreCase("objectives") && sender.hasPermission("lockout.admin")) {

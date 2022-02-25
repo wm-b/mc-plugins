@@ -32,6 +32,7 @@ public class GameInstance {
 	private List<Objective> objectives;
 	private Map<Player, Integer> playerScores;
 	private Map<Player, Character> teams;
+	private List<Player> scoreboardViewers;
 
 	private Scoreboard scoreboard;
 
@@ -107,6 +108,14 @@ public class GameInstance {
 		this.scoreboard = scoreboard;
 	}
 	
+	public List<Player> getScoreboardViewers() {
+		return scoreboardViewers;
+	}
+
+	public void setScoreboardViewers(List<Player> scoreboardViewers) {
+		this.scoreboardViewers = scoreboardViewers;
+	}
+	
 
 	public GameInstance(Player p1, Player p2) {
 		String worldName = Util.worldName(p1, p2);
@@ -144,6 +153,9 @@ public class GameInstance {
 					teams = new HashMap<Player, Character>();
 					getTeams().put(p1, 'b');
 					getTeams().put(p2, 'e');
+					scoreboardViewers = new ArrayList<Player>();
+					scoreboardViewers.add(p1);
+					scoreboardViewers.add(p2);
 					scoreboard = scoreboard();
 					p1.setScoreboard(scoreboard);
 					p2.setScoreboard(scoreboard);
@@ -175,6 +187,9 @@ public class GameInstance {
 			teams = new HashMap<Player, Character>();
 			getTeams().put(p1, 'b');
 			getTeams().put(p2, 'e');
+			scoreboardViewers = new ArrayList<Player>();
+			scoreboardViewers.add(p1);
+			scoreboardViewers.add(p2);
 			scoreboard = scoreboard();
 			p1.setScoreboard(scoreboard);
 			p2.setScoreboard(scoreboard);
@@ -196,7 +211,10 @@ public class GameInstance {
 	}
 	
 	public void refreshScoreboard() {
-		for (Player p : playerScores.keySet()) {
+		for (Player p : scoreboardViewers) {
+			if (!p.isOnline()) {
+				scoreboardViewers.remove(p);
+			}
 			p.setScoreboard(scoreboard);
 		}
 	}

@@ -7,6 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/spigot-api-1.18.1-R0.1-SNAPSHOT-shaded.jar"/>
-	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/Multiverse-Core-4.3.1.jar"/>
+	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/Multiverse-NetherPortals-4.2.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/Multiverse-Core-4.3.2-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
