@@ -117,7 +117,7 @@ public class GameInstance {
 	}
 	
 
-	public GameInstance(Player p1, Player p2) {
+	public GameInstance(Player p1, Player p2, boolean hard) {
 		String worldName = Util.worldName(p1, p2);
 		boolean generatedWorld = false;
 
@@ -146,7 +146,7 @@ public class GameInstance {
 					end.getWorldBorder().setSize(4001);
 					active = true;
 					startTime = System.currentTimeMillis();
-					objectives = Objective.chooseObjectives(false);
+					objectives = Objective.chooseObjectives(hard);
 					playerScores = new HashMap<Player, Integer>();
 					getPlayerScores().put(p1, 0);
 					getPlayerScores().put(p2, 0);
