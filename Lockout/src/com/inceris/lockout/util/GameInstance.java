@@ -180,7 +180,7 @@ public class GameInstance {
 			end = pl.getServer().getWorld(worldName + "_the_end");
 			active = true;
 			startTime = System.currentTimeMillis();
-			objectives = Objective.chooseObjectives(false);
+			objectives = Objective.chooseObjectives(hard);
 			playerScores = new HashMap<Player, Integer>();
 			getPlayerScores().put(p1, 0);
 			getPlayerScores().put(p2, 0);

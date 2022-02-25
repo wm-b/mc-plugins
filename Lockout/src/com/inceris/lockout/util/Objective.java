@@ -135,7 +135,7 @@ public class Objective {
 	public final static Objective killElderGuardian = new Objective("Kill an elder guardian", false, true);
 
 	public final static Objective obtainAncientDebris = new Objective("Obtain ancient debris", false, true);
-	public final static Objective obtainNetheriteIngot = new Objective("Obtain netherite ingot", false, true);
+	public final static Objective obtainNetheriteIngot = new Objective("Obtain a netherite ingot", false, true);
 	public final static Objective obtainBeacon = new Objective("Obtain a beacon", false, true);
 	
 	public final static Objective eatPoisonousPotato = new Objective("Eat a poisonous potato", false, true);
@@ -144,9 +144,9 @@ public class Objective {
 	
 	public final static Objective dontGetSlowed = new Objective("Don't get slowed", false, true);
 	public final static Objective dontGetPoisoned = new Objective("Don't get poisoned", false, true);
-	public final static Objective dontDieByBed = new Objective("Don't die to intention game design", false, true);
+	public final static Objective dontDieByBed = new Objective("Don't die to intentional game design", false, true);
 	
-	public final static Objective getResurrected = new Objective("Get resurrected by a totem of undying", false, true);
+	public final static Objective getResurrected = new Objective("Get resurrected", false, true);
 	public final static Objective catchBook = new Objective("Fish up an enchanted book", false, true);
 	public final static Objective sleepAlone = new Objective("Sleep alone in the overworld", false, true);
 	public final static Objective levitate = new Objective("Get the levitation effect", false, true);
