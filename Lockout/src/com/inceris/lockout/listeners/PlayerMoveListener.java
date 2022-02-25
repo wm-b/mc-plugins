@@ -23,7 +23,7 @@ public class PlayerMoveListener implements Listener {
 		Player p = e.getPlayer();
 		if (GameInstance.get(p) != null) {
 			GameInstance gi = GameInstance.get(p);
-			if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+			if (gi.isActive() && gi.getPlayers().contains(p)) {
 				List<Objective> objectives = gi.getObjectives();
 
 				if (objectives.contains(Objective.reachBedrock) && p.getLocation().getY() <= -60) {
@@ -32,7 +32,7 @@ public class PlayerMoveListener implements Listener {
 				}
 			}
 
-			for (Player player : gi.getPlayerScores().keySet()) {
+			for (Player player : gi.getPlayers()) {
 				if (!p.equals(player)) {
 					for (ItemStack item : player.getInventory().getContents()) {
 						if (item != null) {

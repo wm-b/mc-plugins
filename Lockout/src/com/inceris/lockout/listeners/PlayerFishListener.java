@@ -22,7 +22,7 @@ public class PlayerFishListener implements Listener {
 	public void onPlayerFish(PlayerFishEvent e) {
 		Player p = e.getPlayer();
 		for (GameInstance gi : pl.gameInstances) {
-			if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+			if (gi.isActive() && gi.getPlayers().contains(p)) {
 
 				List<Objective> objectives = gi.getObjectives();
 				State state = e.getState();

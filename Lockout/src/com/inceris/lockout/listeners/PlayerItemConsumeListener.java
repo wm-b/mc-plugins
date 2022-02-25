@@ -22,7 +22,7 @@ public class PlayerItemConsumeListener implements Listener {
 		Player p = e.getPlayer();
 		
 		for(GameInstance gi : pl.gameInstances) {
-			if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+			if (gi.isActive() && gi.getPlayers().contains(p)) {
 				Material type = e.getItem().getType();
 				List<Objective> objectives = gi.getObjectives();
 				

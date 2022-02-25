@@ -20,23 +20,15 @@ public class PlayerDeathListener implements Listener {
 
 		Player p = e.getEntity();
 		for (GameInstance gi : pl.gameInstances) {
-			if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+			if (gi.isActive() && gi.getPlayers().contains(p)) {
 				List<Objective> objectives = gi.getObjectives();
 				String message = e.getDeathMessage();
 				
 				if (objectives.contains(Objective.dontDie)) {
-					for (Player player : gi.getPlayerScores().keySet()) {
-						if (!p.equals(player)) {
-							Objective.complete(gi, Objective.dontDie, player);
-						}
-					}
+					Objective.complete(gi, Objective.dontDie, gi.getOpponents(p).get(0));
 					
 				} else if (objectives.contains(Objective.dontDieByBed) && message.contains("Intentional Game Design")) {
-					for (Player player : gi.getPlayerScores().keySet()) {
-						if (!p.equals(player)) {
-							Objective.complete(gi, Objective.dontDieByBed, player);
-						}
-					}
+					Objective.complete(gi, Objective.dontDieByBed, gi.getOpponents(p).get(0));
 					
 				} else if (objectives.contains(Objective.dieToAnvil) && message.contains("was squashed by a falling anvil")) {
 					Objective.complete(gi, Objective.dieToAnvil, p);

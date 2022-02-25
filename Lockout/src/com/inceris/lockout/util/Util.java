@@ -54,20 +54,38 @@ public class Util {
 		np.removeWorldLink(end.getName(), world.getName(), PortalType.ENDER);
 	}
 
-	public static String worldName(Player p1, Player p2) {
-		return p1.getName() + "vs" + p2.getName();
+	public static String generateGameName() {
+		for (int i = 1; i < 99; i++) {
+			boolean nameAvailable = true;
+			for (GameInstance gi : pl.gameInstances) {
+				if (!gi.getGameName().equals("LockoutGameWorld" + i)) {
+					nameAvailable = false;
+				}
+			}
+			if (nameAvailable) {
+				return "LockoutGameWorld" + i;
+			}
+		}
+		return null;
 	}
 
-	public static void winner(Player p) {
-		p.sendMessage(Util.format("You are the winner!"));
+	public static void winner(List<Player> winningPlayers) {
+		List<Player> allPlayers = GameInstance.get(winningPlayers.get(0)).getPlayers();
+		for (Player p : allPlayers) {
+			if (winningPlayers.contains(p)) {
+				p.sendMessage(Util.format("You are the winner!"));
+			} else {
+				p.sendMessage(Util.format("You have been locked out!"));
+			}
+		}
 	}
 
-	public static void stopGameWithWinner(Player p) {
-		winner(p);
+	public static void stopGameWithWinner(List<Player> players) {
+		winner(players);
 		Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 			@Override
 			public void run() {
-				GameInstance.get(p).reset();
+				GameInstance.get(players.get(0)).reset();
 			}
 		}, 50);
 	}

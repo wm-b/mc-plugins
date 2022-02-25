@@ -1,5 +1,9 @@
 package com.inceris.lockout.commands;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -17,40 +21,38 @@ public class LockoutCommand {
 			return true;
 
 		} else if (args[0].equalsIgnoreCase("start") && sender.hasPermission("lockout.admin")) {
-			if (pl.getServer().getPlayer(args[1]) != null && pl.getServer().getPlayer(args[2]) != null) {
 
-				if (args[1].equalsIgnoreCase(args[2])) {
+			if (args[1].equalsIgnoreCase(args[2])) {
 
-					sender.sendMessage(Util.format("You can't start a game with yourself!"));
-					return true;
+				sender.sendMessage(Util.format("You can't start a game with yourself!"));
+				return true;
 
-				} else {
+			} else {
 
-					Player[] players = new Player[] { pl.getServer().getPlayer(args[1]),
-							pl.getServer().getPlayer(args[2]) };
-
-					for (Player p : players) {
-						p.sendMessage(Util.format("Your game is starting! Please wait..."));
-					}
-
-					if (GameInstance.get(players[0]) == null && GameInstance.get(players[1]) == null) {
-						if (args.length >= 4) {
-							if (args[3].equalsIgnoreCase("hard")) {
-								new GameInstance(players[0], players[1], true);
-							} else {
-								new GameInstance(players[0], players[1], false);
-							}
-						} else {
-							new GameInstance(players[0], players[1], false);
-						}
-					} else {
-						sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
+				List<Player> players = new ArrayList<Player>();
+				for (int i = 1; i < args.length; i++) {
+					if (pl.getServer().getPlayer(args[i]) instanceof Player) {
+						players.add(pl.getServer().getPlayer(args[i]));
+					} else if (!args[i].equals("-h")) {
+						sender.sendMessage(Util.format("One of those arguments doesn't look like a player!"));
+						sender.sendMessage("/lockout start [player 1] [player 2] ... {-h}");
+						return true;
 					}
 				}
 
-			} else {
-				sender.sendMessage(Util.format("&9/lockout start [player 1] [player 2]"));
-				return true;
+				for (Player p : players) {
+					p.sendMessage(Util.format("Your game is starting! Please wait..."));
+				}
+
+				if (GameInstance.get(players.get(0)) == null && GameInstance.get(players.get(1)) == null) {
+					if (Arrays.asList(args).contains("-h")) {
+						new GameInstance(players, true);
+					} else {
+						new GameInstance(players, false);
+					}
+				} else {
+					sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
+				}
 			}
 
 		} else if (args[0].equalsIgnoreCase("stop") && sender.hasPermission("lockout.admin")) {
@@ -64,7 +66,8 @@ public class LockoutCommand {
 
 		} else if (args[0].equalsIgnoreCase("forcewin") && sender.hasPermission("lockout.admin")) {
 			if (pl.getServer().getPlayer(args[1]) != null && args.length > 1) {
-				Util.stopGameWithWinner(pl.getServer().getPlayer(args[1]));
+				Player p = pl.getServer().getPlayer(args[1]);
+				Util.stopGameWithWinner(GameInstance.get(p).getTeam(p));
 				return true;
 			} else {
 				sender.sendMessage(Util.format("&9/lockout forcewin [player]"));

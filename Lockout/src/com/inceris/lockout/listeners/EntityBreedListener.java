@@ -35,7 +35,7 @@ public class EntityBreedListener implements Listener {
 		if (e.getBreeder() instanceof Player) {
 			Player p = (Player) e.getBreeder();
 			for (GameInstance gi : pl.gameInstances) {
-				if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					Entity father = e.getFather();
 					Entity mother = e.getMother();

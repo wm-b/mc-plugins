@@ -23,7 +23,7 @@ public class EnchantItemListener implements Listener {
 			if (h instanceof Player) {
 				Player p = (Player) h;
 				for (GameInstance gi : pl.gameInstances) {
-					if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+					if (gi.isActive() && gi.getPlayers().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();
 						
 						if (objectives.contains(Objective.enchantItem)) {

@@ -22,42 +22,26 @@ public class EntityDamageListener implements Listener {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			for (GameInstance gi : pl.gameInstances) {
-				if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					DamageCause cause = e.getCause();
 
 					if (objectives.contains(Objective.dontTakeDamage)) {
-						for (Player player : gi.getPlayerScores().keySet()) {
-							if (!p.equals(player)) {
-								Objective.complete(gi, Objective.dontTakeDamage, player);
-							}
-						}
+						Objective.complete(gi, Objective.dontTakeDamage, gi.getOpponents(p).get(0));
 					}
 					
 					if (objectives.contains(Objective.dont5Hearts) && p.getHealth() <= 10) {
-						for (Player player : gi.getPlayerScores().keySet()) {
-							if (!p.equals(player)) {
-								Objective.complete(gi, Objective.dont5Hearts, player);
-							}
-						}
+						Objective.complete(gi, Objective.dont5Hearts, gi.getOpponents(p).get(0));
 					}
 
 					if (objectives.contains(Objective.suffocate) && cause.equals(DamageCause.SUFFOCATION)) {
 						Objective.complete(gi, Objective.suffocate, p);
 
 					} else if (objectives.contains(Objective.dontFall) && cause.equals(DamageCause.FALL)) {
-						for (Player player : gi.getPlayerScores().keySet()) {
-							if (!p.equals(player)) {
-								Objective.complete(gi, Objective.dontFall, player);
-							}
-						}
+						Objective.complete(gi, Objective.dontFall, gi.getOpponents(p).get(0));
 
 					} else if (objectives.contains(Objective.dontCatchFire) && p.getFireTicks() > 0) {
-						for (Player player : gi.getPlayerScores().keySet()) {
-							if (!p.equals(player)) {
-								Objective.complete(gi, Objective.dontCatchFire, player);
-							}
-						}
+						Objective.complete(gi, Objective.dontCatchFire, gi.getOpponents(p).get(0));
 
 					}
 				}

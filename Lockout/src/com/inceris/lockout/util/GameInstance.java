@@ -23,18 +23,27 @@ import com.inceris.lockout.Lockout;
 public class GameInstance {
 
 	public static Lockout pl = Lockout.getPlugin(Lockout.class);
-	
+
+	private String gameName;
 	private World world;
 	private World nether;
 	private World end;
 	private boolean active;
 	private long startTime;
 	private List<Objective> objectives;
-	private Map<Player, Integer> playerScores;
-	private Map<Player, Character> teams;
+	private Map<List<Player>, Integer> teamScores;
+	private List<Player> teamB;
+	private List<Player> teamE;
 	private List<Player> scoreboardViewers;
-
 	private Scoreboard scoreboard;
+
+	public String getGameName() {
+		return gameName;
+	}
+
+	public void setGameName(String gameName) {
+		this.gameName = gameName;
+	}
 
 	public World getWorld() {
 		return world;
@@ -75,7 +84,7 @@ public class GameInstance {
 	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
-	
+
 	public List<Objective> getObjectives() {
 		return objectives;
 	}
@@ -84,20 +93,28 @@ public class GameInstance {
 		this.objectives = objectives;
 	}
 
-	public Map<Player, Integer> getPlayerScores() {
-		return playerScores;
+	public Map<List<Player>, Integer> getPlayerScores() {
+		return teamScores;
 	}
 
-	public void setPlayerScores(Map<Player, Integer> scores) {
-		this.playerScores = scores;
+	public void setPlayerScores(Map<List<Player>, Integer> teamScores) {
+		this.teamScores = teamScores;
 	}
 
-	public Map<Player, Character> getTeams() {
-		return teams;
+	public List<Player> getTeamB() {
+		return teamB;
 	}
 
-	public void setTeams(Map<Player, Character> teams) {
-		this.teams = teams;
+	public void setTeamB(List<Player> teamB) {
+		this.teamB = teamB;
+	}
+
+	public List<Player> getTeamE() {
+		return teamE;
+	}
+
+	public void setTeamE(List<Player> teamE) {
+		this.teamE = teamE;
 	}
 
 	public Scoreboard getScoreboard() {
@@ -107,7 +124,7 @@ public class GameInstance {
 	public void setScoreboard(Scoreboard scoreboard) {
 		this.scoreboard = scoreboard;
 	}
-	
+
 	public List<Player> getScoreboardViewers() {
 		return scoreboardViewers;
 	}
@@ -115,101 +132,83 @@ public class GameInstance {
 	public void setScoreboardViewers(List<Player> scoreboardViewers) {
 		this.scoreboardViewers = scoreboardViewers;
 	}
-	
 
-	public GameInstance(Player p1, Player p2, boolean hard) {
-		String worldName = Util.worldName(p1, p2);
+	public GameInstance(List<Player> players, boolean hard) {
+
+		gameName = Util.generateGameName();
 		boolean generatedWorld = false;
 
-		if (pl.getServer().getWorld(worldName) == null) {
+		if (pl.getServer().getWorld(gameName) == null) {
 			generatedWorld = true;
-			Util.worldManager.addWorld(worldName, World.Environment.NORMAL, null, WorldType.NORMAL, true, null);
+			Util.worldManager.addWorld(gameName, World.Environment.NORMAL, null, WorldType.NORMAL, true, null);
 		}
-		if (pl.getServer().getWorld(worldName + "_nether") == null) {
+		if (pl.getServer().getWorld(gameName + "_nether") == null) {
 			generatedWorld = true;
-			Util.worldManager.addWorld(worldName + "_nether", World.Environment.NETHER, null, WorldType.NORMAL, true, null);
+			Util.worldManager.addWorld(gameName + "_nether", World.Environment.NETHER, null, WorldType.NORMAL, true,
+					null);
 		}
-		if (pl.getServer().getWorld(worldName + "_the_end") == null) {
+		if (pl.getServer().getWorld(gameName + "_the_end") == null) {
 			generatedWorld = true;
-			Util.worldManager.addWorld(worldName + "_the_end", World.Environment.THE_END, null, WorldType.NORMAL, true, null);
+			Util.worldManager.addWorld(gameName + "_the_end", World.Environment.THE_END, null, WorldType.NORMAL, true,
+					null);
 		}
 
 		if (generatedWorld) {
 			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 				@Override
 				public void run() {
-					world = pl.getServer().getWorld(worldName);
-					nether = pl.getServer().getWorld(worldName + "_nether");
-					end = pl.getServer().getWorld(worldName + "_the_end");
-					world.getWorldBorder().setSize(4001);
-					nether.getWorldBorder().setSize(1334);
-					end.getWorldBorder().setSize(4001);
-					active = true;
-					startTime = System.currentTimeMillis();
-					objectives = Objective.chooseObjectives(hard);
-					playerScores = new HashMap<Player, Integer>();
-					getPlayerScores().put(p1, 0);
-					getPlayerScores().put(p2, 0);
-					teams = new HashMap<Player, Character>();
-					getTeams().put(p1, 'b');
-					getTeams().put(p2, 'e');
-					scoreboardViewers = new ArrayList<Player>();
-					scoreboardViewers.add(p1);
-					scoreboardViewers.add(p2);
-					scoreboard = scoreboard();
-					p1.setScoreboard(scoreboard);
-					p2.setScoreboard(scoreboard);
-					p1.getInventory().setContents(new ItemStack[] {});
-					p2.getInventory().setContents(new ItemStack[] {});
-					p1.getInventory().addItem(compass(p2));
-					p2.getInventory().addItem(compass(p1));
-					p1.setHealth(20);
-					p1.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
-					p2.setHealth(20);
-					p2.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
-					p1.setExp(0);
-					p2.setExp(0);
-					pl.gameInstances.add(GameInstance.this);
-					RTP.rtp(p1, world, 100);
-					RTP.rtp(p2, world, 100);
+					initialiseGame(players, hard);
 				}
 			}, 100);
 		} else {
-			world = pl.getServer().getWorld(worldName);
-			nether = pl.getServer().getWorld(worldName + "_nether");
-			end = pl.getServer().getWorld(worldName + "_the_end");
-			active = true;
-			startTime = System.currentTimeMillis();
-			objectives = Objective.chooseObjectives(hard);
-			playerScores = new HashMap<Player, Integer>();
-			getPlayerScores().put(p1, 0);
-			getPlayerScores().put(p2, 0);
-			teams = new HashMap<Player, Character>();
-			getTeams().put(p1, 'b');
-			getTeams().put(p2, 'e');
-			scoreboardViewers = new ArrayList<Player>();
-			scoreboardViewers.add(p1);
-			scoreboardViewers.add(p2);
-			scoreboard = scoreboard();
-			p1.setScoreboard(scoreboard);
-			p2.setScoreboard(scoreboard);
-			p1.getInventory().setContents(new ItemStack[] {});
-			p2.getInventory().setContents(new ItemStack[] {});
-			p1.getInventory().addItem(compass(p2));
-			p2.getInventory().addItem(compass(p1));
-			p1.setHealth(20);
-			p1.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
-			p2.setHealth(20);
-			p2.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
-			p1.setExp(0);
-			p2.setExp(0);
-			pl.gameInstances.add(GameInstance.this);
-			RTP.rtp(p1, world, 100);
-			RTP.rtp(p2, world, 100);
+			initialiseGame(players, hard);
 		}
 
 	}
-	
+
+	public void initialiseGame(List<Player> players, boolean hard) {
+		world = pl.getServer().getWorld(gameName);
+		nether = pl.getServer().getWorld(gameName + "_nether");
+		end = pl.getServer().getWorld(gameName + "_the_end");
+		world.getWorldBorder().setSize(4001);
+		nether.getWorldBorder().setSize(1334);
+		end.getWorldBorder().setSize(4001);
+		active = true;
+		startTime = System.currentTimeMillis();
+		objectives = Objective.chooseObjectives(hard);
+		teamScores = new HashMap<List<Player>, Integer>();
+		teamB = new ArrayList<Player>();
+		teamE = new ArrayList<Player>();
+		scoreboardViewers = new ArrayList<Player>();
+		scoreboard = scoreboard();
+		boolean flip = true;
+		for (Player p : players) {
+			if (flip) {
+				teamB.add(p);
+			} else {
+				teamE.add(p);
+			}
+			flip = !flip;
+			scoreboardViewers.add(p);
+			p.setScoreboard(scoreboard);
+			p.getInventory().setContents(new ItemStack[] {});
+			p.setHealth(20);
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
+			p.setExp(0);
+			giveCompasses(p);
+
+			Bukkit.getScheduler().runTaskAsynchronously(pl, new Runnable() {
+				@Override
+				public void run() {
+					RTP.rtp(p, world, 10);
+				}
+			});
+		}
+		getPlayerScores().put(teamB, 0);
+		getPlayerScores().put(teamE, 0);
+		pl.gameInstances.add(GameInstance.this);
+	}
+
 	public void refreshScoreboard() {
 		for (Player p : scoreboardViewers) {
 			if (!p.isOnline()) {
@@ -218,17 +217,25 @@ public class GameInstance {
 			p.setScoreboard(scoreboard);
 		}
 	}
-	
+
 	private Scoreboard scoreboard() {
-			Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-			org.bukkit.scoreboard.Objective obj = board.registerNewObjective("Objectives", "Objectives", "Objectives");
-			obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-			for (Objective o : objectives) {
-				obj.getScore(ChatColor.GRAY + o.getDescription()).setScore(0);
-			}
-			return board;
+		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+		org.bukkit.scoreboard.Objective obj = board.registerNewObjective("Objectives", "Objectives", "Objectives");
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		for (Objective o : objectives) {
+			obj.getScore(ChatColor.GRAY + o.getDescription()).setScore(0);
+		}
+		return board;
 	}
-	
+
+	public void giveCompasses(Player p) {
+		for (Player pp : getPlayers()) {
+			if (!getTeam(p).contains(pp)) {
+				p.getInventory().addItem(compass(pp));
+			}
+		}
+	}
+
 	public String printObjectives() {
 		String listObjectives = "";
 		for (Objective o : this.getObjectives()) {
@@ -237,16 +244,16 @@ public class GameInstance {
 		}
 		return listObjectives.substring(0, listObjectives.length() - 2);
 	}
-	
+
 	public static GameInstance get(Player p) {
 		for (GameInstance gi : pl.gameInstances) {
-			if (gi.getPlayerScores().keySet().contains(p)) {
+			if (gi.getPlayers().contains(p)) {
 				return gi;
 			}
 		}
 		return null;
 	}
-	
+
 	public static GameInstance get(World w) {
 		for (GameInstance gi : pl.gameInstances) {
 			if (gi.getWorld().equals(w)) {
@@ -255,10 +262,17 @@ public class GameInstance {
 		}
 		return null;
 	}
-	
+
+	public List<Player> getPlayers() {
+		List<Player> players = new ArrayList<Player>();
+		players.addAll(teamB);
+		players.addAll(teamE);
+		return players;
+	}
+
 	public void reset() {
 		if (this.isActive()) {
-			for (Player p : playerScores.keySet()) {
+			for (Player p : getPlayers()) {
 				p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 			}
 			Util.worldManager.unloadWorld(world.getName());
@@ -284,25 +298,67 @@ public class GameInstance {
 					Util.l("Deleteing world " + end.getName());
 					Util.mv.deleteWorld(end.getName());
 					Util.l("Finished deleting");
-					for (Player p : playerScores.keySet()) {
+					for (Player p : getPlayers()) {
 						p.getInventory().setContents(new ItemStack[] {});
 						p.setExp(0);
 					}
 					active = false;
 					startTime = 0;
 					objectives = new ArrayList<Objective>();
-					playerScores = new HashMap<Player, Integer>();
+					teamScores = new HashMap<List<Player>, Integer>();
+					teamB = new ArrayList<Player>();
+					teamE = new ArrayList<Player>();
 				}
 			}, 150);
 		}
 	}
-	
+
+	public List<Player> getOpponents(Player p) {
+		if (getPlayers().contains(p)) {
+			if (teamB.contains(p)) {
+				return teamE;
+			} else {
+				return teamB;
+			}
+		}
+		return null;
+	}
+
+	public List<Player> getTeam(Player p) {
+		if (getPlayers().contains(p)) {
+			if (teamB.contains(p)) {
+				return teamB;
+			} else {
+				return teamE;
+			}
+		}
+		return null;
+	}
+
+	public List<List<Player>> getTeams() {
+		List<List<Player>> teams = new ArrayList<List<Player>>();
+		teams.add(teamB);
+		teams.add(teamE);
+		return teams;
+	}
+
+	public char getTeamCharacter(Player p) {
+		if (getPlayers().contains(p)) {
+			if (teamB.contains(p)) {
+				return 'b';
+			} else {
+				return 'e';
+			}
+		}
+		return '4';
+	}
+
 	public void messagePlayers(String message) {
-		for (Player p : playerScores.keySet()) {
+		for (Player p : getPlayers()) {
 			p.sendMessage(Util.format(message));
 		}
 	}
-	
+
 	public ItemStack compass(Player p) {
 		ItemStack compass = new ItemStack(Material.COMPASS);
 		CompassMeta meta = (CompassMeta) compass.getItemMeta();
@@ -312,5 +368,5 @@ public class GameInstance {
 		compass.setItemMeta(meta);
 		return compass;
 	}
-	
+
 }

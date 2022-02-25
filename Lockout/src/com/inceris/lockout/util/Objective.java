@@ -109,7 +109,7 @@ public class Objective {
 	public final static Objective catchFish = new Objective("Catch a fish", false, false);
 	public final static Objective rideMinecart = new Objective("Ride a minecart", false, false);
 	public final static Objective sailBoat = new Objective("Sail a boat", false, false);
-	public final static Objective levelUpVillager = new Objective("Level up a villager", false, false);
+	public final static Objective teachVillagerTrade = new Objective("Teach a villager a new trade", false, false);
 	public final static Objective buildSnowman = new Objective("Build a snowman", false, false);
 	public final static Objective createIronGolem = new Objective("Create an iron golem", false, false);
 	public final static Objective dieToDripstone = new Objective("Die to falling dripstone", false, false);
@@ -194,15 +194,15 @@ public class Objective {
 
 				gi.getScoreboard().resetScores(ChatColor.GRAY + objective.getDescription());
 				gi.getScoreboard().getObjective("Objectives").getScore(ChatColor.translateAlternateColorCodes('&',
-						"&" + gi.getTeams().get(p) + objective.getDescription())).setScore(0);
+						"&" + gi.getTeamCharacter(p) + objective.getDescription())).setScore(0);
 				gi.refreshScoreboard();
 
-				gi.getPlayerScores().put(p, gi.getPlayerScores().get(p) + 1);
-				gi.messagePlayers("&" + gi.getTeams().get(p) + p.getName() + "&7 completed&8: &f" + objective.getDescription());
+				gi.getPlayerScores().put(gi.getTeam(p), gi.getPlayerScores().get(gi.getTeam(p)) + 1);
+				gi.messagePlayers("&" + gi.getTeamCharacter(p) + p.getName() + "&7 completed&8: &f" + objective.getDescription());
 
-				for (Player player : gi.getPlayerScores().keySet()) {
-					if (gi.getPlayerScores().get(player) >= 8) {
-						Util.stopGameWithWinner(player);
+				for (List<Player> team : gi.getTeams()) {
+					if (gi.getPlayerScores().get(team) >= 8) {
+						Util.stopGameWithWinner(gi.getTeam(p));
 					}
 				}
 				
@@ -306,7 +306,7 @@ public class Objective {
 				eatEnchantedGoldenApple, dontDie, dontTakeDamage, dontFall, dontCatchFire, dontPickUpObsidian,
 				dont5Hearts, dontGetSlowed, dontGetPoisoned, dontDieByBed, tradeWithPiglin, reachBedrock,
 				swimWithDolphins, brewPotion, enchantItem, goToSleep, gainAbsorption, catchFish, rideMinecart, sailBoat,
-				levelUpVillager, buildSnowman, createIronGolem, dieToDripstone, dieToAnvil, dieToTNT, suffocate,
+				teachVillagerTrade, buildSnowman, createIronGolem, dieToDripstone, dieToAnvil, dieToTNT, suffocate,
 				goOutWithABang, getMiningFatigue, getResurrected, catchBook, sleepAlone, levitate };
 		return objectives;
 	}

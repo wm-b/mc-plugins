@@ -26,7 +26,7 @@ public class PiglinBarterListener implements Listener {
 				Player p = (Player) ne;
 				
 				for (GameInstance gi : pl.gameInstances) {
-					if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+					if (gi.isActive() && gi.getPlayers().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();
 
 						if (objectives.contains(Objective.tradeWithPiglin)) {

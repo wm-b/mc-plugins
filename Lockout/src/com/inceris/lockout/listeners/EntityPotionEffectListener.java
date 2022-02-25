@@ -22,7 +22,7 @@ public class EntityPotionEffectListener implements Listener {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			for (GameInstance gi : pl.gameInstances) {
-				if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					PotionEffectType pet = e.getModifiedType();
 					
@@ -39,18 +39,10 @@ public class EntityPotionEffectListener implements Listener {
 						Objective.complete(gi, Objective.levitate, p);
 						
 					} else if (pet.equals(PotionEffectType.POISON) && objectives.contains(Objective.dontGetPoisoned)) {
-						for (Player player : gi.getPlayerScores().keySet()) {
-							if (!p.equals(player)) {
-								Objective.complete(gi, Objective.dontGetPoisoned, player);
-							}
-						}
+						Objective.complete(gi, Objective.dontGetPoisoned, gi.getOpponents(p).get(0));
 						
 					} else if (pet.equals(PotionEffectType.SLOW) && objectives.contains(Objective.dontGetSlowed)) {
-						for (Player player : gi.getPlayerScores().keySet()) {
-							if (!p.equals(player)) {
-								Objective.complete(gi, Objective.dontGetSlowed, player);
-							}
-						}
+						Objective.complete(gi, Objective.dontGetSlowed, gi.getOpponents(p).get(0));
 						
 					}
 				}

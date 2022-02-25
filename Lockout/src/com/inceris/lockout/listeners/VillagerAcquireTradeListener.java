@@ -26,11 +26,11 @@ public class VillagerAcquireTradeListener implements Listener {
 				Player p = (Player) ne;
 				
 				for (GameInstance gi : pl.gameInstances) {
-					if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+					if (gi.isActive() && gi.getPlayers().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();
 
-						if (objectives.contains(Objective.levelUpVillager)) {
-							Objective.complete(gi, Objective.levelUpVillager, p);
+						if (objectives.contains(Objective.teachVillagerTrade)) {
+							Objective.complete(gi, Objective.teachVillagerTrade, p);
 
 						}
 					}

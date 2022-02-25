@@ -1,5 +1,7 @@
 package com.inceris.lockout.listeners;
 
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,9 +19,9 @@ public class PlayerQuitListener implements Listener {
 		GameInstance gi = GameInstance.get(quitter);
 		
 		if (gi != null) {
-			for (Player p : gi.getPlayerScores().keySet()) {
-				if (!p.equals(quitter)) {
-					Util.stopGameWithWinner(p);
+			for (List<Player> players : gi.getTeams()) {
+				if (!players.contains(quitter)) {
+					Util.stopGameWithWinner(players);
 					break;
 				}
 			}

@@ -14,12 +14,8 @@ public class PlayerRespawnListener implements Listener {
 		Player p = e.getPlayer();
 		if (GameInstance.get(p) != null) {
 			GameInstance gi = GameInstance.get(p);
-			if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
-				for (Player player : gi.getPlayerScores().keySet()) {
-					if (!player.equals(p)) {
-						p.getInventory().addItem(gi.compass(player));
-					}
-				}
+			if (gi.isActive() && gi.getPlayers().contains(p)) {
+				gi.giveCompasses(p);
 			}
 		}
 	}

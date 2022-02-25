@@ -23,7 +23,7 @@ public class InventoryClickListener implements Listener {
 		if (e.getWhoClicked() instanceof Player) {
 			Player p = (Player) e.getWhoClicked();
 			for (GameInstance gi : pl.gameInstances) {
-				if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					ItemStack[] ac = p.getInventory().getArmorContents();
 

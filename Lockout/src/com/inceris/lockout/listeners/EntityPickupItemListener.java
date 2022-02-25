@@ -21,7 +21,7 @@ public class EntityPickupItemListener implements Listener {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 			for (GameInstance gi : pl.gameInstances) {
-				if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					Material m = e.getItem().getItemStack().getType();
 					
@@ -90,11 +90,7 @@ public class EntityPickupItemListener implements Listener {
 						Objective.complete(gi, Objective.obtainBeacon, p);
 						
 					} else if (objectives.contains(Objective.dontPickUpObsidian) && m.equals(Material.OBSIDIAN)) {
-						for (Player player : gi.getPlayerScores().keySet()) {
-							if (!p.equals(player)) {
-								Objective.complete(gi, Objective.dontPickUpObsidian, player);
-							}
-						}
+						Objective.complete(gi, Objective.dontPickUpObsidian, gi.getOpponents(p).get(0));
 						
 					}
 				}

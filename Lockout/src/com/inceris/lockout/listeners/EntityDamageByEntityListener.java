@@ -43,7 +43,7 @@ public class EntityDamageByEntityListener implements Listener {
 			if (d.getHealth() <= e.getDamage()) {
 				Player p = (Player) damager;
 				for (GameInstance gi : pl.gameInstances) {
-					if (gi.isActive() && gi.getPlayerScores().keySet().contains(p)) {
+					if (gi.isActive() && gi.getPlayers().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();
 
 						if (d instanceof Zombie && objectives.contains(Objective.killZombie)) {
