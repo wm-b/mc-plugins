@@ -34,12 +34,14 @@ public class LockoutCommand {
 					}
 
 					if (GameInstance.get(players[0]) == null && GameInstance.get(players[1]) == null) {
-						if (args[3] != null) {
+						if (args.length >= 4) {
 							if (args[3].equalsIgnoreCase("hard")) {
 								new GameInstance(players[0], players[1], true);
 							} else {
 								new GameInstance(players[0], players[1], false);
 							}
+						} else {
+							new GameInstance(players[0], players[1], false);
 						}
 					} else {
 						sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
