@@ -91,6 +91,9 @@ public class EntityDamageByEntityListener implements Listener {
 						} else if (d instanceof ElderGuardian && objectives.contains(Objective.killElderGuardian)) {
 							Objective.complete(gi, Objective.killElderGuardian, p);
 
+						} else if (d instanceof Player && objectives.contains(Objective.killOpponent)) {
+							Objective.complete(gi, Objective.killOpponent, p);
+
 						}
 					}
 				}
