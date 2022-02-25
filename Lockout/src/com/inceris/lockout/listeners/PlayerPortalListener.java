@@ -23,7 +23,7 @@ public class PlayerPortalListener implements Listener {
 			World world = gi.getWorld();
 			World nether = gi.getNether();
 			World end = gi.getEnd();
-			if (event.getCause() == TeleportCause.NETHER_PORTAL) {
+			if (event.getCause().equals(TeleportCause.NETHER_PORTAL)) {
 				Location location;
 				if (player.getWorld().equals(world)) {
 					location = new Location(nether, event.getFrom().getBlockX() / 3, event.getFrom().getBlockY(),
@@ -35,8 +35,8 @@ public class PlayerPortalListener implements Listener {
 				event.setTo(location);
 			}
 
-			if (event.getCause() == TeleportCause.END_PORTAL) {
-				if (player.getWorld() == world) {
+			if (event.getCause().equals(TeleportCause.END_PORTAL)) {
+				if (player.getWorld().equals(world)) {
 					Location loc = new Location(end, 100, 50, 0); // This is the vanilla location for obsidian
 																		// platform.
 					event.setTo(loc);
@@ -55,7 +55,7 @@ public class PlayerPortalListener implements Listener {
 							}
 						}
 					}
-				} else if (player.getWorld() == end) {
+				} else if (player.getWorld().equals(end)) {
 					event.setTo(world.getSpawnLocation());
 				}
 			}
