@@ -97,6 +97,7 @@ public class Objective {
 	public final static Objective dontTakeDamage = new Objective("Don't take damage", false, false);
 	public final static Objective dontCatchFire = new Objective("Don't catch fire", false, false);
 	public final static Objective dontFall = new Objective("Don't fall", false, false);
+	public final static Objective dontPickUpWood = new Objective("Don't pick up wood", false, false);
 	public final static Objective dontPickUpObsidian = new Objective("Don't pick up obsidian", false, false);
 	public final static Objective dont5Hearts = new Objective("Don't go below 5 hearts", false, false);
 
@@ -196,7 +197,9 @@ public class Objective {
 
 	public static void complete(GameInstance gi, Objective objective, Player p) {
 
-		for (Objective o : gi.getObjectives()) {
+		List<Objective> objectives = gi.getObjectives();
+		for (int i = 0; i < objectives.size(); i++) {
+			Objective o = objectives.get(i);
 			if (o.equals(objective)) {
 				gi.getObjectives().remove(o);
 
@@ -287,9 +290,9 @@ public class Objective {
 			} else if (r1 <= 75) {
 				int r2;
 				if (hard)
-					r2 = Util.randomNumberBetween(95, 103);
+					r2 = Util.randomNumberBetween(95, 104);
 				else
-					r2 = Util.randomNumberBetween(95, 100);
+					r2 = Util.randomNumberBetween(95, 101);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
@@ -297,9 +300,9 @@ public class Objective {
 			} else {
 				int r2;
 				if (hard)
-					r2 = Util.randomNumberBetween(104, 134);
+					r2 = Util.randomNumberBetween(105, 135);
 				else
-					r2 = Util.randomNumberBetween(104, 129);
+					r2 = Util.randomNumberBetween(105, 130);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
@@ -326,12 +329,12 @@ public class Objective {
 				eatChicken, eatBeef, eatMutton, eatRabbit, eatRabbitStew, eatGlowBerries, eatBeetrootSoup,
 				eatSweetBerries, eatCarrot, eatPotato, eatCod, eatSalmon, eatPufferfish, eatSpiderEye, eatMelonSlice,
 				eatDriedKelp, eatCookie, eatRottenFlesh, eatPumpkinPie, eatBeetroot, eatPoisonousPotato,
-				eatTropicalFish, eatEnchantedGoldenApple, dontDie, dontTakeDamage, dontFall, dontCatchFire,
-				dontPickUpObsidian, dont5Hearts, dontGetSlowed, dontGetPoisoned, dontDieByBed, tradeWithPiglin,
-				reachBedrock, swimWithDolphins, brewPotion, enchantItem, goToSleep, gainAbsorption, catchFish,
-				rideMinecart, sailBoat, teachVillagerTrade, buildSnowman, createIronGolem, dieToDripstone, dieToAnvil,
-				dieToTNT, suffocate, goOutWithABang, returnToSender, reachHeightLimit, tameHorse, tameCat, tameWolf,
-				bucketAxolotl, blockArrowWithShield, freeze, getMiningFatigue, getResurrected, catchBook,
+				eatTropicalFish, eatEnchantedGoldenApple, dontDie, dontPickUpWood, dontTakeDamage, dontFall,
+				dontCatchFire, dontPickUpObsidian, dont5Hearts, dontGetSlowed, dontGetPoisoned, dontDieByBed,
+				tradeWithPiglin, reachBedrock, swimWithDolphins, brewPotion, enchantItem, goToSleep, gainAbsorption,
+				catchFish, rideMinecart, sailBoat, teachVillagerTrade, buildSnowman, createIronGolem, dieToDripstone,
+				dieToAnvil, dieToTNT, suffocate, goOutWithABang, returnToSender, reachHeightLimit, tameHorse, tameCat,
+				tameWolf, bucketAxolotl, blockArrowWithShield, freeze, getMiningFatigue, getResurrected, catchBook,
 				sleepAlone, levitate };
 		return objectives;
 	}
