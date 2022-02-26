@@ -37,6 +37,9 @@ public class EntityDamageListener implements Listener {
 					if (objectives.contains(Objective.suffocate) && cause.equals(DamageCause.SUFFOCATION)) {
 						Objective.complete(gi, Objective.suffocate, p);
 
+					} else if (objectives.contains(Objective.freeze) && cause.equals(DamageCause.FREEZE)) {
+						Objective.complete(gi, Objective.freeze, p);
+
 					} else if (objectives.contains(Objective.dontFall) && cause.equals(DamageCause.FALL)) {
 						Objective.complete(gi, Objective.dontFall, gi.getOpponents(p).get(0));
 

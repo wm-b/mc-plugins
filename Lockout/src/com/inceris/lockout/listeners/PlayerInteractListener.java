@@ -99,6 +99,9 @@ public class PlayerInteractListener implements Listener {
 					} else if (objectives.contains(Objective.useCampfire) && b.equals(Material.CAMPFIRE)) {
 						Objective.complete(gi, Objective.useCampfire, p);
 						
+					} else if (objectives.contains(Objective.useJukebox) && b.equals(Material.JUKEBOX)) {
+						Objective.complete(gi, Objective.useJukebox, p);
+						
 					}
 				}
 			}

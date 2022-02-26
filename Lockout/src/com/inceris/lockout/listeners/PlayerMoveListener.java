@@ -29,6 +29,9 @@ public class PlayerMoveListener implements Listener {
 				if (objectives.contains(Objective.reachBedrock) && p.getLocation().getY() <= -60) {
 					Objective.complete(gi, Objective.reachBedrock, p);
 
+				} else if (objectives.contains(Objective.reachHeightLimit) && p.getLocation().getY() >= 320) {
+					Objective.complete(gi, Objective.reachHeightLimit, p);
+
 				}
 			}
 

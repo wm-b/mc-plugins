@@ -7,7 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Objective {
-	
+
 	// Normal Objectives
 	public final static Objective wearLeatherPiece = new Objective("Wear a piece of leather armor", false, false);
 	public final static Objective wearLeatherSet = new Objective("Wear a set of leather armor", false, false);
@@ -18,7 +18,7 @@ public class Objective {
 	public final static Objective wearGoldPiece = new Objective("Wear a piece of gold armor", false, false);
 	public final static Objective wearGoldSet = new Objective("Wear a set of gold armor", false, false);
 	public final static Objective wearDiamondPiece = new Objective("Wear a piece of diamond armor", false, false);
-	
+
 	public final static Objective useAnvil = new Objective("Use an anvil", false, false);
 	public final static Objective useComposter = new Objective("Use a composter", false, false);
 	public final static Objective useFurnace = new Objective("Use a furnace", false, false);
@@ -29,6 +29,7 @@ public class Objective {
 	public final static Objective useBlastFurnace = new Objective("Use a blast furnace", false, false);
 	public final static Objective useSmoker = new Objective("Use a smoker", false, false);
 	public final static Objective useCampfire = new Objective("Use a campfire", false, false);
+	public final static Objective useJukebox = new Objective("Use a jukebox", false, false);
 
 	public final static Objective breedSheep = new Objective("Breed a sheep", false, false);
 	public final static Objective breedCow = new Objective("Breed a cow", false, false);
@@ -38,7 +39,7 @@ public class Objective {
 	public final static Objective breedChicken = new Objective("Breed a chicken", false, false);
 	public final static Objective breedBee = new Objective("Breed a bee", false, false);
 	public final static Objective breedCat = new Objective("Breed a cat", false, false);
-	
+
 	public final static Objective killOpponent = new Objective("Kill your opponent", false, false);
 	public final static Objective killZombie = new Objective("Kill a zombie", false, false);
 	public final static Objective killSpider = new Objective("Kill a spider", false, false);
@@ -66,7 +67,7 @@ public class Objective {
 	public final static Objective obtainAndesite = new Objective("Obtain andesite", false, false);
 	public final static Objective obtainDiorite = new Objective("Obtain diorite", false, false);
 	public final static Objective obtainDeepslate = new Objective("Obtain deepslate", false, false);
-	
+
 	public final static Objective eatApple = new Objective("Eat an apple", false, false);
 	public final static Objective eatMushroomSoup = new Objective("Eat mushroom soup", false, false);
 	public final static Objective eatBread = new Objective("Eat bread", false, false);
@@ -91,14 +92,14 @@ public class Objective {
 	public final static Objective eatRottenFlesh = new Objective("Eat rotten flesh", false, false);
 	public final static Objective eatPumpkinPie = new Objective("Eat pumpkin pie", false, false);
 	public final static Objective eatBeetroot = new Objective("Eat beetroot", false, false);
-	
+
 	public final static Objective dontDie = new Objective("Don't die", false, false);
 	public final static Objective dontTakeDamage = new Objective("Don't take damage", false, false);
 	public final static Objective dontCatchFire = new Objective("Don't catch fire", false, false);
 	public final static Objective dontFall = new Objective("Don't fall", false, false);
 	public final static Objective dontPickUpObsidian = new Objective("Don't pick up obsidian", false, false);
 	public final static Objective dont5Hearts = new Objective("Don't go below 5 hearts", false, false);
-	
+
 	public final static Objective tradeWithPiglin = new Objective("Trade with a piglin", false, false);
 	public final static Objective reachBedrock = new Objective("Reach bedrock", false, false);
 	public final static Objective swimWithDolphins = new Objective("Swim with dolphins", false, false);
@@ -117,12 +118,19 @@ public class Objective {
 	public final static Objective dieToTNT = new Objective("Die to TNT", false, false);
 	public final static Objective suffocate = new Objective("Suffocate", false, false);
 	public final static Objective goOutWithABang = new Objective("Go out with a bang", false, false);
-	public final static Objective getMiningFatigue = new Objective("Get mining fatigue", false, false);
-	
+	public final static Objective returnToSender = new Objective("Hit a ghast with a fireball", false, false);
+	public final static Objective reachHeightLimit = new Objective("Reach the height limit", false, false);
+	public final static Objective tameHorse = new Objective("Tame a horse", false, false);
+	public final static Objective tameWolf = new Objective("Tame a wolf", false, false);
+	public final static Objective tameCat = new Objective("Tame a cat", false, false);
+	public final static Objective bucketAxolotl = new Objective("Bucket an axolotl", false, false);
+	public final static Objective blockArrowWithShield = new Objective("Block an arrow with a shield", false, false);
+	public final static Objective freeze = new Objective("Freeze in powdered snow", false, false);
+
 	// Hard Objectives
 	public final static Objective wearDiamondSet = new Objective("Wear a set of diamond armor", false, true);
 	public final static Objective wearTurtleHelmet = new Objective("Wear a turtle helmet", false, true);
-	
+
 	public final static Objective breedAxolotl = new Objective("Breed an axolotl", false, true);
 	public final static Objective breedFox = new Objective("Breed a fox", false, true);
 	public final static Objective breedHorse = new Objective("Breed a horse", false, true);
@@ -137,20 +145,21 @@ public class Objective {
 	public final static Objective obtainAncientDebris = new Objective("Obtain ancient debris", false, true);
 	public final static Objective obtainNetheriteIngot = new Objective("Obtain a netherite ingot", false, true);
 	public final static Objective obtainBeacon = new Objective("Obtain a beacon", false, true);
-	
+
 	public final static Objective eatPoisonousPotato = new Objective("Eat a poisonous potato", false, true);
 	public final static Objective eatTropicalFish = new Objective("Eat a tropical fish", false, true);
 	public final static Objective eatEnchantedGoldenApple = new Objective("Eat an enchanted golden apple", false, true);
-	
+
 	public final static Objective dontGetSlowed = new Objective("Don't get slowed", false, true);
 	public final static Objective dontGetPoisoned = new Objective("Don't get poisoned", false, true);
 	public final static Objective dontDieByBed = new Objective("Don't die to intentional game design", false, true);
-	
+
+	public final static Objective getMiningFatigue = new Objective("Get mining fatigue", false, true);
 	public final static Objective getResurrected = new Objective("Get resurrected", false, true);
 	public final static Objective catchBook = new Objective("Fish up an enchanted book", false, true);
 	public final static Objective sleepAlone = new Objective("Sleep alone in the overworld", false, true);
 	public final static Objective levitate = new Objective("Get the levitation effect", false, true);
-	
+
 	private String description;
 	private boolean complete;
 	private boolean hard;
@@ -170,7 +179,7 @@ public class Objective {
 	public void setComplete(boolean complete) {
 		this.complete = complete;
 	}
-	
+
 	public boolean isHard() {
 		return hard;
 	}
@@ -179,15 +188,14 @@ public class Objective {
 		this.hard = hard;
 	}
 
-	
 	public Objective(String inDescription, boolean inComplete, boolean inHard) {
 		description = inDescription;
 		complete = inComplete;
 		hard = inHard;
 	}
-	
+
 	public static void complete(GameInstance gi, Objective objective, Player p) {
-		
+
 		for (Objective o : gi.getObjectives()) {
 			if (o.equals(objective)) {
 				gi.getObjectives().remove(o);
@@ -198,117 +206,134 @@ public class Objective {
 				gi.refreshScoreboard();
 
 				gi.getPlayerScores().put(gi.getTeam(p), gi.getPlayerScores().get(gi.getTeam(p)) + 1);
-				gi.messagePlayers("&" + gi.getTeamCharacter(p) + p.getName() + "&7 completed&8: &f" + objective.getDescription());
+				gi.messagePlayers(
+						"&" + gi.getTeamCharacter(p) + p.getName() + "&7 completed&8: &f" + objective.getDescription());
 
 				for (List<Player> team : gi.getTeams()) {
 					if (gi.getPlayerScores().get(team) >= 8) {
 						Util.stopGameWithWinner(gi.getTeam(p));
 					}
 				}
-				
+
 				o.setComplete(true);
 			}
 		}
 	}
-	
+
 	public static List<Objective> chooseObjectives(boolean hard) {
 		List<Objective> objectives = new ArrayList<Objective>();
 		Objective[] fullList = buildObjectiveArray();
-		
+
 		while (objectives.size() < 15) {
-			
+
 			int r1 = Util.randomNumberBetween(1, 100);
-			
+			// wear
 			if (r1 <= 10) {
 				int r2;
-				if (hard) r2 = Util.randomNumberBetween(0, 10);
-				else r2 = Util.randomNumberBetween(0, 8);
+				if (hard)
+					r2 = Util.randomNumberBetween(0, 10);
+				else
+					r2 = Util.randomNumberBetween(0, 8);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+				// use
 			} else if (r1 <= 30) {
-				int r2 = Util.randomNumberBetween(11, 20);
+				int r2 = Util.randomNumberBetween(11, 21);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+				// breed
 			} else if (r1 <= 35) {
 				int r2;
-				if (hard) r2 = Util.randomNumberBetween(21, 33);
-				else r2 = Util.randomNumberBetween(21, 28);
+				if (hard)
+					r2 = Util.randomNumberBetween(22, 34);
+				else
+					r2 = Util.randomNumberBetween(22, 29);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+				// kill
 			} else if (r1 <= 45) {
 				int r2;
-				if (hard) r2 = Util.randomNumberBetween(34, 49);
-				else r2 = Util.randomNumberBetween(34, 45);
+				if (hard)
+					r2 = Util.randomNumberBetween(35, 50);
+				else
+					r2 = Util.randomNumberBetween(35, 46);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+				// obtain
 			} else if (r1 <= 55) {
 				int r2;
-				if (hard) r2 = Util.randomNumberBetween(50, 66);
-				else r2 = Util.randomNumberBetween(50, 63);
+				if (hard)
+					r2 = Util.randomNumberBetween(51, 67);
+				else
+					r2 = Util.randomNumberBetween(51, 64);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+				// eat
 			} else if (r1 <= 65) {
 				int r2;
-				if (hard) r2 = Util.randomNumberBetween(67, 96);
-				else r2 = Util.randomNumberBetween(67, 90);
+				if (hard)
+					r2 = Util.randomNumberBetween(68, 94);
+				else
+					r2 = Util.randomNumberBetween(68, 91);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+				// dont
 			} else if (r1 <= 75) {
 				int r2;
-				if (hard) r2 = Util.randomNumberBetween(94, 102);
-				else r2 = Util.randomNumberBetween(94, 99);
+				if (hard)
+					r2 = Util.randomNumberBetween(95, 103);
+				else
+					r2 = Util.randomNumberBetween(95, 100);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+				// other
 			} else {
 				int r2;
-				if (hard) r2 = Util.randomNumberBetween(103, 125);
-				else r2 = Util.randomNumberBetween(103, 121);
+				if (hard)
+					r2 = Util.randomNumberBetween(104, 134);
+				else
+					r2 = Util.randomNumberBetween(104, 129);
 				if (!objectives.contains(fullList[r2])) {
 					objectives.add(fullList[r2]);
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		return objectives;
 	}
-	
+
 	public static Objective[] buildObjectiveArray() {
 		Objective[] objectives = new Objective[] { wearLeatherPiece, wearLeatherSet, wearChainmailPiece,
 				wearChainmailSet, wearIronPiece, wearIronSet, wearGoldPiece, wearGoldSet, wearDiamondPiece,
 				wearDiamondSet, wearTurtleHelmet, useAnvil, useComposter, useFurnace, useLoom, useGrindstone,
-				useFletchingTable, useCartographyTable, useBlastFurnace, useSmoker, useCampfire, breedSheep, breedCow,
-				breedPig, breedRabbit, breedWolf, breedChicken, breedBee, breedCat, breedAxolotl, breedFox, breedHorse,
-				breedPolarBear, breedPanda, killOpponent, killZombie, killSpider, killCreeper, killZombieVillager,
-				killSkeleton, killSilverfish, killIronGolem, killWitch, killWitherSkeleton, killBlaze, killPhantom,
-				killIllager, killEnderDragon, killWither, killElderGuardian, obtainDiamond, obtainRedstone,
-				obtainLapis, obtainCoal, obtainRawIron, obtainRawGold, obtainIronIngot, obtainGoldIngot, obtainStone,
-				obtainTuff, obtainGranite, obtainAndesite, obtainDiorite, obtainDeepslate, obtainAncientDebris,
-				obtainNetheriteIngot, obtainBeacon, eatApple, eatMushroomSoup, eatBread, eatPork, eatChicken, eatBeef,
-				eatMutton, eatRabbit, eatRabbitStew, eatGlowBerries, eatBeetrootSoup, eatSweetBerries, eatCarrot,
-				eatPotato, eatCod, eatSalmon, eatPufferfish, eatSpiderEye, eatMelonSlice, eatDriedKelp, eatCookie,
-				eatRottenFlesh, eatPumpkinPie, eatBeetroot, eatPoisonousPotato, eatTropicalFish,
-				eatEnchantedGoldenApple, dontDie, dontTakeDamage, dontFall, dontCatchFire, dontPickUpObsidian,
-				dont5Hearts, dontGetSlowed, dontGetPoisoned, dontDieByBed, tradeWithPiglin, reachBedrock,
-				swimWithDolphins, brewPotion, enchantItem, goToSleep, gainAbsorption, catchFish, rideMinecart, sailBoat,
-				teachVillagerTrade, buildSnowman, createIronGolem, dieToDripstone, dieToAnvil, dieToTNT, suffocate,
-				goOutWithABang, getMiningFatigue, getResurrected, catchBook, sleepAlone, levitate };
+				useFletchingTable, useCartographyTable, useBlastFurnace, useSmoker, useCampfire, useJukebox, breedSheep,
+				breedCow, breedPig, breedRabbit, breedWolf, breedChicken, breedBee, breedCat, breedAxolotl, breedFox,
+				breedHorse, breedPolarBear, breedPanda, killOpponent, killZombie, killSpider, killCreeper,
+				killZombieVillager, killSkeleton, killSilverfish, killIronGolem, killWitch, killWitherSkeleton,
+				killBlaze, killPhantom, killIllager, killEnderDragon, killWither, killElderGuardian, obtainDiamond,
+				obtainRedstone, obtainLapis, obtainCoal, obtainRawIron, obtainRawGold, obtainIronIngot, obtainGoldIngot,
+				obtainStone, obtainTuff, obtainGranite, obtainAndesite, obtainDiorite, obtainDeepslate,
+				obtainAncientDebris, obtainNetheriteIngot, obtainBeacon, eatApple, eatMushroomSoup, eatBread, eatPork,
+				eatChicken, eatBeef, eatMutton, eatRabbit, eatRabbitStew, eatGlowBerries, eatBeetrootSoup,
+				eatSweetBerries, eatCarrot, eatPotato, eatCod, eatSalmon, eatPufferfish, eatSpiderEye, eatMelonSlice,
+				eatDriedKelp, eatCookie, eatRottenFlesh, eatPumpkinPie, eatBeetroot, eatPoisonousPotato,
+				eatTropicalFish, eatEnchantedGoldenApple, dontDie, dontTakeDamage, dontFall, dontCatchFire,
+				dontPickUpObsidian, dont5Hearts, dontGetSlowed, dontGetPoisoned, dontDieByBed, tradeWithPiglin,
+				reachBedrock, swimWithDolphins, brewPotion, enchantItem, goToSleep, gainAbsorption, catchFish,
+				rideMinecart, sailBoat, teachVillagerTrade, buildSnowman, createIronGolem, dieToDripstone, dieToAnvil,
+				dieToTNT, suffocate, goOutWithABang, returnToSender, reachHeightLimit, tameHorse, tameCat, tameWolf,
+				bucketAxolotl, blockArrowWithShield, freeze, getMiningFatigue, getResurrected, catchBook,
+				sleepAlone, levitate };
 		return objectives;
 	}
-	
+
 }
