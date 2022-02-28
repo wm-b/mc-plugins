@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Axolotl;
 import org.bukkit.entity.Boat;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Minecart;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,7 +36,7 @@ public class PlayerInteractEntityListener implements Listener {
 					if (objectives.contains(Objective.sailBoat) && entity instanceof Boat) {
 						Objective.complete(gi, Objective.sailBoat, p);
 
-					} else if (objectives.contains(Objective.rideMinecart) && entity instanceof Minecart) {
+					} else if (objectives.contains(Objective.rideMinecart) && entity.getType().equals(EntityType.MINECART)) {
 						Objective.complete(gi, Objective.rideMinecart, p);
 
 					} else if (item != null && item.getType().equals(Material.WATER_BUCKET)
