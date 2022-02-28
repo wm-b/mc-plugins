@@ -1,5 +1,6 @@
 package com.inceris.lockout.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -9,6 +10,7 @@ import org.bukkit.PortalType;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.inceris.lockout.Lockout;
 import com.onarandombox.MultiverseCore.MultiverseCore;
@@ -22,6 +24,26 @@ public class Util {
 	public static MVWorldManager worldManager = mv.getMVWorldManager();
 	public static MultiverseNetherPortals np = (MultiverseNetherPortals) Bukkit.getServer().getPluginManager()
 			.getPlugin("Multiverse-NetherPortals");
+	public static ItemStack compass = compass();
+	
+	public static ItemStack compass() {
+		ItemStack compass = new ItemStack(Material.COMPASS);
+		ItemMeta meta = compass.getItemMeta();
+		meta.setDisplayName(Util.colours("&fPlayer Tracker"));
+		List<String> lore = new ArrayList<String>();
+		lore.add(Util.colours("&7Right-click to change targets"));
+		meta.setLore(lore);
+		compass.setItemMeta(meta);
+		return compass;
+	}
+	
+	public static void refreshCompass(GameInstance gi, Player p) {
+		for (Player pp : gi.getOpponents(p)) {
+			if (gi.getCompassTracking().get(pp).equals(p)) {
+				pp.setCompassTarget(p.getLocation());
+			}
+		}
+	}
 
 	public static void l(String s) {
 		pl.getLogger().info(Util.format(s));
@@ -91,7 +113,11 @@ public class Util {
 	}
 
 	public static String format(String message) {
-		return ChatColor.translateAlternateColorCodes('&', "&8[&9&lLockout&8] &f" + message);
+		return colours("&8[&9&lLockout&8] &f" + message);
+	}
+
+	public static String colours(String message) {
+		return ChatColor.translateAlternateColorCodes('&', message);
 	}
 
 	public static void checkWearingArmorPiece(GameInstance gi, Player p, List<Objective> objectives,

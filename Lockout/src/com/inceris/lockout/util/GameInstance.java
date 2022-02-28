@@ -7,12 +7,10 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -35,6 +33,8 @@ public class GameInstance {
 	private List<Player> teamB;
 	private List<Player> teamE;
 	private List<Player> scoreboardViewers;
+	private Map<Player, Player> compassTracking;
+
 	private Scoreboard scoreboard;
 
 	public String getGameName() {
@@ -132,6 +132,14 @@ public class GameInstance {
 	public void setScoreboardViewers(List<Player> scoreboardViewers) {
 		this.scoreboardViewers = scoreboardViewers;
 	}
+	
+	public Map<Player, Player> getCompassTracking() {
+		return compassTracking;
+	}
+
+	public void setCompassTracking(Map<Player, Player> compassTracking) {
+		this.compassTracking = compassTracking;
+	}
 
 	public GameInstance(List<Player> players, boolean hard) {
 
@@ -177,6 +185,7 @@ public class GameInstance {
 		startTime = System.currentTimeMillis();
 		objectives = Objective.chooseObjectives(hard);
 		teamScores = new HashMap<List<Player>, Integer>();
+		compassTracking = new HashMap<Player, Player>();
 		teamB = new ArrayList<Player>();
 		teamE = new ArrayList<Player>();
 		scoreboardViewers = new ArrayList<Player>();
@@ -195,7 +204,7 @@ public class GameInstance {
 			p.setHealth(20);
 			p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
 			p.setExp(0);
-			giveCompasses(p);
+			p.getInventory().addItem(Util.compass);
 
 			Bukkit.getScheduler().runTaskAsynchronously(pl, new Runnable() {
 				@Override
@@ -203,6 +212,9 @@ public class GameInstance {
 					RTP.rtp(p, world, 10);
 				}
 			});
+		}
+		for (Player p : players) {
+			compassTracking.put(p, getOpponents(p).get(0));
 		}
 		getPlayerScores().put(teamB, 0);
 		getPlayerScores().put(teamE, 0);
@@ -226,14 +238,6 @@ public class GameInstance {
 			obj.getScore(ChatColor.GRAY + o.getDescription()).setScore(0);
 		}
 		return board;
-	}
-
-	public void giveCompasses(Player p) {
-		for (Player pp : getPlayers()) {
-			if (!getTeam(p).contains(pp)) {
-				p.getInventory().addItem(compass(pp));
-			}
-		}
 	}
 
 	public String printObjectives() {
@@ -357,16 +361,6 @@ public class GameInstance {
 		for (Player p : getPlayers()) {
 			p.sendMessage(Util.format(message));
 		}
-	}
-
-	public ItemStack compass(Player p) {
-		ItemStack compass = new ItemStack(Material.COMPASS);
-		CompassMeta meta = (CompassMeta) compass.getItemMeta();
-		meta.setDisplayName(p.getName() + " Tracker");
-		meta.setLodestoneTracked(true);
-		meta.setLodestone(p.getLocation());
-		compass.setItemMeta(meta);
-		return compass;
 	}
 
 }

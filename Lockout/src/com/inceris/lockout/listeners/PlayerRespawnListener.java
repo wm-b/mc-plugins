@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import com.inceris.lockout.util.GameInstance;
+import com.inceris.lockout.util.Util;
 
 public class PlayerRespawnListener implements Listener {
 
@@ -15,7 +16,7 @@ public class PlayerRespawnListener implements Listener {
 		if (GameInstance.get(p) != null) {
 			GameInstance gi = GameInstance.get(p);
 			if (gi.isActive() && gi.getPlayers().contains(p)) {
-				gi.giveCompasses(p);
+				p.getInventory().addItem(Util.compass);
 			}
 		}
 	}
