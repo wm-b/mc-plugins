@@ -37,6 +37,30 @@ public class Util {
 		return compass;
 	}
 	
+	public static List<Player> teamB(List<Player> players) {
+		boolean flip = true;
+		List<Player> teamB = new ArrayList<Player>();
+		for (Player p : players) {
+			if (flip) {
+				teamB.add(p);
+			}
+			flip = !flip;
+		}
+		return teamB;
+	}
+	
+	public static List<Player> teamE(List<Player> players) {
+		boolean flip = false;
+		List<Player> teamE = new ArrayList<Player>();
+		for (Player p : players) {
+			if (flip) {
+				teamE.add(p);
+			}
+			flip = !flip;
+		}
+		return teamE;
+	}
+	
 	public static void refreshCompass(GameInstance gi, Player p) {
 		for (Player pp : gi.getOpponents(p)) {
 			if (gi.getCompassTracking().get(pp).equals(p)) {
@@ -79,7 +103,7 @@ public class Util {
 	public static String generateGameName() {
 		for (int i = 1; i < 99; i++) {
 			boolean nameAvailable = true;
-			for (GameInstance gi : pl.gameInstances) {
+			for (GameInstance gi : pl.getGameInstances()) {
 				if (!gi.getGameName().equals("LockoutGameWorld" + i)) {
 					nameAvailable = false;
 				}

@@ -221,17 +221,29 @@ public class Objective {
 		}
 	}
 
-	public static Objective chooseRandomObjective(Objective[] choices, boolean hard) {
-		int count = 0;
+	public static Objective chooseRandomObjective(List<Objective> objectives, Objective[] choices, boolean hard) {
 		if (!hard) {
+			int count = 0;
 			for (Objective o : choices) {
 				if (o.isHard() == false) {
 					count++;
 				}
 			}
-			return choices[Util.randomNumberBetween(0, count - 1)];
+			for (int i = 0; i < 100; i++) {
+				Objective choice = choices[Util.randomNumberBetween(0, count - 1)];
+				if (!objectives.contains(choice)) {
+					return choice;
+				}
+			}
+			return null;
 		} else {
-			return choices[Util.randomNumberBetween(0, choices.length - 1)];
+			for (int i = 0; i < 100; i++) {
+				Objective choice = choices[Util.randomNumberBetween(0, choices.length - 1)];;
+				if (!objectives.contains(choice)) {
+					return choice;
+				}
+			}
+			return null;
 		}
 	}
 
@@ -242,31 +254,31 @@ public class Objective {
 			int r1 = Util.randomNumberBetween(1, 100);
 
 			if (r1 <= 10) {
-				objectives.add(chooseRandomObjective(wearObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, wearObjectives, hard));
 				// use
 			} else if (r1 <= 20) {
-				objectives.add(chooseRandomObjective(useObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, useObjectives, hard));
 				// breed
 			} else if (r1 <= 25) {
-				objectives.add(chooseRandomObjective(breedObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, breedObjectives, hard));
 				// kill
 			} else if (r1 <= 35) {
-				objectives.add(chooseRandomObjective(killObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, killObjectives, hard));
 				// obtain
 			} else if (r1 <= 47) {
-				objectives.add(chooseRandomObjective(obtainObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, obtainObjectives, hard));
 				// eat
 			} else if (r1 <= 57) {
-				objectives.add(chooseRandomObjective(eatObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, eatObjectives, hard));
 				// find
 			} else if (r1 <= 63) {
-				objectives.add(chooseRandomObjective(findObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, findObjectives, hard));
 				// dont
 			} else if (r1 <= 75) {
-				objectives.add(chooseRandomObjective(dontObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, dontObjectives, hard));
 				// other
 			} else {
-				objectives.add(chooseRandomObjective(otherObjectives, hard));
+				objectives.add(chooseRandomObjective(objectives, otherObjectives, hard));
 			}
 			count++;
 		}

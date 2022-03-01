@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -22,7 +23,22 @@ public class LockoutCommand {
 
 		} else if (args[0].equalsIgnoreCase("start") && sender.hasPermission("lockout.admin")) {
 
-			if (args[1].equalsIgnoreCase(args[2])) {
+			if (args.length == 1) {
+				if (pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0) {
+					if (Arrays.asList(args).contains("-h")) {
+						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(), true);
+					} else {
+						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(), false);
+					}
+					pl.setPreventJoiningTeams(true);
+					pl.setPrepTeamB(new ArrayList<Player>());
+					pl.setPrepTeamE(new ArrayList<Player>());
+				} else {
+					sender.sendMessage(Util
+							.format("One or both of the team prep lists are empty! Specify players to start a game."));
+				}
+
+			} else if (args[1].equalsIgnoreCase(args[2])) {
 
 				sender.sendMessage(Util.format("You can't start a game with yourself!"));
 				return true;
@@ -40,15 +56,11 @@ public class LockoutCommand {
 					}
 				}
 
-				for (Player p : players) {
-					p.sendMessage(Util.format("Your game is starting! Please wait..."));
-				}
-
 				if (GameInstance.get(players.get(0)) == null && GameInstance.get(players.get(1)) == null) {
 					if (Arrays.asList(args).contains("-h")) {
-						new GameInstance(players, true);
+						new GameInstance(Util.teamB(players), Util.teamE(players), true);
 					} else {
-						new GameInstance(players, false);
+						new GameInstance(Util.teamB(players), Util.teamE(players), false);
 					}
 				} else {
 					sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
@@ -121,6 +133,140 @@ public class LockoutCommand {
 				sender.sendMessage(Util.format("World: " + gi.getWorld().getName()));
 				sender.sendMessage(Util.format("Active: " + gi.isActive()));
 				sender.sendMessage(Util.format("Start Time: " + gi.getStartTime()));
+			}
+
+		} else if (args[0].equalsIgnoreCase("prep")) {
+			if (args[1] != null) {
+				if (args[1].equalsIgnoreCase("add") && !pl.isPreventJoiningTeams()) {
+					if (args[2] != null) {
+						if (args[2].equalsIgnoreCase("b")) {
+							if (args[3] != null && pl.getServer().getPlayer(args[3]) != null
+									&& !pl.getPrepTeamE().contains(pl.getServer().getPlayer(args[3]))) {
+								Player p = pl.getServer().getPlayer(args[3]);
+								pl.getPrepTeamB().add(p);
+								p.sendMessage(Util.format("You have been added to the &b&lBlue &fteam!"));
+							}
+						} else if (args[2].equalsIgnoreCase("e")) {
+							if (args[3] != null && pl.getServer().getPlayer(args[3]) != null
+									&& !pl.getPrepTeamB().contains(pl.getServer().getPlayer(args[3]))) {
+								Player p = pl.getServer().getPlayer(args[3]);
+								p.sendMessage(Util.format("You have been added to the &e&lYellow &fteam!"));
+								pl.getPrepTeamE().add(p);
+							}
+						}
+						if (pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0 && pl.isGameStarting() == false) {
+							pl.setGameStarting(true);
+							for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
+									.getPlayers()) {
+								p.sendMessage(Util
+										.format("Both teams have players! A new game will start in &c30 seconds&f."));
+							}
+
+							// If both teams have players, do a 30 second countdown and then start a game
+							Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+								@Override
+								public void run() {
+									if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
+										pl.setGameStarting(false);
+										for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
+												.getPlayers()) {
+											p.sendMessage(Util.format("Too many players have left their teams!"));
+										}
+										pl.setPrepTeamB(new ArrayList<Player>());
+										pl.setPrepTeamE(new ArrayList<Player>());
+									}
+									if (pl.isGameStarting()) {
+										for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
+												.getPlayers()) {
+											p.sendMessage(Util.format("A new game will start in &c20 seconds&f."));
+										}
+										Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+											@Override
+											public void run() {
+												if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
+													pl.setGameStarting(false);
+													for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
+															.getPlayers()) {
+														p.sendMessage(Util.format("Too many players have left their teams!"));
+													}
+													pl.setPrepTeamB(new ArrayList<Player>());
+													pl.setPrepTeamE(new ArrayList<Player>());
+												}
+												if (pl.isGameStarting()) {
+													for (Player p : pl.getServer()
+															.getWorld(pl.getConfig().getString("LobbyWorld"))
+															.getPlayers()) {
+														p.sendMessage(Util
+																.format("A new game will start in &c10 seconds&f."));
+													}
+													Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+														@Override
+														public void run() {
+															if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
+																pl.setGameStarting(false);
+																for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
+																		.getPlayers()) {
+																	p.sendMessage(Util.format("Too many players have left their teams!"));
+																}
+																pl.setPrepTeamB(new ArrayList<Player>());
+																pl.setPrepTeamE(new ArrayList<Player>());
+															}
+															if (pl.isGameStarting()) {
+																pl.setGameStarting(false);
+																new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(),
+																		false);
+															}
+														}
+													}, 200);
+												}
+											}
+										}, 200);
+									}
+								}
+							}, 200);
+						}
+					}
+					return true;
+				} else if (args[1].equalsIgnoreCase("remove")) {
+					if (args[2] != null) {
+						if (args[2].equalsIgnoreCase("b")) {
+							if (args[3] != null && pl.getServer().getPlayer(args[3]) != null
+									&& pl.getPrepTeamB().contains(pl.getServer().getPlayer(args[3]))) {
+								Player p = pl.getServer().getPlayer(args[3]);
+								pl.getPrepTeamB().remove(p);
+								p.sendMessage(Util.format("You have been removed from the &b&lBlue &fteam!"));
+								return true;
+							}
+						} else if (args[2].equalsIgnoreCase("e")) {
+							if (args[3] != null && pl.getServer().getPlayer(args[3]) != null
+									&& pl.getPrepTeamE().contains(pl.getServer().getPlayer(args[3]))) {
+								Player p = pl.getServer().getPlayer(args[3]);
+								pl.getPrepTeamE().remove(p);
+								p.sendMessage(Util.format("You have been removed from the &e&lYellow &fteam!"));
+								return true;
+							}
+						}
+					}
+
+				} else if (args[1].equalsIgnoreCase("clear")) {
+					pl.setPrepTeamB(new ArrayList<Player>());
+					pl.setPrepTeamE(new ArrayList<Player>());
+					return true;
+
+				} else if (args[1].equalsIgnoreCase("stop")) {
+					if (pl.isGameStarting()) {
+						pl.setGameStarting(false);
+						pl.setPrepTeamB(new ArrayList<Player>());
+						pl.setPrepTeamE(new ArrayList<Player>());
+						for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld")).getPlayers()) {
+							p.sendMessage(Util.format("An admin stopped the game that was starting!"));
+							p.sendMessage(Util.format("Everyone has been removed from their teams."));
+						}
+					} else {
+						sender.sendMessage(Util.format("There is no game starting."));
+					}
+					return true;
+				}
 			}
 
 		} else {

@@ -141,10 +141,17 @@ public class GameInstance {
 		this.compassTracking = compassTracking;
 	}
 
-	public GameInstance(List<Player> players, boolean hard) {
+	public GameInstance(List<Player> teamB, List<Player> teamE, boolean hard) {
 
 		gameName = Util.generateGameName();
 		boolean generatedWorld = false;
+		
+		for (Player p : teamB) {
+			p.sendMessage(Util.format("Your game is starting! Please wait..."));
+		}
+		for (Player p : teamE) {
+			p.sendMessage(Util.format("Your game is starting! Please wait..."));
+		}
 
 		if (pl.getServer().getWorld(gameName) == null) {
 			generatedWorld = true;
@@ -165,16 +172,16 @@ public class GameInstance {
 			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 				@Override
 				public void run() {
-					initialiseGame(players, hard);
+					initialiseGame(teamB, teamE, hard);
 				}
 			}, 100);
 		} else {
-			initialiseGame(players, hard);
+			initialiseGame(teamB, teamE, hard);
 		}
 
 	}
 
-	public void initialiseGame(List<Player> players, boolean hard) {
+	public void initialiseGame(List<Player> teamB, List<Player> teamE, boolean hard) {
 		world = pl.getServer().getWorld(gameName);
 		nether = pl.getServer().getWorld(gameName + "_nether");
 		end = pl.getServer().getWorld(gameName + "_the_end");
@@ -186,39 +193,24 @@ public class GameInstance {
 		objectives = Objective.chooseObjectives(hard);
 		teamScores = new HashMap<List<Player>, Integer>();
 		compassTracking = new HashMap<Player, Player>();
-		teamB = new ArrayList<Player>();
-		teamE = new ArrayList<Player>();
+		this.teamB = new ArrayList<Player>();
+		this.teamE = new ArrayList<Player>();
 		scoreboardViewers = new ArrayList<Player>();
 		scoreboard = scoreboard();
-		boolean flip = true;
-		for (Player p : players) {
-			if (flip) {
-				teamB.add(p);
-			} else {
-				teamE.add(p);
-			}
-			flip = !flip;
-			scoreboardViewers.add(p);
-			p.setScoreboard(scoreboard);
-			p.getInventory().setContents(new ItemStack[] {});
-			p.setHealth(20);
-			p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
-			p.setExp(0);
-			p.getInventory().addItem(Util.compass);
-
-			Bukkit.getScheduler().runTaskAsynchronously(pl, new Runnable() {
-				@Override
-				public void run() {
-					RTP.rtp(p, world, 10);
-				}
-			});
+		for (Player p : teamB) {
+			this.teamB.add(p);
+			initialisePlayer(p);
 		}
-		for (Player p : players) {
+		for (Player p : teamE) {
+			this.teamE.add(p);
+			initialisePlayer(p);
+		}
+		for (Player p : getPlayers()) {
 			compassTracking.put(p, getOpponents(p).get(0));
 		}
 		getPlayerScores().put(teamB, 0);
 		getPlayerScores().put(teamE, 0);
-		pl.gameInstances.add(GameInstance.this);
+		pl.getGameInstances().add(GameInstance.this);
 	}
 
 	public void refreshScoreboard() {
@@ -228,6 +220,24 @@ public class GameInstance {
 			}
 			p.setScoreboard(scoreboard);
 		}
+	}
+	
+	public void initialisePlayer(Player p) {
+		scoreboardViewers.add(p);
+		p.setScoreboard(scoreboard);
+		p.getInventory().setContents(new ItemStack[] {});
+		p.setHealth(20);
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 5, 1));
+		p.setExp(0);
+		p.getInventory().addItem(Util.compass);
+
+		Bukkit.getScheduler().runTaskAsynchronously(pl, new Runnable() {
+			@Override
+			public void run() {
+				RTP.rtp(p, world, 10);
+				pl.setPreventJoiningTeams(false);
+			}
+		});
 	}
 
 	private Scoreboard scoreboard() {
@@ -250,7 +260,7 @@ public class GameInstance {
 	}
 
 	public static GameInstance get(Player p) {
-		for (GameInstance gi : pl.gameInstances) {
+		for (GameInstance gi : pl.getGameInstances()) {
 			if (gi.getPlayers().contains(p)) {
 				return gi;
 			}
@@ -259,7 +269,7 @@ public class GameInstance {
 	}
 
 	public static GameInstance get(World w) {
-		for (GameInstance gi : pl.gameInstances) {
+		for (GameInstance gi : pl.getGameInstances()) {
 			if (gi.getWorld().equals(w)) {
 				return gi;
 			}
