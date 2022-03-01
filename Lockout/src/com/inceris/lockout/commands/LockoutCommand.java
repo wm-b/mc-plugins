@@ -215,6 +215,8 @@ public class LockoutCommand {
 																pl.setGameStarting(false);
 																new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(),
 																		false);
+																pl.setPrepTeamB(new ArrayList<Player>());
+																pl.setPrepTeamE(new ArrayList<Player>());
 															}
 														}
 													}, 200);
