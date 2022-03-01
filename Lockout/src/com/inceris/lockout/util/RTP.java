@@ -72,6 +72,7 @@ public class RTP {
 		x = getRandomNumber(-radius, radius);
 		z = getRandomNumber(-radius, radius);
 
+		int count = 0;
 		for (i = 0; i < 10000; i++) {
 
 			x = getRandomNumber(-radius, radius);
@@ -83,7 +84,11 @@ public class RTP {
 				break;
 			}
 			
-			radius++;
+			if (count == 5) {
+				count = 0;
+				radius += 25;
+			}
+			count++;
 		}
 		if (i == 10000)
 			player.sendMessage(Util.format("Could not find a safe location to teleport you to!"));
