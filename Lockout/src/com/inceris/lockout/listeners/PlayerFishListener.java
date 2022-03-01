@@ -21,7 +21,8 @@ public class PlayerFishListener implements Listener {
 	@EventHandler
 	public void onPlayerFish(PlayerFishEvent e) {
 		Player p = e.getPlayer();
-		for (GameInstance gi : pl.getGameInstances()) {
+		GameInstance gi = GameInstance.get(p);
+		if (gi != null) {
 			if (gi.isActive() && gi.getPlayers().contains(p)) {
 
 				List<Objective> objectives = gi.getObjectives();

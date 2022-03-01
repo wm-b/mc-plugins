@@ -25,7 +25,8 @@ public class PlayerInteractListener implements Listener {
 		if (e.getHand().equals(EquipmentSlot.HAND)) {
 			
 			Player p = e.getPlayer();
-			for (GameInstance gi : pl.getGameInstances()) {
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 
 					ItemStack itemInMainHand = p.getInventory().getItemInMainHand();

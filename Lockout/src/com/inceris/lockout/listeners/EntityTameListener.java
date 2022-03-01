@@ -23,8 +23,8 @@ public class EntityTameListener implements Listener {
 	public void onEntityTame(EntityTameEvent e) {
 		if (e.getOwner() instanceof Player) {
 			Player p = (Player) e.getOwner();
-			if (GameInstance.get(p) != null) {
-				GameInstance gi = GameInstance.get(p);
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					Entity entity = e.getEntity();

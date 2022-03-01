@@ -21,7 +21,8 @@ public class PlayerItemConsumeListener implements Listener {
 		
 		Player p = e.getPlayer();
 		
-		for(GameInstance gi : pl.getGameInstances()) {
+		GameInstance gi = GameInstance.get(p);
+		if (gi != null) {
 			if (gi.isActive() && gi.getPlayers().contains(p)) {
 				Material type = e.getItem().getType();
 				List<Objective> objectives = gi.getObjectives();

@@ -21,8 +21,8 @@ public class EntityPotionEffectListener implements Listener {
 		
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if (GameInstance.get(p) != null) {
-				GameInstance gi = GameInstance.get(p);
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					PotionEffectType pet = e.getModifiedType();

@@ -30,8 +30,8 @@ public class PlayerMoveListener implements Listener {
 
 		if (actuallyCheck == 10 || actuallyCheck == 20) {
 			Player p = e.getPlayer();
-			if (GameInstance.get(p) != null) {
-				GameInstance gi = GameInstance.get(p);
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					World w = gi.getWorld();
@@ -118,8 +118,8 @@ public class PlayerMoveListener implements Listener {
 		if (actuallyCheck == 4 || actuallyCheck == 8 || actuallyCheck == 12 || actuallyCheck == 16
 				|| actuallyCheck == 20) {
 			Player p = e.getPlayer();
-			if (GameInstance.get(p) != null) {
-				GameInstance gi = GameInstance.get(p);
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				Bukkit.getScheduler().runTaskAsynchronously(pl, new Runnable() {
 					@Override
 					public void run() {

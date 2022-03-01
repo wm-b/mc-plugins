@@ -21,7 +21,8 @@ public class EntityDamageListener implements Listener {
 
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			for (GameInstance gi : pl.getGameInstances()) {
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					DamageCause cause = e.getCause();

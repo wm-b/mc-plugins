@@ -22,7 +22,8 @@ public class InventoryClickListener implements Listener {
 	public void onInventoryClick(InventoryClickEvent e) {
 		if (e.getWhoClicked() instanceof Player) {
 			Player p = (Player) e.getWhoClicked();
-			for (GameInstance gi : pl.getGameInstances()) {
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					ItemStack[] ac = p.getInventory().getArmorContents();

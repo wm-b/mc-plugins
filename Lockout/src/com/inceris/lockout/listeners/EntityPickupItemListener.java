@@ -20,8 +20,8 @@ public class EntityPickupItemListener implements Listener {
 	public void onEntityPickupItem(EntityPickupItemEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			if (GameInstance.get(p) != null) {
-				GameInstance gi = GameInstance.get(p);
+			GameInstance gi = GameInstance.get(p);
+			if (gi != null) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					Material m = e.getItem().getItemStack().getType();

@@ -13,8 +13,8 @@ public class PlayerRespawnListener implements Listener {
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
-		if (GameInstance.get(p) != null) {
-			GameInstance gi = GameInstance.get(p);
+		GameInstance gi = GameInstance.get(p);
+		if (gi != null) {
 			if (gi.isActive() && gi.getPlayers().contains(p)) {
 				p.getInventory().addItem(Util.compass);
 			}

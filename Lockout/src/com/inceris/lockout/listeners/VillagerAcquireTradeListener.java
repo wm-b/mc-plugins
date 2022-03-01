@@ -25,7 +25,8 @@ public class VillagerAcquireTradeListener implements Listener {
 			if (ne instanceof Player) {
 				Player p = (Player) ne;
 				
-				for (GameInstance gi : pl.getGameInstances()) {
+				GameInstance gi = GameInstance.get(p);
+				if (gi != null) {
 					if (gi.isActive() && gi.getPlayers().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();
 
