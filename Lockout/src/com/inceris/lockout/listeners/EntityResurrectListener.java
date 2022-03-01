@@ -19,7 +19,7 @@ public class EntityResurrectListener implements Listener {
 	public void onEntityResurrect(EntityResurrectEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			for (GameInstance gi : pl.gameInstances) {
+			for (GameInstance gi : pl.getGameInstances()) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 

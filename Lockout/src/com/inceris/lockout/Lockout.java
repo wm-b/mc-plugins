@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,8 +37,52 @@ import com.inceris.lockout.util.GameInstance;
 
 public class Lockout extends JavaPlugin {
 	
-	public List<GameInstance> gameInstances = new ArrayList<GameInstance>();
+	private List<GameInstance> gameInstances = new ArrayList<GameInstance>();
+	private List<Player> prepTeamB = new ArrayList<>();
+	private List<Player> prepTeamE = new ArrayList<>();
+	private boolean gameStarting = false;
+	private boolean preventJoiningTeams = false;
+
+	public List<GameInstance> getGameInstances() {
+		return gameInstances;
+	}
+
+	public void setGameInstances(List<GameInstance> gameInstances) {
+		this.gameInstances = gameInstances;
+	}
+
+	public List<Player> getPrepTeamB() {
+		return prepTeamB;
+	}
+
+	public void setPrepTeamB(List<Player> prepTeamB) {
+		this.prepTeamB = prepTeamB;
+	}
+
+	public List<Player> getPrepTeamE() {
+		return prepTeamE;
+	}
+
+	public void setPrepTeamE(List<Player> prepTeamE) {
+		this.prepTeamE = prepTeamE;
+	}
+
+	public boolean isGameStarting() {
+		return gameStarting;
+	}
+
+	public void setGameStarting(boolean gameStarting) {
+		this.gameStarting = gameStarting;
+	}
 	
+	public boolean isPreventJoiningTeams() {
+		return preventJoiningTeams;
+	}
+
+	public void setPreventJoiningTeams(boolean preventJoiningTeams) {
+		this.preventJoiningTeams = preventJoiningTeams;
+	}
+
 	@Override
 	public void onEnable() {
 		this.saveDefaultConfig();

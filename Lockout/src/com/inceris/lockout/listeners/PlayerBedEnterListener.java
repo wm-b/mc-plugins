@@ -18,7 +18,7 @@ public class PlayerBedEnterListener implements Listener {
 	@EventHandler
 	public void onPlayerBedEnter(PlayerBedEnterEvent e) {
 		Player p = e.getPlayer();
-		for (GameInstance gi : pl.gameInstances) {
+		for (GameInstance gi : pl.getGameInstances()) {
 			if (gi.isActive() && gi.getPlayers().contains(p)) {
 				List<Objective> objectives = gi.getObjectives();
 				

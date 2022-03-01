@@ -19,7 +19,7 @@ public class PlayerDeathListener implements Listener {
 	public void onPlayerDeath(PlayerDeathEvent e) {
 
 		Player p = e.getEntity();
-		for (GameInstance gi : pl.gameInstances) {
+		for (GameInstance gi : pl.getGameInstances()) {
 			if (gi.isActive() && gi.getPlayers().contains(p)) {
 				List<Objective> objectives = gi.getObjectives();
 				String message = e.getDeathMessage();

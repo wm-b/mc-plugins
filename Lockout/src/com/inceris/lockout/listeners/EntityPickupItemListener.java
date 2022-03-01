@@ -20,7 +20,8 @@ public class EntityPickupItemListener implements Listener {
 	public void onEntityPickupItem(EntityPickupItemEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			for (GameInstance gi : pl.gameInstances) {
+			if (GameInstance.get(p) != null) {
+				GameInstance gi = GameInstance.get(p);
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					Material m = e.getItem().getItemStack().getType();
@@ -63,6 +64,9 @@ public class EntityPickupItemListener implements Listener {
 
 					} else if (m.equals(Material.COBBLED_DEEPSLATE) && objectives.contains(Objective.obtainDeepslate)) {
 						Objective.complete(gi, Objective.obtainDeepslate, p);
+
+					} else if (m.equals(Material.STONE) && objectives.contains(Objective.obtainStone)) {
+						Objective.complete(gi, Objective.obtainStone, p);
 
 					} else if (m.equals(Material.ANCIENT_DEBRIS)
 							&& objectives.contains(Objective.obtainAncientDebris)) {

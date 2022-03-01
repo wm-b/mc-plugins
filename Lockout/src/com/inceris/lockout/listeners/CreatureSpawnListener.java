@@ -26,7 +26,7 @@ public class CreatureSpawnListener implements Listener {
 			if (ne instanceof Player) {
 				Player p = (Player) ne;
 				
-				for (GameInstance gi : pl.gameInstances) {
+				for (GameInstance gi : pl.getGameInstances()) {
 					if (gi.isActive() && gi.getPlayers().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();
 

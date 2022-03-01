@@ -46,7 +46,7 @@ public class EntityDamageByEntityListener implements Listener {
 			if (damager instanceof Player) {
 				if (d.getHealth() <= e.getDamage()) {
 					Player p = (Player) damager;
-					for (GameInstance gi : pl.gameInstances) {
+					for (GameInstance gi : pl.getGameInstances()) {
 						if (gi.isActive() && gi.getPlayers().contains(p)) {
 							List<Objective> objectives = gi.getObjectives();
 
@@ -111,7 +111,7 @@ public class EntityDamageByEntityListener implements Listener {
 						EntityDamageByEntityEvent e2 = (EntityDamageByEntityEvent) damager.getLastDamageCause();
 						if (e2.getDamager() instanceof Player) {
 							Player p = (Player) e2.getDamager();
-							for (GameInstance gi : pl.gameInstances) {
+							for (GameInstance gi : pl.getGameInstances()) {
 								if (gi.isActive() && gi.getPlayers().contains(p)) {
 									List<Objective> objectives = gi.getObjectives();
 									if (objectives.contains(Objective.returnToSender)) {
@@ -125,7 +125,7 @@ public class EntityDamageByEntityListener implements Listener {
 				}
 			} else if (damager instanceof Arrow && d instanceof Player) {
 				Player p = (Player) d;
-				for (GameInstance gi : pl.gameInstances) {
+				for (GameInstance gi : pl.getGameInstances()) {
 					if (gi.isActive() && gi.getPlayers().contains(p)) {
 						List<Objective> objectives = gi.getObjectives();
 						if (objectives.contains(Objective.blockArrowWithShield) && p.isBlocking() == true

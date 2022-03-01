@@ -27,7 +27,7 @@ public class PlayerInteractEntityListener implements Listener {
 
 		if (e.getHand().equals(EquipmentSlot.HAND)) {
 			Player p = e.getPlayer();
-			for (GameInstance gi : pl.gameInstances) {
+			for (GameInstance gi : pl.getGameInstances()) {
 				if (gi.isActive() && gi.getPlayers().contains(p)) {
 					List<Objective> objectives = gi.getObjectives();
 					Entity entity = e.getRightClicked();
