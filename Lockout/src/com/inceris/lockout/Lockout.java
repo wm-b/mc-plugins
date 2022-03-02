@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -42,6 +43,8 @@ public class Lockout extends JavaPlugin {
 	private List<Player> prepTeamE = new ArrayList<>();
 	private boolean gameStarting = false;
 	private boolean preventJoiningTeams = false;
+	private boolean preventNewGame = false;
+	private World lobby;
 
 	public List<GameInstance> getGameInstances() {
 		return gameInstances;
@@ -83,6 +86,22 @@ public class Lockout extends JavaPlugin {
 		this.preventJoiningTeams = preventJoiningTeams;
 	}
 
+	public boolean isPreventNewGame() {
+		return preventNewGame;
+	}
+
+	public void setPreventNewGame(boolean preventNewGame) {
+		this.preventNewGame = preventNewGame;
+	}
+
+	public World getLobby() {
+		return lobby;
+	}
+
+	public void setLobby(World lobby) {
+		this.lobby = lobby;
+	}
+
 	@Override
 	public void onEnable() {
 		this.saveDefaultConfig();
@@ -109,6 +128,7 @@ public class Lockout extends JavaPlugin {
 		pm.registerEvents(new PlayerMoveListener(), this);
 		pm.registerEvents(new PlayerRespawnListener(), this);
 		pm.registerEvents(new EntityTameListener(), this);
+		lobby = getServer().getWorld(getConfig().getString("LobbyWorld"));
 	}
 	
 	@Override

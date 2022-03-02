@@ -2,7 +2,6 @@ package com.inceris.lockout.listeners;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.StructureType;
 import org.bukkit.World;
@@ -120,12 +119,7 @@ public class PlayerMoveListener implements Listener {
 			Player p = e.getPlayer();
 			GameInstance gi = GameInstance.get(p);
 			if (gi != null) {
-				Bukkit.getScheduler().runTaskAsynchronously(pl, new Runnable() {
-					@Override
-					public void run() {
-						Util.refreshCompass(gi, p);
-					}
-				});
+				Util.refreshCompass(gi, p);
 			}
 		}
 

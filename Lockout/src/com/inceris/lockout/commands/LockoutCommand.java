@@ -156,8 +156,7 @@ public class LockoutCommand {
 						}
 						if (pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0 && pl.isGameStarting() == false) {
 							pl.setGameStarting(true);
-							for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
-									.getPlayers()) {
+							for (Player p : pl.getLobby().getPlayers()) {
 								p.sendMessage(Util
 										.format("Both teams have players! A new game will start in &c30 seconds&f."));
 							}
@@ -168,16 +167,14 @@ public class LockoutCommand {
 								public void run() {
 									if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
 										pl.setGameStarting(false);
-										for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
-												.getPlayers()) {
+										for (Player p : pl.getLobby().getPlayers()) {
 											p.sendMessage(Util.format("Too many players have left their teams!"));
 										}
 										pl.setPrepTeamB(new ArrayList<Player>());
 										pl.setPrepTeamE(new ArrayList<Player>());
 									}
 									if (pl.isGameStarting()) {
-										for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
-												.getPlayers()) {
+										for (Player p : pl.getLobby().getPlayers()) {
 											p.sendMessage(Util.format("A new game will start in &c20 seconds&f."));
 										}
 										Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
@@ -185,17 +182,14 @@ public class LockoutCommand {
 											public void run() {
 												if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
 													pl.setGameStarting(false);
-													for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
-															.getPlayers()) {
+													for (Player p : pl.getLobby().getPlayers()) {
 														p.sendMessage(Util.format("Too many players have left their teams!"));
 													}
 													pl.setPrepTeamB(new ArrayList<Player>());
 													pl.setPrepTeamE(new ArrayList<Player>());
 												}
 												if (pl.isGameStarting()) {
-													for (Player p : pl.getServer()
-															.getWorld(pl.getConfig().getString("LobbyWorld"))
-															.getPlayers()) {
+													for (Player p : pl.getLobby().getPlayers()) {
 														p.sendMessage(Util
 																.format("A new game will start in &c10 seconds&f."));
 													}
@@ -204,8 +198,7 @@ public class LockoutCommand {
 														public void run() {
 															if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
 																pl.setGameStarting(false);
-																for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld"))
-																		.getPlayers()) {
+																for (Player p : pl.getLobby().getPlayers()) {
 																	p.sendMessage(Util.format("Too many players have left their teams!"));
 																}
 																pl.setPrepTeamB(new ArrayList<Player>());
@@ -260,7 +253,7 @@ public class LockoutCommand {
 						pl.setGameStarting(false);
 						pl.setPrepTeamB(new ArrayList<Player>());
 						pl.setPrepTeamE(new ArrayList<Player>());
-						for (Player p : pl.getServer().getWorld(pl.getConfig().getString("LobbyWorld")).getPlayers()) {
+						for (Player p : pl.getLobby().getPlayers()) {
 							p.sendMessage(Util.format("An admin stopped the game that was starting!"));
 							p.sendMessage(Util.format("Everyone has been removed from their teams."));
 						}

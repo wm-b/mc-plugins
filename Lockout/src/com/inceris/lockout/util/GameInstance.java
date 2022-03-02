@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
@@ -132,7 +133,7 @@ public class GameInstance {
 	public void setScoreboardViewers(List<Player> scoreboardViewers) {
 		this.scoreboardViewers = scoreboardViewers;
 	}
-	
+
 	public Map<Player, Player> getCompassTracking() {
 		return compassTracking;
 	}
@@ -142,41 +143,52 @@ public class GameInstance {
 	}
 
 	public GameInstance(List<Player> teamB, List<Player> teamE, boolean hard) {
+		if (!pl.isPreventNewGame()) {
+			pl.setPreventNewGame(true);
+			gameName = Util.generateGameName();
+			boolean generatedWorld = false;
 
-		gameName = Util.generateGameName();
-		boolean generatedWorld = false;
-		
-		for (Player p : teamB) {
-			p.sendMessage(Util.format("Your game is starting! Please wait..."));
-		}
-		for (Player p : teamE) {
-			p.sendMessage(Util.format("Your game is starting! Please wait..."));
-		}
+			for (Player p : teamB) {
+				p.sendMessage(Util.format("Your game is starting! Please wait..."));
+			}
+			for (Player p : teamE) {
+				p.sendMessage(Util.format("Your game is starting! Please wait..."));
+			}
 
-		if (pl.getServer().getWorld(gameName) == null) {
-			generatedWorld = true;
-			Util.worldManager.addWorld(gameName, World.Environment.NORMAL, null, WorldType.NORMAL, true, null);
-		}
-		if (pl.getServer().getWorld(gameName + "_nether") == null) {
-			generatedWorld = true;
-			Util.worldManager.addWorld(gameName + "_nether", World.Environment.NETHER, null, WorldType.NORMAL, true,
-					null);
-		}
-		if (pl.getServer().getWorld(gameName + "_the_end") == null) {
-			generatedWorld = true;
-			Util.worldManager.addWorld(gameName + "_the_end", World.Environment.THE_END, null, WorldType.NORMAL, true,
-					null);
-		}
+			if (pl.getServer().getWorld(gameName) == null) {
+				generatedWorld = true;
+				Util.worldManager.addWorld(gameName, World.Environment.NORMAL, null, WorldType.NORMAL, true, null);
+			}
+			if (pl.getServer().getWorld(gameName + "_nether") == null) {
+				generatedWorld = true;
+				Util.worldManager.addWorld(gameName + "_nether", World.Environment.NETHER, null, WorldType.NORMAL, true,
+						null);
+			}
+			if (pl.getServer().getWorld(gameName + "_the_end") == null) {
+				generatedWorld = true;
+				Util.worldManager.addWorld(gameName + "_the_end", World.Environment.THE_END, null, WorldType.NORMAL,
+						true, null);
+			}
 
-		if (generatedWorld) {
-			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
-				@Override
-				public void run() {
-					initialiseGame(teamB, teamE, hard);
-				}
-			}, 100);
+			if (generatedWorld) {
+				Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
+					@Override
+					public void run() {
+						initialiseGame(teamB, teamE, hard);
+					}
+				}, 100);
+			} else {
+				initialiseGame(teamB, teamE, hard);
+			}
 		} else {
-			initialiseGame(teamB, teamE, hard);
+			for (Player p : teamB) {
+				p.sendMessage(Util.format("Your game could not start. Please try again."));
+			}
+			for (Player p : teamE) {
+				p.sendMessage(Util.format("Your game could not start. Please try again."));
+			}
+			this.teamB = new ArrayList<Player>();
+			this.teamE = new ArrayList<Player>();
 		}
 
 	}
@@ -221,7 +233,7 @@ public class GameInstance {
 			p.setScoreboard(scoreboard);
 		}
 	}
-	
+
 	public void initialisePlayer(Player p) {
 		scoreboardViewers.add(p);
 		p.setScoreboard(scoreboard);
@@ -236,6 +248,7 @@ public class GameInstance {
 			public void run() {
 				RTP.rtp(p, world, 10);
 				pl.setPreventJoiningTeams(false);
+				pl.setPreventNewGame(false);
 			}
 		});
 	}
@@ -286,29 +299,20 @@ public class GameInstance {
 
 	public void reset() {
 		if (this.isActive()) {
+			pl.setPreventNewGame(true);
 			for (Player p : getPlayers()) {
 				p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+				Location l = pl.getLobby().getSpawnLocation();
+				l.setYaw(l.getYaw() + 180);
+				RTP.TPPlayer(pl, p, l);
 			}
-			Util.worldManager.unloadWorld(world.getName());
-			Util.worldManager.unloadWorld(nether.getName());
-			Util.worldManager.unloadWorld(end.getName());
 			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 				@Override
 				public void run() {
 					Util.l("Deleteing world " + world.getName());
 					Util.mv.deleteWorld(world.getName());
-				}
-			}, 50);
-			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
-				@Override
-				public void run() {
 					Util.l("Deleteing world " + nether.getName());
 					Util.mv.deleteWorld(nether.getName());
-				}
-			}, 100);
-			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
-				@Override
-				public void run() {
 					Util.l("Deleteing world " + end.getName());
 					Util.mv.deleteWorld(end.getName());
 					Util.l("Finished deleting");
@@ -322,8 +326,9 @@ public class GameInstance {
 					teamScores = new HashMap<List<Player>, Integer>();
 					teamB = new ArrayList<Player>();
 					teamE = new ArrayList<Player>();
+					pl.setPreventNewGame(false);
 				}
-			}, 150);
+			}, 20);
 		}
 	}
 
