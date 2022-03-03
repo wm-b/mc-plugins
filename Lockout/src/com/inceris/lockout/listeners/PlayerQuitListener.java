@@ -7,10 +7,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.inceris.lockout.Lockout;
 import com.inceris.lockout.util.GameInstance;
 import com.inceris.lockout.util.Util;
 
 public class PlayerQuitListener implements Listener {
+
+	public static Lockout pl = Lockout.getPlugin(Lockout.class);
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
@@ -26,6 +29,8 @@ public class PlayerQuitListener implements Listener {
 				}
 			}
 		}
+		
+		pl.getHardModeEnabled().remove(quitter);
 		
 	}
 	

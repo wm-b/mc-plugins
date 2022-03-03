@@ -17,9 +17,12 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import com.onarandombox.MultiverseNetherPortals.MultiverseNetherPortals;
 
+import dev.skeens.nametagcolors.NameTagColors;
+
 public class Util {
 
 	public static Lockout pl = Lockout.getPlugin(Lockout.class);
+	public static NameTagColors ntc = NameTagColors.getPlugin(NameTagColors.class);
 	public static MultiverseCore mv = MultiverseCore.getPlugin(MultiverseCore.class);
 	public static MVWorldManager worldManager = mv.getMVWorldManager();
 	public static MultiverseNetherPortals np = (MultiverseNetherPortals) Bukkit.getServer().getPluginManager()
@@ -35,6 +38,24 @@ public class Util {
 		meta.setLore(lore);
 		compass.setItemMeta(meta);
 		return compass;
+	}
+	
+	public static boolean enableHardMode(List<Player> teamB, List<Player> teamE) {
+		for (Player p : pl.getHardModeEnabled()) {
+			if (teamB.contains(p) || teamE.contains(p)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean enableHardMode(List<Player> players) {
+		for (Player p : pl.getHardModeEnabled()) {
+			if (players.contains(p)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static List<Player> teamB(List<Player> players) {

@@ -41,6 +41,8 @@ public class Lockout extends JavaPlugin {
 	private List<GameInstance> gameInstances = new ArrayList<GameInstance>();
 	private List<Player> prepTeamB = new ArrayList<>();
 	private List<Player> prepTeamE = new ArrayList<>();
+	private List<Player> hardModeEnabled = new ArrayList<>();
+
 	private boolean gameStarting = false;
 	private boolean preventJoiningTeams = false;
 	private boolean preventNewGame = false;
@@ -100,6 +102,14 @@ public class Lockout extends JavaPlugin {
 
 	public void setLobby(World lobby) {
 		this.lobby = lobby;
+	}
+	
+	public List<Player> getHardModeEnabled() {
+		return hardModeEnabled;
+	}
+
+	public void setHardModeEnabled(List<Player> hardModeEnabled) {
+		this.hardModeEnabled = hardModeEnabled;
 	}
 
 	@Override
