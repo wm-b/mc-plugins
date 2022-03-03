@@ -211,10 +211,12 @@ public class GameInstance {
 		scoreboard = scoreboard();
 		for (Player p : teamB) {
 			this.teamB.add(p);
+			Util.ntc.setTemporaryColor(p, 'b');
 			initialisePlayer(p);
 		}
 		for (Player p : teamE) {
 			this.teamE.add(p);
+			Util.ntc.setTemporaryColor(p, 'e');
 			initialisePlayer(p);
 		}
 		for (Player p : getPlayers()) {
@@ -302,6 +304,7 @@ public class GameInstance {
 			pl.setPreventNewGame(true);
 			for (Player p : getPlayers()) {
 				p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+				Util.ntc.resetTempColor(p);
 				Location l = pl.getLobby().getSpawnLocation();
 				l.setYaw(l.getYaw() + 180);
 				RTP.TPPlayer(pl, p, l);

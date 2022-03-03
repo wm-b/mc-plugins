@@ -28,7 +28,8 @@ public class LockoutCommand {
 					if (Arrays.asList(args).contains("-h")) {
 						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(), true);
 					} else {
-						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(), false);
+						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(),
+								Util.enableHardMode(pl.getPrepTeamB(), pl.getPrepTeamE()));
 					}
 					pl.setPreventJoiningTeams(true);
 					pl.setPrepTeamB(new ArrayList<Player>());
@@ -60,7 +61,7 @@ public class LockoutCommand {
 					if (Arrays.asList(args).contains("-h")) {
 						new GameInstance(Util.teamB(players), Util.teamE(players), true);
 					} else {
-						new GameInstance(Util.teamB(players), Util.teamE(players), false);
+						new GameInstance(Util.teamB(players), Util.teamE(players), Util.enableHardMode(players));
 					}
 				} else {
 					sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
@@ -135,7 +136,7 @@ public class LockoutCommand {
 				sender.sendMessage(Util.format("Start Time: " + gi.getStartTime()));
 			}
 
-		} else if (args[0].equalsIgnoreCase("prep")) {
+		} else if (args[0].equalsIgnoreCase("prep") && sender.hasPermission("lockout.admin")) {
 			if (args[1] != null) {
 				if (args[1].equalsIgnoreCase("add") && !pl.isPreventJoiningTeams()) {
 					if (args[2] != null) {
@@ -144,17 +145,20 @@ public class LockoutCommand {
 									&& !pl.getPrepTeamE().contains(pl.getServer().getPlayer(args[3]))) {
 								Player p = pl.getServer().getPlayer(args[3]);
 								pl.getPrepTeamB().add(p);
+								Util.ntc.setTemporaryColor(p, 'b');
 								p.sendMessage(Util.format("You have been added to the &b&lBlue &fteam!"));
 							}
 						} else if (args[2].equalsIgnoreCase("e")) {
 							if (args[3] != null && pl.getServer().getPlayer(args[3]) != null
 									&& !pl.getPrepTeamB().contains(pl.getServer().getPlayer(args[3]))) {
 								Player p = pl.getServer().getPlayer(args[3]);
-								p.sendMessage(Util.format("You have been added to the &e&lYellow &fteam!"));
 								pl.getPrepTeamE().add(p);
+								Util.ntc.setTemporaryColor(p, 'e');
+								p.sendMessage(Util.format("You have been added to the &e&lYellow &fteam!"));
 							}
 						}
-						if (pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0 && pl.isGameStarting() == false) {
+						if (pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0
+								&& pl.isGameStarting() == false) {
 							pl.setGameStarting(true);
 							for (Player p : pl.getLobby().getPlayers()) {
 								p.sendMessage(Util
@@ -183,7 +187,8 @@ public class LockoutCommand {
 												if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
 													pl.setGameStarting(false);
 													for (Player p : pl.getLobby().getPlayers()) {
-														p.sendMessage(Util.format("Too many players have left their teams!"));
+														p.sendMessage(
+																Util.format("Too many players have left their teams!"));
 													}
 													pl.setPrepTeamB(new ArrayList<Player>());
 													pl.setPrepTeamE(new ArrayList<Player>());
@@ -196,10 +201,12 @@ public class LockoutCommand {
 													Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 														@Override
 														public void run() {
-															if (!(pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0)) {
+															if (!(pl.getPrepTeamB().size() > 0
+																	&& pl.getPrepTeamE().size() > 0)) {
 																pl.setGameStarting(false);
 																for (Player p : pl.getLobby().getPlayers()) {
-																	p.sendMessage(Util.format("Too many players have left their teams!"));
+																	p.sendMessage(Util.format(
+																			"Too many players have left their teams!"));
 																}
 																pl.setPrepTeamB(new ArrayList<Player>());
 																pl.setPrepTeamE(new ArrayList<Player>());
@@ -207,7 +214,8 @@ public class LockoutCommand {
 															if (pl.isGameStarting()) {
 																pl.setGameStarting(false);
 																new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(),
-																		false);
+																		Util.enableHardMode(pl.getPrepTeamB(),
+																				pl.getPrepTeamE()));
 																pl.setPrepTeamB(new ArrayList<Player>());
 																pl.setPrepTeamE(new ArrayList<Player>());
 															}
@@ -229,6 +237,7 @@ public class LockoutCommand {
 									&& pl.getPrepTeamB().contains(pl.getServer().getPlayer(args[3]))) {
 								Player p = pl.getServer().getPlayer(args[3]);
 								pl.getPrepTeamB().remove(p);
+								Util.ntc.resetTempColor(p);
 								p.sendMessage(Util.format("You have been removed from the &b&lBlue &fteam!"));
 								return true;
 							}
@@ -237,6 +246,7 @@ public class LockoutCommand {
 									&& pl.getPrepTeamE().contains(pl.getServer().getPlayer(args[3]))) {
 								Player p = pl.getServer().getPlayer(args[3]);
 								pl.getPrepTeamE().remove(p);
+								Util.ntc.resetTempColor(p);
 								p.sendMessage(Util.format("You have been removed from the &e&lYellow &fteam!"));
 								return true;
 							}
@@ -264,8 +274,21 @@ public class LockoutCommand {
 				}
 			}
 
+		} else if (args[0].equalsIgnoreCase("hard") && sender.hasPermission("lockout.hard")) {
+			if (sender instanceof Player) {
+				Player p = (Player) sender;
+				if (pl.getHardModeEnabled().contains(p)) {
+					pl.getHardModeEnabled().remove(p);
+					p.sendMessage(Util.format("Hard mode objectives disabled."));
+					return true;
+				} else {
+					pl.getHardModeEnabled().add(p);
+					p.sendMessage(Util.format("Hard mode objectives enabled for you and those you're playing with!"));
+				}
+			}
+
 		} else {
-			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9play.atownyserver.com"));
+			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9mc.lockout.biz"));
 			return true;
 		}
 
