@@ -12,6 +12,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.inceris.lockout.commands.LockoutCommand;
+import com.inceris.lockout.listeners.AsyncPlayerChatListener;
 import com.inceris.lockout.listeners.BrewEventListener;
 import com.inceris.lockout.listeners.CreatureSpawnListener;
 import com.inceris.lockout.listeners.EnchantItemListener;
@@ -138,6 +139,7 @@ public class Lockout extends JavaPlugin {
 		pm.registerEvents(new PlayerMoveListener(), this);
 		pm.registerEvents(new PlayerRespawnListener(), this);
 		pm.registerEvents(new EntityTameListener(), this);
+		pm.registerEvents(new AsyncPlayerChatListener(), this);
 		lobby = getServer().getWorld(getConfig().getString("LobbyWorld"));
 	}
 	
