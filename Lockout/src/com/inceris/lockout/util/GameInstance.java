@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldType;
 import org.bukkit.entity.Player;
@@ -264,6 +263,27 @@ public class GameInstance {
 		}
 		return board;
 	}
+	
+	public void removePlayer(Player p) {
+		if (teamB.contains(p)) {
+			teamB.remove(p);
+			if (teamB.size() == 0) {
+				Util.stopGameWithWinner(getOpponents(p));
+			}
+		}
+		if (teamE.contains(p)) {
+			teamE.remove(p);
+			if (teamE.size() == 0) {
+				Util.stopGameWithWinner(getOpponents(p));
+			}
+		}
+		scoreboardViewers.remove(p);
+		p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+		p.getInventory().setContents(new ItemStack[] {});
+		p.setExp(0);
+		Util.ntc.resetTempColor(p);
+		Util.TPPlayerToSpawn(p);
+	}
 
 	public String printObjectives() {
 		String listObjectives = "";
@@ -305,9 +325,7 @@ public class GameInstance {
 			for (Player p : getPlayers()) {
 				p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 				Util.ntc.resetTempColor(p);
-				Location l = pl.getLobby().getSpawnLocation();
-				l.setYaw(l.getYaw() + 180);
-				RTP.TPPlayer(pl, p, l);
+				Util.TPPlayerToSpawn(p);
 			}
 			Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 				@Override
