@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.PortalType;
 import org.bukkit.World;
@@ -38,6 +39,12 @@ public class Util {
 		meta.setLore(lore);
 		compass.setItemMeta(meta);
 		return compass;
+	}
+	
+	public static void TPPlayerToSpawn(Player p) {
+		Location l = pl.getLobby().getSpawnLocation();
+		l.setYaw(l.getYaw() + 180);
+		RTP.TPPlayer(pl, p, l);
 	}
 	
 	public static boolean enableHardMode(List<Player> teamB, List<Player> teamE) {
