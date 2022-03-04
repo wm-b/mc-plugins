@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.inceris.lockout.Lockout;
 import com.inceris.lockout.util.GameInstance;
-import com.inceris.lockout.util.Util;
 
 public class PlayerQuitListener implements Listener {
 
@@ -24,7 +23,7 @@ public class PlayerQuitListener implements Listener {
 		if (gi != null) {
 			for (List<Player> players : gi.getTeams()) {
 				if (!players.contains(quitter)) {
-					Util.stopGameWithWinner(players);
+					gi.removePlayer(quitter);
 					break;
 				}
 			}
