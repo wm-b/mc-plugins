@@ -144,17 +144,27 @@ public class LockoutCommand {
 							if (args[3] != null && pl.getServer().getPlayer(args[3]) != null
 									&& !pl.getPrepTeamE().contains(pl.getServer().getPlayer(args[3]))) {
 								Player p = pl.getServer().getPlayer(args[3]);
-								pl.getPrepTeamB().add(p);
-								Util.ntc.setTemporaryColor(p, 'b');
-								p.sendMessage(Util.format("You have been added to the &b&lBlue &fteam!"));
+								if (p.hasPermission("lockout.use")) {
+									pl.getPrepTeamB().add(p);
+									Util.ntc.setTemporaryColor(p, 'b');
+									p.sendMessage(Util.format("You have been added to the &b&lBlue &fteam!"));
+								} else {
+									p.sendMessage(Util.format(
+											"Before you can play, please vote for us on just one list! &9/vote"));
+								}
 							}
 						} else if (args[2].equalsIgnoreCase("e")) {
 							if (args[3] != null && pl.getServer().getPlayer(args[3]) != null
 									&& !pl.getPrepTeamB().contains(pl.getServer().getPlayer(args[3]))) {
 								Player p = pl.getServer().getPlayer(args[3]);
-								pl.getPrepTeamE().add(p);
-								Util.ntc.setTemporaryColor(p, 'e');
-								p.sendMessage(Util.format("You have been added to the &e&lYellow &fteam!"));
+								if (p.hasPermission("lockout.use")) {
+									pl.getPrepTeamE().add(p);
+									Util.ntc.setTemporaryColor(p, 'e');
+									p.sendMessage(Util.format("You have been added to the &e&lYellow &fteam!"));
+								} else {
+									p.sendMessage(Util.format(
+											"Before you can play, please vote for us on just one list! &9/vote"));
+								}
 							}
 						}
 						if (pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0
@@ -253,9 +263,13 @@ public class LockoutCommand {
 						}
 					}
 
-				} else if (args[1].equalsIgnoreCase("clear")) {
+				} else if (args[1].equalsIgnoreCase("clear") && sender.hasPermission("lockout.hard")) {
 					pl.setPrepTeamB(new ArrayList<Player>());
 					pl.setPrepTeamE(new ArrayList<Player>());
+					return true;
+
+				} else if (args[1].equalsIgnoreCase("leave") && sender.hasPermission("lockout.use")) {
+					
 					return true;
 
 				} else if (args[1].equalsIgnoreCase("stop")) {
