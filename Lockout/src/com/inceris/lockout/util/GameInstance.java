@@ -268,13 +268,13 @@ public class GameInstance {
 		if (teamB.contains(p)) {
 			teamB.remove(p);
 			if (teamB.size() == 0) {
-				Util.stopGameWithWinner(getOpponents(p));
+				Util.stopGameWithWinner(teamE);
 			}
 		}
 		if (teamE.contains(p)) {
 			teamE.remove(p);
 			if (teamE.size() == 0) {
-				Util.stopGameWithWinner(getOpponents(p));
+				Util.stopGameWithWinner(teamB);
 			}
 		}
 		scoreboardViewers.remove(p);

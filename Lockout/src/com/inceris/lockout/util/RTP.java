@@ -47,16 +47,7 @@ public class RTP {
 				&& !l.getBlock().getType().equals(Material.KELP_PLANT)
 				&& !l.getBlock().getType().equals(Material.SEAGRASS)
 				&& !l.getBlock().getType().equals(Material.TALL_SEAGRASS)
-				&& !l.getBlock().getType().equals(Material.TUBE_CORAL)
-				&& !l.getBlock().getType().equals(Material.BRAIN_CORAL)
-				&& !l.getBlock().getType().equals(Material.BUBBLE_CORAL)
-				&& !l.getBlock().getType().equals(Material.FIRE_CORAL)
-				&& !l.getBlock().getType().equals(Material.HORN_CORAL)
-				&& !l.getBlock().getType().equals(Material.TUBE_CORAL_FAN)
-				&& !l.getBlock().getType().equals(Material.BRAIN_CORAL_FAN)
-				&& !l.getBlock().getType().equals(Material.BUBBLE_CORAL_FAN)
-				&& !l.getBlock().getType().equals(Material.FIRE_CORAL_FAN)
-				&& !l.getBlock().getType().equals(Material.HORN_CORAL_FAN)) {
+				&& !l.getBlock().getType().name().toLowerCase().contains("coral")) {
 			return true;
 		}
 		return false;
