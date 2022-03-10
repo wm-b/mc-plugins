@@ -41,13 +41,15 @@ public class RTP {
 	}
 
 	public static boolean CheckLocation(Location l) {
-		if (!l.getBlock().getType().toString().toLowerCase().equals("water")
-				&& !l.getBlock().getType().equals(Material.LAVA)
-				&& !l.getBlock().getType().equals(Material.KELP)
-				&& !l.getBlock().getType().equals(Material.KELP_PLANT)
-				&& !l.getBlock().getType().equals(Material.SEAGRASS)
-				&& !l.getBlock().getType().equals(Material.TALL_SEAGRASS)
-				&& !l.getBlock().getType().name().toLowerCase().contains("coral")) {
+		if (!l.getBlock().isLiquid() && 
+				!l.getBlock().getType().equals(Material.WATER) && 
+				!l.getBlock().getType().equals(Material.LAVA) && 
+				!l.getBlock().getType().equals(Material.KELP) && 
+				!l.getBlock().getType().equals(Material.KELP_PLANT) && 
+				!l.getBlock().getType().equals(Material.SEAGRASS) && 
+				!l.getBlock().getType().equals(Material.TALL_SEAGRASS) && 
+				!l.getBlock().getType().equals(Material.POWDER_SNOW) && 
+				!l.getBlock().getType().name().toLowerCase().contains("coral")) {
 			return true;
 		}
 		return false;
@@ -74,7 +76,7 @@ public class RTP {
 				TPPlayer(pl, player, destination);
 				break;
 			}
-			
+
 			if (count == 5) {
 				count = 0;
 				radius += 25;

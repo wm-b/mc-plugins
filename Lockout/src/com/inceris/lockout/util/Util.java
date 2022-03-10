@@ -2,6 +2,7 @@ package com.inceris.lockout.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,13 +23,14 @@ import dev.skeens.nametagcolors.NameTagColors;
 
 public class Util {
 
-	public static Lockout pl = Lockout.getPlugin(Lockout.class);
+	private static Lockout pl = Lockout.getPlugin(Lockout.class);
 	public static NameTagColors ntc = NameTagColors.getPlugin(NameTagColors.class);
 	public static MultiverseCore mv = MultiverseCore.getPlugin(MultiverseCore.class);
 	public static MVWorldManager worldManager = mv.getMVWorldManager();
 	public static MultiverseNetherPortals np = (MultiverseNetherPortals) Bukkit.getServer().getPluginManager()
 			.getPlugin("Multiverse-NetherPortals");
 	public static ItemStack compass = compass();
+	public static Logger l = pl.getLogger();
 	
 	public static ItemStack compass() {
 		ItemStack compass = new ItemStack(Material.COMPASS);

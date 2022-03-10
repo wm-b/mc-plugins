@@ -30,14 +30,18 @@ public class AsyncPlayerChatListener implements Listener {
 		if (gi != null) {
 			if (gi.getTeamB().contains(player)) {
 				e.setCancelled(true);
+				String message = teamBChatFormat(e.getMessage(), player);
 				for (Player p : gi.getTeamB()) {
-					p.sendMessage(teamBChatFormat(e.getMessage(), player));
+					p.sendMessage(message);
+					Util.l.info(message);
 				}
 
 			} else if (gi.getTeamE().contains(player)) {
 				e.setCancelled(true);
+				String message = teamEChatFormat(e.getMessage(), player);
 				for (Player p : gi.getTeamE()) {
-					p.sendMessage(teamEChatFormat(e.getMessage(), player));
+					p.sendMessage(message);
+					Util.l.info(message);
 				}
 
 			}
