@@ -56,12 +56,10 @@ public class Objective {
 	public final static Objective killCreeper = new Objective("Kill a creeper", false);
 	public final static Objective killZombieVillager = new Objective("Kill a zombie villager", false);
 	public final static Objective killSkeleton = new Objective("Kill a skeleton", false);
-	public final static Objective killSilverfish = new Objective("Kill a silverfish", false);
 	public final static Objective killIronGolem = new Objective("Kill an iron golem", false);
 	public final static Objective killWitch = new Objective("Kill a witch", false);
 	public final static Objective killWitherSkeleton = new Objective("Kill a wither skeleton", false);
 	public final static Objective killBlaze = new Objective("Kill a blaze", false);
-	public final static Objective killPhantom = new Objective("Kill a phantom", false);
 
 	public final static Objective obtainDiamond = new Objective("Obtain a diamond", false);
 	public final static Objective obtainRedstone = new Objective("Obtain redstone", false);
@@ -148,6 +146,7 @@ public class Objective {
 	public final static Objective breedPolarBear = new Objective("Breed a polar bear", true);
 	public final static Objective breedPanda = new Objective("Breed a panda", true);
 
+	public final static Objective killSilverfish = new Objective("Kill a silverfish", true);
 	public final static Objective killIllager = new Objective("Kill an illager", true);
 	public final static Objective killEnderDragon = new Objective("Kill the ender dragon", true);
 	public final static Objective killWither = new Objective("Kill the wither", true);
@@ -262,10 +261,10 @@ public class Objective {
 			} else if (r1 <= 25) {
 				objectives.add(chooseRandomObjective(objectives, breedObjectives, hard));
 				// kill
-			} else if (r1 <= 35) {
+			} else if (r1 <= 33) {
 				objectives.add(chooseRandomObjective(objectives, killObjectives, hard));
 				// obtain
-			} else if (r1 <= 47) {
+			} else if (r1 <= 46) {
 				objectives.add(chooseRandomObjective(objectives, obtainObjectives, hard));
 				// eat
 			} else if (r1 <= 57) {
@@ -299,7 +298,7 @@ public class Objective {
 
 	public static Objective[] killObjectives = new Objective[] { killOpponent, killZombie, killSpider, killCreeper,
 			killZombieVillager, killSkeleton, killSilverfish, killIronGolem, killWitch, killWitherSkeleton, killBlaze,
-			killPhantom, killIllager, killEnderDragon, killWither, killElderGuardian };
+			killIllager, killEnderDragon, killWither, killElderGuardian };
 
 	public static Objective[] obtainObjectives = new Objective[] { obtainDiamond, obtainRedstone, obtainLapis,
 			obtainCoal, obtainRawIron, obtainRawGold, obtainIronIngot, obtainGoldIngot, obtainStone, obtainTuff,

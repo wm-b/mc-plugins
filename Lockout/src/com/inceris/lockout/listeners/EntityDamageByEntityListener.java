@@ -14,7 +14,6 @@ import org.bukkit.entity.Ghast;
 import org.bukkit.entity.Illager;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Silverfish;
 import org.bukkit.entity.Skeleton;
@@ -67,9 +66,6 @@ public class EntityDamageByEntityListener implements Listener {
 							} else if (d instanceof Skeleton && objectives.contains(Objective.killSkeleton)) {
 								Objective.complete(gi, Objective.killSkeleton, p);
 
-							} else if (d instanceof Silverfish && objectives.contains(Objective.killSilverfish)) {
-								Objective.complete(gi, Objective.killSilverfish, p);
-
 							} else if (d instanceof IronGolem && objectives.contains(Objective.killIronGolem)) {
 								Objective.complete(gi, Objective.killIronGolem, p);
 
@@ -83,8 +79,8 @@ public class EntityDamageByEntityListener implements Listener {
 							} else if (d instanceof Blaze && objectives.contains(Objective.killBlaze)) {
 								Objective.complete(gi, Objective.killBlaze, p);
 
-							} else if (d instanceof Phantom && objectives.contains(Objective.killPhantom)) {
-								Objective.complete(gi, Objective.killPhantom, p);
+							} else if (d instanceof Silverfish && objectives.contains(Objective.killSilverfish)) {
+								Objective.complete(gi, Objective.killSilverfish, p);
 
 							} else if (d instanceof Illager && objectives.contains(Objective.killIllager)) {
 								Objective.complete(gi, Objective.killIllager, p);
