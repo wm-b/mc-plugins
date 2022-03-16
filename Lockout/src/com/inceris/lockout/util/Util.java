@@ -134,7 +134,7 @@ public class Util {
 		for (int i = 1; i < 99; i++) {
 			boolean nameAvailable = true;
 			for (GameInstance gi : pl.getGameInstances()) {
-				if (!gi.getGameName().equals("LockoutGameWorld" + i)) {
+				if (gi.getGameName().equals("LockoutGameWorld" + i)) {
 					nameAvailable = false;
 				}
 			}

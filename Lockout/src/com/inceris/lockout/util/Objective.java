@@ -213,7 +213,7 @@ public class Objective {
 
 				for (List<Player> team : gi.getTeams()) {
 					if (gi.getPlayerScores().get(team) >= 8) {
-						Util.stopGameWithWinner(gi.getTeam(p));
+						Util.stopGameWithWinner(team);
 					}
 				}
 			}

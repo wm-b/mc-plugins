@@ -18,7 +18,7 @@ public class LockoutCommand {
 
 	public static boolean cmd(CommandSender sender, String[] args) {
 		if (args.length == 0) {
-			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9play.atownyserver.com"));
+			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9lockout.biz"));
 			return true;
 
 		} else if (args[0].equalsIgnoreCase("start") && sender.hasPermission("lockout.admin")) {
@@ -85,6 +85,15 @@ public class LockoutCommand {
 			} else {
 				sender.sendMessage(Util.format("&9/lockout forcewin [player]"));
 				return true;
+			}
+
+		} else if (args[0].equalsIgnoreCase("list") && sender.hasPermission("lockout.admin")) {
+			for (GameInstance gi : pl.getGameInstances()) {
+				String players = "";
+				for (Player p : gi.getPlayers()) {
+					players += p.getName() + " ";
+				}
+				sender.sendMessage(Util.format("Game running in: " + gi.getWorld().getName() + " with " + players));
 			}
 
 		} else if (args[0].equalsIgnoreCase("scoreboard") && sender.hasPermission("lockout.admin")) {
@@ -269,7 +278,7 @@ public class LockoutCommand {
 					return true;
 
 				} else if (args[1].equalsIgnoreCase("leave") && sender.hasPermission("lockout.use")) {
-					
+
 					return true;
 
 				} else if (args[1].equalsIgnoreCase("stop")) {
@@ -302,7 +311,7 @@ public class LockoutCommand {
 			}
 
 		} else {
-			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9mc.lockout.biz"));
+			sender.sendMessage(Util.format("Developed by &cInceris &ffor &9lockout.biz"));
 			return true;
 		}
 
