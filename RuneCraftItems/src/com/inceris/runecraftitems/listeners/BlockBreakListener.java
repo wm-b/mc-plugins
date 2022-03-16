@@ -50,7 +50,7 @@ public class BlockBreakListener implements Listener {
 
 		Player p = e.getPlayer();
 		ItemStack itemInHand = p.getInventory().getItemInMainHand();
-		if (Util.checkItem(itemInHand, Items.superpick)) {
+		if (Util.checkItem(itemInHand, Items.getItem("superpick"))) {
 
 			if (rci.debug)
 				Bukkit.getLogger().info("Detected superpick break!");
@@ -87,13 +87,13 @@ public class BlockBreakListener implements Listener {
 					|| m.equals(Material.DARK_OAK_LOG) || m.equals(Material.BIRCH_LOG)
 					|| m.equals(Material.ACACIA_LOG)) {
 				if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.break-log"))) {
-					p.getInventory().addItem(Items.stoneOne);
+					p.getInventory().addItem(Items.getItem("stoneone"));
 				}
 			} else if (m.equals(Material.STONE) || m.equals(Material.DEEPSLATE) || m.equals(Material.TUFF)
 					|| m.equals(Material.ANDESITE) || m.equals(Material.DIORITE)
 					|| m.equals(Material.CALCITE) || m.equals(Material.GRANITE)) {
 				if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.break-stone"))) {
-					p.getInventory().addItem(Items.stoneTwo);
+					p.getInventory().addItem(Items.getItem("stonetwo"));
 				}
 			}
 		}

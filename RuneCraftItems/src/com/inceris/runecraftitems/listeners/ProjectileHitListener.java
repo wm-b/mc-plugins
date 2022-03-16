@@ -42,7 +42,7 @@ public class ProjectileHitListener implements Listener {
 			ItemStack itemInHand = shooter.getInventory().getItemInMainHand();
 			if (itemInHand != null) {
 				if (targetBlock != null) {
-					if (Util.checkItem(itemInHand, Items.grapplingHook)) {
+					if (Util.checkItem(itemInHand, Items.getItem("grapplingHook"))) {
 
 						if (rci.debug)
 							Bukkit.getLogger().info("Detected grapplinghook hit!");
@@ -57,7 +57,7 @@ public class ProjectileHitListener implements Listener {
 					}
 				}
 				
-				if (Util.checkItem(itemInHand, Items.cupidsBow)) {
+				if (Util.checkItem(itemInHand, Items.getItem("cupidsBow"))) {
 					if (target != null) {
 						target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 1));
 						Util.sendCommand("trailsid HEART " + target.getName());
@@ -72,7 +72,7 @@ public class ProjectileHitListener implements Listener {
 						
 					}
 					
-				} else if (Util.checkItem(itemInHand, Items.thunderBow)) {
+				} else if (Util.checkItem(itemInHand, Items.getItem("thunderBow"))) {
 					if (Util.percentChance(15)) {
 						if (targetBlock != null) {
 							shooter.getWorld().strikeLightning(targetBlock.getLocation());
@@ -86,7 +86,7 @@ public class ProjectileHitListener implements Listener {
 			
 			if (entity instanceof EnderPearl) {
 				ItemStack ep = ((EnderPearl) entity).getItem();
-				if (Util.checkItem(ep, Items.eyeOfTheDragon)) {
+				if (Util.checkItem(ep, Items.getItem("eyeOfTheDragon"))) {
 					shooter.getInventory().addItem(ep);
 					shooter.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 1, 255));
 				}

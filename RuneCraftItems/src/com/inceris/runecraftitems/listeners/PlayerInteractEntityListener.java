@@ -33,7 +33,7 @@ public class PlayerInteractEntityListener implements Listener {
 
 				if (entity instanceof Player) {
 					Player target = (Player) entity;
-					if (Util.checkItem(target.getInventory().getItemInMainHand(), Items.ricksFlowers)) {
+					if (Util.checkItem(target.getInventory().getItemInMainHand(), Items.getItem("ricksFlowers"))) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 0, 10));
 						p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 0, 10));
 						p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 0, 10));
@@ -46,7 +46,7 @@ public class PlayerInteractEntityListener implements Listener {
 							}
 						}, 200L);
 
-					} else if (Util.checkItem(item, Items.escobarsSalt)) {
+					} else if (Util.checkItem(item, Items.getItem("escobarsSalt"))) {
 						RCIPlayer rcip = RCIPlayer.getRCIPlayer(p);
 						if (!rcip.escobarsSaltOnCooldown) {
 							target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 200, 0));
@@ -64,7 +64,7 @@ public class PlayerInteractEntityListener implements Listener {
 
 					}
 
-				} else if (Util.checkItem(item, Items.thunderstone)) {
+				} else if (Util.checkItem(item, Items.getItem("thunderstone"))) {
 					if (entity instanceof Creeper) {
 						RCIPlayer rcip = RCIPlayer.getRCIPlayer(p);
 						if (!rcip.thunderstoneOnCooldown) {

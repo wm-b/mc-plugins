@@ -159,3 +159,64 @@ items:
         name: "&a&lVaccine"
         lore:
         - "&7Removes effects from players in a large radius."
+    mjolnir:
+        name: "&6&lMjolnir"
+        lore:
+        - "&7Gives you buffs and strikes lightning at your target."
+    hermesboots:
+        name: "&b&lHermes' Boots"
+        lore:
+        - "&7Grants massive speed when worn."
+    poseidonstrident:
+        name: "&1&lPoseidon's Trident"
+        lore:
+        - "&7Hold to gain the powers of the god of the sea."
+    theflamingsword:
+        name: "&4&lThe Flaming Sword"
+        lore:
+        - "&7Kills non-boss mobs in one hit."
+    sunwukongsheadband:
+        name: "&6&lSun Wukong's Headband"
+        lore:
+        - "&7Grants you the ability to disguise as mobs."
+    grailsword:
+        name: "&6&lGrail Sword"
+        durability: 5
+        lore:
+        - "&7A powerful sword that breaks in 5 hits."
+    kappasplatebody:
+        name: "&a&lKappas Platebody"
+        lore:
+        - "&7Don't go swimming."
+    crownoftwelvestars:
+        name: "&c&lCrown of Twelve Stars"
+        lore:
+        - "&7Applies colourful particle effects when worn."
+    aphroditesroses:
+        name: "&c&lAphrodite's Roses"
+        lore:
+        - "&7Pulls players into your embrace."
+    devilsgreencoat:
+        name: "&2&lDevil's Green Coat"
+        lore:
+        - "&7Passively earns you money while worn."
+    sandalsofchrist:
+        name: "&e&lSandals of Christ"
+        lore:
+        - "&7Allows you to walk on water."
+    axofpangu:
+        name: "&4&lAx of Pangu"
+        lore:
+        - "&7A powerful axe with a blink ability."
+    excalibur:
+        name: "&6&lExcalibur"
+        lore:
+        - "&7Never breaks and can blind nearby mobs."
+    brahmastra:
+        name: "&8&lBrahmastra"
+        lore:
+        - "&7Summons TNT."
+    swordofvictory:
+        name: "&6&lSword of Victory"
+        lore:
+        - "&7Makes your victories more victorious."

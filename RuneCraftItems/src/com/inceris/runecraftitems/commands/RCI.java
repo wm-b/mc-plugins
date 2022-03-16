@@ -22,19 +22,25 @@ public class RCI {
 
 			if (args[0].equalsIgnoreCase("give") && sender.hasPermission("runecraftitems.admin")) {
 
-				Player p = rci.getServer().getPlayer(args[1]);
+				try {
 
-				ItemStack item = Items.getItem(args[2]);
+					Player p = rci.getServer().getPlayer(args[1]);
 
-				if (item == null) {
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&8[&6R&5C&9I&8] &cItem called &e" + args[2] + "&c does not exist!"));
-					return true;
-				} else {
-					p.getInventory().addItem(item);
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-							"&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
-					return true;
+					ItemStack item = Items.getItem(args[2]);
+
+					if (item == null) {
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+								"&8[&6R&5C&9I&8] &cItem called &e" + args[2] + "&c does not exist!"));
+						return true;
+					} else {
+						p.getInventory().addItem(item);
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+								"&8[&6R&5C&9I&8] &fGiven " + p.getName() + " " + item.getItemMeta().getDisplayName()));
+						return true;
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 
 			} else if (args[0].equalsIgnoreCase("debug") && sender.hasPermission("runecraftitems.admin")) {

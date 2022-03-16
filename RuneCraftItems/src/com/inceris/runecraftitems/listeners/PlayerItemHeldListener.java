@@ -21,17 +21,26 @@ public class PlayerItemHeldListener implements Listener {
 		ItemStack itemInPreviousSlot = p.getInventory().getItem(e.getPreviousSlot());
 		if (itemInNewSlot != null) {
 			
-			if (Util.checkItem(itemInNewSlot, Items.pulsingHeart)) {
+			if (Util.checkItem(itemInNewSlot, Items.getItem("pulsingHeart"))) {
 				Util.sendCommand("trailsid HEART " + p.getName());
 				
-			} else if (Util.checkItem(itemInNewSlot, Items.stargazer)) {
+			} else if (Util.checkItem(itemInNewSlot, Items.getItem("stargazer"))) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60000000, 0));
 				
-			} else if (Util.checkItem(itemInNewSlot, Items.doubleEdgedSword)) {
+			} else if (Util.checkItem(itemInNewSlot, Items.getItem("doubleEdgedSword"))) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60000000, 0));
 				
-			} else if (Util.checkItem(itemInNewSlot, Items.runecraftEssence)) {
+			} else if (Util.checkItem(itemInNewSlot, Items.getItem("runecraftEssence"))) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60000000, 0));
+				
+			} else if (Util.checkItem(itemInNewSlot, Items.getItem("poseidonstrident"))) {
+				p.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, 60000000, 0));
+				p.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 60000000, 0));
+				Util.sendCommand("trailsid WATER " + p.getName());
+				
+			} else if (Util.checkItem(itemInNewSlot, Items.getItem("mjolnir"))) {
+				p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60000000, 1));
+				p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 60000000, 0));
 				
 			}
 			

@@ -17,7 +17,7 @@ public class PlayerItemConsumeListener implements Listener {
 		ItemStack item = e.getItem();
 		Player p = e.getPlayer();
 		
-		if (Util.checkItem(item, Items.kfc)) {
+		if (Util.checkItem(item, Items.getItem("kfc"))) {
 			p.setFoodLevel(p.getFoodLevel() + 6);
 			p.setSaturation(p.getSaturation() + 6);
 			e.setCancelled(true);

@@ -23,13 +23,14 @@ import com.inceris.runecraftitems.util.Items;
 import com.inceris.runecraftitems.util.Util;
 
 public class InventoryClickListener implements Listener {
-	
-	private static RuneCraftItems rci = RuneCraftItems.getPlugin(RuneCraftItems.class);
-	
+
+	private static RuneCraftItems pl = RuneCraftItems.getPlugin(RuneCraftItems.class);
+
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 
-		if (rci.debug) Bukkit.getLogger().info("Detected inventory click!");
+		if (pl.debug)
+			Bukkit.getLogger().info("Detected inventory click!");
 
 		if (!e.isCancelled()) {
 			HumanEntity human = e.getWhoClicked();
@@ -45,14 +46,15 @@ public class InventoryClickListener implements Listener {
 
 				if (inv instanceof AnvilInventory) {
 					if (slotType.equals(SlotType.RESULT)) {
-						
-						if (rci.debug)
+
+						if (pl.debug)
 							Bukkit.getLogger().info("Detected anvil/grindstone inventory click!");
 						AnvilInventory anvil = (AnvilInventory) inv;
 
 						for (ItemStack i : anvil.getContents()) {
-							if (i.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10) {
-								if (rci.debug) {
+							if (i.getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 10
+									&& !Util.checkItem(i, Items.getItem("grailsword"))) {
+								if (pl.debug) {
 									Bukkit.getLogger().info("Detected RCItem click!");
 								}
 								e.setCancelled(true);
@@ -64,8 +66,9 @@ public class InventoryClickListener implements Listener {
 					}
 				}
 
-				if (cursorItem != null && !clickType.equals(ClickType.SHIFT_LEFT) && !clickType.equals(ClickType.SHIFT_RIGHT)) {
-					if (slot == 39 && Util.checkItem(cursorItem, Items.disguiseCap)) {
+				if (cursorItem != null && !clickType.equals(ClickType.SHIFT_LEFT)
+						&& !clickType.equals(ClickType.SHIFT_RIGHT)) {
+					if (slot == 39 && Util.checkItem(cursorItem, Items.getItem("disguiseCap"))) {
 						String randomPeacefulMob = null;
 						switch (ThreadLocalRandom.current().nextInt(1, 6)) {
 						case 1:
@@ -86,53 +89,42 @@ public class InventoryClickListener implements Listener {
 						}
 						Util.sendCommand("disguiseplayer " + p.getName() + " " + randomPeacefulMob);
 
-					} else if (slot == 38 && Util.checkItem(cursorItem, Items.cupidsWings)) {
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("cupidsWings"))) {
 						Util.sendCommand("trailsid HEART " + p.getName());
 
-					} else if (slot == 38 && Util.checkItem(cursorItem, Items.neverLetGo)) {
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("neverLetGo"))) {
 						Util.sendCommand("trailsid ENDROD " + p.getName());
 
-					} else if (slot == 38 && Util.checkItem(cursorItem, Items.invisibilityCloak)) {
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("devilsgreencoat"))) {
+						pl.wearingDevilsGreenCoat.add(p);
+
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("invisibilityCloak"))) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 60000000, 0));
-						
-					} else if (slot == 38 && Util.checkItem(cursorItem, Items.aresChestplate)) {
+
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("aresChestplate"))) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 60000000, 0));
 						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60000000, 0));
 						Util.sendCommand("trailsid PINKCONFETTI " + p.getName());
-						
-					} else if (slot == 38 && Util.checkItem(cursorItem, Items.brolysRage)) {
+
+					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("brolysRage"))) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60000000, 2));
 						p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60000000, 6));
 						p.setHealth(6);
-						
+
+					} else if (slot == 36 && Util.checkItem(cursorItem, Items.getItem("hermesboots"))) {
+						p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60000000, 2));
+
+					} else if (slot == 39 && Util.checkItem(cursorItem, Items.getItem("crownoftwelvestars"))) {
+						Util.sendCommand("trailsid FUN " + p.getName());
+
+					} else if (slot == 39 && Util.checkItem(cursorItem, Items.getItem("sunwukongsheadband"))) {
+						Util.sendCommand("lp user " + p.getName() + " parent add sunwukongsheadband");
+
 					}
 				}
 
 				if (currentItem != null) {
-					if (slot == 39 && Util.checkItem(currentItem, Items.disguiseCap)) {
-						Util.sendCommand("undisguiseplayer " + p.getName());
-					
-					} else if (slot == 38 && Util.checkItem(currentItem, Items.cupidsWings)) {
-						Util.sendCommand("trailsid NONE " + p.getName());
-					
-					} else if (slot == 38 && Util.checkItem(currentItem, Items.neverLetGo)) {
-						Util.sendCommand("trailsid NONE " + p.getName());
-
-					} else if (Util.checkItem(currentItem, Items.invisibilityCloak)) {
-						p.removePotionEffect(PotionEffectType.INVISIBILITY);
-						
-					} else if (Util.checkItem(currentItem, Items.aresChestplate)) {
-						p.removePotionEffect(PotionEffectType.REGENERATION);
-						p.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-						Util.sendCommand("trailsid NONE " + p.getName());
-						
-					} else if (Util.checkItem(currentItem, Items.brolysRage)) {
-						p.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-						p.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-						
-					} else {
-						Util.checkRemoveItemEffects(p, currentItem);
-					}
+					Util.checkRemoveItemEffects(p, currentItem);
 				}
 			}
 		}

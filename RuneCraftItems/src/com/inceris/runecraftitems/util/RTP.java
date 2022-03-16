@@ -28,7 +28,7 @@ public class RTP {
 		return l;
 	}
 
-	private static void TPPlayer(Plugin plugin, final Player player, final Location l) {
+	public static void TPPlayer(Plugin plugin, final Player player, final Location l) {
 		Bukkit.getScheduler().runTask(plugin, new Runnable() {
 			public void run() {
 				l.setX(l.getX() + 0.5D);

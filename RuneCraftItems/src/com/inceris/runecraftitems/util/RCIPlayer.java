@@ -15,6 +15,9 @@ public class RCIPlayer {
 	public boolean escobarsSaltOnCooldown = false;
 	public boolean vaccineOnCooldown = false;
 	public boolean jumpStoneChanceOnCooldown = false;
+	public boolean mjolnirOnCooldown = false;
+	public boolean axOfPanguOnCooldown = false;
+	public boolean brahmastraOnCooldown = false;
 
 	private Player player;
 

@@ -1,8 +1,13 @@
 package com.inceris.runecraftitems;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +18,7 @@ import com.inceris.runecraftitems.listeners.EntityDamageByEntityListener;
 import com.inceris.runecraftitems.listeners.InventoryClickListener;
 import com.inceris.runecraftitems.listeners.PlayerInteractListener;
 import com.inceris.runecraftitems.listeners.PlayerItemConsumeListener;
+import com.inceris.runecraftitems.listeners.PlayerItemDamageListener;
 import com.inceris.runecraftitems.listeners.PlayerDropItemListener;
 import com.inceris.runecraftitems.listeners.PlayerFishListener;
 import com.inceris.runecraftitems.listeners.PlayerInteractEntityListener;
@@ -20,12 +26,14 @@ import com.inceris.runecraftitems.listeners.PlayerItemHeldListener;
 import com.inceris.runecraftitems.listeners.PlayerJoinListener;
 import com.inceris.runecraftitems.listeners.PlayerMoveListener;
 import com.inceris.runecraftitems.listeners.PlayerQuitListener;
+import com.inceris.runecraftitems.listeners.PrepareAnvilListener;
 import com.inceris.runecraftitems.listeners.ProjectileHitListener;
 import com.inceris.runecraftitems.util.Util;
 
 public class RuneCraftItems extends JavaPlugin {
 
 	public boolean debug = false;
+	public List<Player> wearingDevilsGreenCoat = new ArrayList<Player>();
 
 	@Override
 	public void onEnable() {
@@ -47,7 +55,21 @@ public class RuneCraftItems extends JavaPlugin {
 		pm.registerEvents(new CraftItemListener(), this);
 		pm.registerEvents(new PlayerFishListener(), this);
 		pm.registerEvents(new PlayerMoveListener(), this);
+		pm.registerEvents(new PrepareAnvilListener(), this);
+		pm.registerEvents(new PlayerItemDamageListener(), this);
+		Util.setupEconomy();
 
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			@Override
+			public void run() {
+				if (wearingDevilsGreenCoat != null) {
+					for (Player p : wearingDevilsGreenCoat) {
+						p.sendMessage(Util.colours("&a&l+ $50"));
+						Util.getEcon().depositPlayer(p, 50);
+					}
+				}
+			}
+		}, 0, 2400);
 	}
 
 	@Override

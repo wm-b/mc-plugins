@@ -17,7 +17,7 @@ public class CraftItemListener implements Listener {
 
 		if (rci.getConfig().getBoolean("stones.enabled")) {
 			if (Util.percentChance(rci.getConfig().getDouble("stones.droprates.craft"))) {
-				e.getWhoClicked().getInventory().addItem(Items.stoneSeven);
+				e.getWhoClicked().getInventory().addItem(Items.getItem("stoneSeven"));
 			}
 		}
 	}
