@@ -13,23 +13,27 @@ import com.inceris.runecraftitems.util.Util;
 public class PrepareAnvilListener implements Listener {
 
 	private static RuneCraftItems pl = (RuneCraftItems) RuneCraftItems.getPlugin(RuneCraftItems.class);
-	
+
 	@EventHandler
 	public void onPrepareAnvil(PrepareAnvilEvent e) {
-		ItemStack result = e.getResult();
-		
-		if (Util.checkItem(result, Items.getItem("grailsword"))) {
+
+		if (e.getResult() != null) {
 			
-			Damageable meta = (Damageable) result.getItemMeta();
-			int maxDurability = pl.getConfig().getInt("items.grailsword.durability");
-			int originalMaxDurability = result.getType().getMaxDurability();
-			
-			if ((originalMaxDurability - meta.getDamage()) > maxDurability) {
-				meta.setDamage(originalMaxDurability - maxDurability);
+			ItemStack result = e.getResult();
+
+			if (Util.checkItem(result, Items.getItem("grailsword"))) {
+
+				Damageable meta = (Damageable) result.getItemMeta();
+				int maxDurability = pl.getConfig().getInt("items.grailsword.durability");
+				int originalMaxDurability = result.getType().getMaxDurability();
+
+				if ((originalMaxDurability - meta.getDamage()) > maxDurability) {
+					meta.setDamage(originalMaxDurability - maxDurability);
+				}
+
+				result.setItemMeta(meta);
 			}
-			
-			result.setItemMeta(meta);
 		}
 	}
-	
+
 }

@@ -7,6 +7,8 @@ import net.milkbowl.vault.economy.Economy;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -43,18 +45,37 @@ public class Util {
 		ConsoleCommandSender console = pl.getServer().getConsoleSender();
 		Bukkit.dispatchCommand((CommandSender) console, command);
 	}
-
-	public static String colours(String message) {
-		return ChatColor.translateAlternateColorCodes('&', message);
-	}
+	
+    public static String colours(String message) {
+        Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
+        Matcher matcher = pattern.matcher(message);
+        while (matcher.find()) {
+            String hexCode = message.substring(matcher.start(), matcher.end());
+            String replaceSharp = hexCode.replace('#', 'x');
+           
+            char[] ch = replaceSharp.toCharArray();
+            StringBuilder builder = new StringBuilder("");
+            for (char c : ch) {
+                builder.append("&" + c);
+            }
+           
+            message = message.replace(hexCode, builder.toString());
+            matcher = pattern.matcher(message);
+        }
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+    
+    public static String removeSymbols(String message) {
+        String regex = "[^a-zA-Z]+";
+        return message.replaceAll(regex, "");
+    }
 
 	public static ItemStack constructItem(Material material, String name) {
 		if (pl.getConfig().getString("items." + name + ".name") != null) {
 			ItemStack item = new ItemStack(material);
 			item.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
 			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName(
-					ChatColor.translateAlternateColorCodes('&', pl.getConfig().getString("items." + name + ".name")));
+			meta.setDisplayName(colours(pl.getConfig().getString("items." + name + ".name")));
 			List<String> lore = pl.getConfig().getStringList("items." + name + ".lore");
 			for (int i = 0; i < lore.size(); i++)
 				lore.set(i, ChatColor.translateAlternateColorCodes('&', lore.get(i)));
