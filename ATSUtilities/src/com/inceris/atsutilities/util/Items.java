@@ -34,6 +34,12 @@ public class Items {
 			case "prestigerankuptoken":
 				item = prestigeRankupToken;
 				break;
+			case "laserspyglass":
+				item = laserSpyglass;
+				break;
+			case "deathray":
+				item = deathRay;
+				break;
 			}
 			
 			return item;
@@ -56,5 +62,9 @@ public class Items {
 		item.setItemMeta(meta);
 		return item;
 	}
+	
+	public static ItemStack laserSpyglass = constructItem(Material.SPYGLASS, "&c&lLaser Spyglass");
+	
+	public static ItemStack deathRay = constructItem(Material.SPYGLASS, "&4&lDeath Ray");
 				
 }

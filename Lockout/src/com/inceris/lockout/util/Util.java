@@ -49,7 +49,26 @@ public class Util {
 		RTP.TPPlayer(pl, p, l);
 	}
 	
+	public static boolean enableEasyMode(List<Player> teamB, List<Player> teamE) {
+		for (Player p : pl.getEasyModeEnabled()) {
+			if (teamB.contains(p) || teamE.contains(p)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean enableEasyMode(List<Player> players) {
+		for (Player p : pl.getEasyModeEnabled()) {
+			if (players.contains(p)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static boolean enableHardMode(List<Player> teamB, List<Player> teamE) {
+		if (Util.enableEasyMode(teamB, teamE)) return false;
 		for (Player p : pl.getHardModeEnabled()) {
 			if (teamB.contains(p) || teamE.contains(p)) {
 				return true;
@@ -59,6 +78,7 @@ public class Util {
 	}
 	
 	public static boolean enableHardMode(List<Player> players) {
+		if (Util.enableEasyMode(players)) return false;
 		for (Player p : pl.getHardModeEnabled()) {
 			if (players.contains(p)) {
 				return true;

@@ -1,20 +1,26 @@
 package com.inceris.atsutilities;
 
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.inceris.atsutilities.listeners.PrepareAnvilListener;
+
+import net.luckperms.api.LuckPerms;
+
 import com.inceris.atsutilities.commands.ATSRTP;
 import com.inceris.atsutilities.commands.ATSU;
 import com.inceris.atsutilities.commands.Blink;
 import com.inceris.atsutilities.commands.BrewAtRandom;
 import com.inceris.atsutilities.commands.Broadcast;
+import com.inceris.atsutilities.commands.CountdownCmd;
 import com.inceris.atsutilities.commands.Leap;
 import com.inceris.atsutilities.listeners.AsyncPlayerChatListener;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
 import com.inceris.atsutilities.listeners.InventoryClickListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
 import com.inceris.atsutilities.listeners.PlayerCommandPreprocessListener;
+import com.inceris.atsutilities.listeners.PlayerDeathListener;
 import com.inceris.atsutilities.listeners.PlayerInteractListener;
 
 import org.bukkit.Bukkit;
@@ -25,7 +31,9 @@ import org.bukkit.enchantments.Enchantment;
 
 public class ATSUtilities extends JavaPlugin {
 
+	public static LuckPerms lp;
 	public boolean denyTallGrass = false;
+	public boolean denyInfested = true;
 	public boolean debug = false;
 	public final Enchantment[] allowedEnchantments = new Enchantment[] {
 			Enchantment.DIG_SPEED,
@@ -38,11 +46,12 @@ public class ATSUtilities extends JavaPlugin {
 			Enchantment.PROTECTION_FIRE,
 			Enchantment.PROTECTION_EXPLOSIONS,
 			Enchantment.PROTECTION_PROJECTILE,
-			Enchantment.DURABILITY,
+			Enchantment.DURABILITY
 			};
 
 	@Override
 	public void onEnable() {
+		this.saveDefaultConfig();
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new IronGolemDeathListener(), this);
 		pm.registerEvents(new DurabilityLossListener(), this);
@@ -51,6 +60,12 @@ public class ATSUtilities extends JavaPlugin {
 		pm.registerEvents(new AsyncPlayerChatListener(), this);
 		pm.registerEvents(new PlayerInteractListener(), this);
 		pm.registerEvents(new PlayerCommandPreprocessListener(), this);
+		pm.registerEvents(new PlayerDeathListener(), this);
+		
+		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+		if (provider != null) {
+		    lp = provider.getProvider();
+		}
 	}
 
 	@Override
@@ -96,8 +111,12 @@ public class ATSUtilities extends JavaPlugin {
 				return true;
 			}
 
+			if (label.equalsIgnoreCase("countdown") || label.equalsIgnoreCase("cd")) {
+				return CountdownCmd.cmd(sender, args);
+			}
+
 		} catch (Exception e) {
-			getLogger().info(e.fillInStackTrace().getMessage());
+			e.printStackTrace();
 		}
 
 		return false;

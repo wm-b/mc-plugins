@@ -96,7 +96,9 @@ public class InventoryClickListener implements Listener {
 						Util.sendCommand("trailsid ENDROD " + p.getName());
 
 					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("devilsgreencoat"))) {
-						pl.wearingDevilsGreenCoat.add(p);
+						if (!pl.wearingDevilsGreenCoat.contains(p)) {
+							pl.wearingDevilsGreenCoat.add(p);
+						}
 
 					} else if (slot == 38 && Util.checkItem(cursorItem, Items.getItem("invisibilityCloak"))) {
 						p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 60000000, 0));

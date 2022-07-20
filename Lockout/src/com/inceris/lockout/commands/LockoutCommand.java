@@ -26,10 +26,16 @@ public class LockoutCommand {
 			if (args.length == 1) {
 				if (pl.getPrepTeamB().size() > 0 && pl.getPrepTeamE().size() > 0) {
 					if (Arrays.asList(args).contains("-h")) {
-						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(), true);
+						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(), false, true);
+
+					} else if (Arrays.asList(args).contains("-e")) {
+						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(), true, false);
+
 					} else {
 						new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(),
+								Util.enableEasyMode(pl.getPrepTeamB(), pl.getPrepTeamE()),
 								Util.enableHardMode(pl.getPrepTeamB(), pl.getPrepTeamE()));
+
 					}
 					pl.setPreventJoiningTeams(true);
 					pl.setPrepTeamB(new ArrayList<Player>());
@@ -50,7 +56,7 @@ public class LockoutCommand {
 				for (int i = 1; i < args.length; i++) {
 					if (pl.getServer().getPlayer(args[i]) instanceof Player) {
 						players.add(pl.getServer().getPlayer(args[i]));
-					} else if (!args[i].equals("-h")) {
+					} else if (!(args[i].equals("-h") || args[i].equals("-e"))) {
 						sender.sendMessage(Util.format("One of those arguments doesn't look like a player!"));
 						sender.sendMessage("/lockout start [player 1] [player 2] ... {-h}");
 						return true;
@@ -59,9 +65,15 @@ public class LockoutCommand {
 
 				if (GameInstance.get(players.get(0)) == null && GameInstance.get(players.get(1)) == null) {
 					if (Arrays.asList(args).contains("-h")) {
-						new GameInstance(Util.teamB(players), Util.teamE(players), true);
+						new GameInstance(Util.teamB(players), Util.teamE(players), false, true);
+
+					} else if (Arrays.asList(args).contains("-e")) {
+						new GameInstance(Util.teamB(players), Util.teamE(players), true, false);
+
 					} else {
-						new GameInstance(Util.teamB(players), Util.teamE(players), Util.enableHardMode(players));
+						new GameInstance(Util.teamB(players), Util.teamE(players), Util.enableEasyMode(players),
+								Util.enableHardMode(players));
+
 					}
 				} else {
 					sender.sendMessage(Util.format("Existing game still active! Please wait and then try again."));
@@ -233,6 +245,8 @@ public class LockoutCommand {
 															if (pl.isGameStarting()) {
 																pl.setGameStarting(false);
 																new GameInstance(pl.getPrepTeamB(), pl.getPrepTeamE(),
+																		Util.enableEasyMode(pl.getPrepTeamB(),
+																				pl.getPrepTeamE()),
 																		Util.enableHardMode(pl.getPrepTeamB(),
 																				pl.getPrepTeamE()));
 																pl.setPrepTeamB(new ArrayList<Player>());
@@ -297,16 +311,35 @@ public class LockoutCommand {
 				}
 			}
 
-		} else if (args[0].equalsIgnoreCase("hard") && sender.hasPermission("lockout.hard")) {
+		} else if (args[0].equalsIgnoreCase("easy") && sender.hasPermission("lockout.easy")) {
 			if (sender instanceof Player) {
-				Player p = (Player) sender;
-				if (pl.getHardModeEnabled().contains(p)) {
-					pl.getHardModeEnabled().remove(p);
-					p.sendMessage(Util.format("Hard mode objectives disabled."));
+				Player player = (Player) sender;
+				if (pl.getEasyModeEnabled().contains(player)) {
+					pl.getEasyModeEnabled().remove(player);
+					player.sendMessage(Util.format("Easy mode disabled."));
 					return true;
 				} else {
-					pl.getHardModeEnabled().add(p);
-					p.sendMessage(Util.format("Hard mode objectives enabled for you and those you're playing with!"));
+					pl.getEasyModeEnabled().add(player);
+					for (Player p : pl.getLobby().getPlayers()) {
+						p.sendMessage(Util
+								.format(player.getName() + " has enabled easy mode!"));
+					}
+				}
+			}
+
+		} else if (args[0].equalsIgnoreCase("hard") && sender.hasPermission("lockout.hard")) {
+			if (sender instanceof Player) {
+				Player player = (Player) sender;
+				if (pl.getHardModeEnabled().contains(player)) {
+					pl.getHardModeEnabled().remove(player);
+					player.sendMessage(Util.format("Hard mode disabled."));
+					return true;
+				} else {
+					pl.getHardModeEnabled().add(player);
+					for (Player p : pl.getLobby().getPlayers()) {
+						p.sendMessage(Util
+								.format(player.getName() + " has enabled hard mode!"));
+					}
 				}
 			}
 

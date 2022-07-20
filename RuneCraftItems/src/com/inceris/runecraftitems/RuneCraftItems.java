@@ -28,6 +28,7 @@ import com.inceris.runecraftitems.listeners.PlayerMoveListener;
 import com.inceris.runecraftitems.listeners.PlayerQuitListener;
 import com.inceris.runecraftitems.listeners.PrepareAnvilListener;
 import com.inceris.runecraftitems.listeners.ProjectileHitListener;
+import com.inceris.runecraftitems.util.Items;
 import com.inceris.runecraftitems.util.Util;
 
 public class RuneCraftItems extends JavaPlugin {
@@ -64,8 +65,12 @@ public class RuneCraftItems extends JavaPlugin {
 			public void run() {
 				if (wearingDevilsGreenCoat != null) {
 					for (Player p : wearingDevilsGreenCoat) {
-						p.sendMessage(Util.colours("&a&l+ $50"));
-						Util.getEcon().depositPlayer(p, 50);
+						if (Util.checkItem(p.getInventory().getItem(38), Items.getItem("devilsgreencoat"))) {
+							p.sendMessage(Util.colours("&a&l+ $50"));
+							Util.getEcon().depositPlayer(p, 50);
+						} else {
+							wearingDevilsGreenCoat.remove(p);
+						}
 					}
 				}
 			}

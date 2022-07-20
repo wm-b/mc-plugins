@@ -1,6 +1,5 @@
 package com.inceris.atstcg;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,6 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.inceris.atstcg.listeners.PackListener;
+
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
@@ -26,6 +27,7 @@ public class ATSTCG extends JavaPlugin {
 		this.saveDefaultConfig();
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(new PackListener(), this);
+		pm.registerEvents(new GameInv(), this);
 
 		countCards();
 	}
@@ -211,44 +213,7 @@ public class ATSTCG extends JavaPlugin {
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("atstcg")) {
-			try {
-				// /tradingcards
-				if (args.length == 0) {
-					sender.sendMessage(ChatColor.BLUE + "TradingCards by Inceris");
-				} else if (!sender.hasPermission("tradingcards.admin")) {
-					sender.sendMessage(ChatColor.RED + "You don't have permission for this!");
-					return true;
-
-					// /tradingcards reload
-				} else if (args[0].equalsIgnoreCase("reload")) {
-					this.reloadConfig();
-					countCards();
-					sender.sendMessage(ChatColor.GREEN + "TradingCards config reloaded!");
-					
-					// /tradingcards give
-				} else if (args[0].equalsIgnoreCase("give")) {
-					if (args[2].equals("random")) this.getServer().getPlayer(args[1]).getInventory().addItem(randomCardOfEdFromSet(Integer.parseInt(args[3]), 1));
-					else this.getServer().getPlayer(args[1]).getInventory().addItem(card(args[2], Integer.parseInt(args[3])));
-
-					// /tradingcards pack
-				} else if (args[0].equalsIgnoreCase("pack")) {
-					ItemStack pack = new ItemStack(Material.NETHERITE_SCRAP);
-					pack.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 10);
-					ItemMeta meta = pack.getItemMeta();
-					if (args[2].equalsIgnoreCase("2")) meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&aSet 2 &6Second Edition &dCard Pack"));
-					else meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&aSet 1 &6Second Edition &dCard Pack"));
-					List<String> lore = new ArrayList<String>();
-					lore.add("");
-					lore.add(ChatColor.GRAY + "Contains 4 random trading cards!");
-					meta.setLore(lore);
-					pack.setItemMeta(meta);
-					this.getServer().getPlayer(args[1]).getInventory().addItem(pack);
-				}
-			}
-			catch(Exception e) {
-				sender.sendMessage(ChatColor.RED + "There was a problem!");
-				e.printStackTrace();
-			}
+			Commands.atstcg(sender, args);
 		}
 		return false;
 	}

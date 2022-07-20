@@ -141,7 +141,7 @@ public class GameInstance {
 		this.compassTracking = compassTracking;
 	}
 
-	public GameInstance(List<Player> teamB, List<Player> teamE, boolean hard) {
+	public GameInstance(List<Player> teamB, List<Player> teamE, boolean easy, boolean hard) {
 		if (!pl.isPreventNewGame()) {
 			pl.setPreventNewGame(true);
 			gameName = Util.generateGameName();
@@ -173,11 +173,11 @@ public class GameInstance {
 				Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 					@Override
 					public void run() {
-						initialiseGame(teamB, teamE, hard);
+						initialiseGame(teamB, teamE, easy, hard);
 					}
 				}, 100);
 			} else {
-				initialiseGame(teamB, teamE, hard);
+				initialiseGame(teamB, teamE, easy, hard);
 			}
 		} else {
 			for (Player p : teamB) {
@@ -192,7 +192,7 @@ public class GameInstance {
 
 	}
 
-	public void initialiseGame(List<Player> teamB, List<Player> teamE, boolean hard) {
+	public void initialiseGame(List<Player> teamB, List<Player> teamE, boolean easy, boolean hard) {
 		world = pl.getServer().getWorld(gameName);
 		nether = pl.getServer().getWorld(gameName + "_nether");
 		end = pl.getServer().getWorld(gameName + "_the_end");
@@ -201,7 +201,7 @@ public class GameInstance {
 		end.getWorldBorder().setSize(4001);
 		active = true;
 		startTime = System.currentTimeMillis();
-		objectives = Objective.chooseObjectives(hard);
+		objectives = Objective.chooseObjectives(easy, hard);
 		teamScores = new HashMap<List<Player>, Integer>();
 		compassTracking = new HashMap<Player, Player>();
 		this.teamB = new ArrayList<Player>();

@@ -20,6 +20,7 @@ public class Blink {
 				Location destination = null;
 				Block check = null;
 				Player p = atsu.getServer().getPlayer(args[0]);
+				Location location = p.getLocation();
 				for (int i = 1; i < Integer.parseInt(args[1]); i++) {
 					check = p.getTargetBlock(null, i);
 					if (!check.getType().isSolid())
@@ -28,8 +29,11 @@ public class Blink {
 						break;
 				}
 				if (destination != null) {
-					destination.setPitch(p.getLocation().getPitch());
-					destination.setYaw(p.getLocation().getYaw());
+					destination.setPitch(location.getPitch());
+					destination.setYaw(location.getYaw());
+					if (destination.getY() > location.getY()) {
+						destination.setY(location.getY());
+					}
 					ATSRTP.TPPlayer(atsu, p, destination);
 				} else
 					p.sendMessage(ChatColor.RED + "There is a wall in the way!");

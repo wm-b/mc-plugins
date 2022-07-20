@@ -47,7 +47,7 @@ public class DurabilityLossListener implements Listener {
 				hasHave = "have";
 
 			String message = "";
-			if (durability == 0)
+			if (durability <= 0)
 				message = ChatColor.RED + "Uh-oh! Your " + name + " " + hasHave + " broke!";
 			else if (durability == 1)
 				message = ChatColor.RED + "Your " + name + " only " + hasHave + " " + durability + " use left!";
