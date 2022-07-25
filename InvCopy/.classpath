@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/spigot-api-1.18.1-R0.1-SNAPSHOT-shaded.jar"/>
+	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/spigot-api-1.19-R0.1-SNAPSHOT-shaded.jar"/>
 	<classpathentry kind="lib" path="G:/Users/will6/Documents/ServerThings/jars/OpenInv.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
