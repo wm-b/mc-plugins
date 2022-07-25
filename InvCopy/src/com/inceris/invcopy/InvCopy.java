@@ -17,7 +17,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class InvCopy extends JavaPlugin {
 
+	public final String serverTo = "pvp";
 	public boolean debugMode = false;
+	public boolean noResponse = false;
 	
 	@Override
 	public void onEnable() {
@@ -45,8 +47,25 @@ public class InvCopy extends JavaPlugin {
 			} else {
 				try {
 					if (debugMode) Bukkit.getLogger().info("[InvCopy] Main command called");
-					forwardPluginMessage("towny", "requestInventory",
-							serialisePlayer(Bukkit.getServer().getPlayer(args[0])));
+					
+					Player target = Bukkit.getServer().getPlayer(args[0]);
+					
+					if (args.length < 2 || args[1].equalsIgnoreCase("newtowny")) {
+						forwardPluginMessage("newtowny", "requestInventory", serialisePlayer(target));
+					} else if (args[1].equalsIgnoreCase("towny")) {
+						forwardPluginMessage("towny", "requestInventory", serialisePlayer(target));
+					}
+					
+					noResponse = true;
+					Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+						@Override
+						public void run() {
+							if (noResponse) target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4Server&8] &cThere was a problem fetching your inventory. "
+									+ "This is most likely because nobody is online on the server you're trying to fetch your inventory from."));
+							noResponse = false;
+						}
+					}, 2);
+					
 				} catch (Exception e) {
 					sender.sendMessage(ChatColor.RED + "There was a problem!");
 					e.printStackTrace();

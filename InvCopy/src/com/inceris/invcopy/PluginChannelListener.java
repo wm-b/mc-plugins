@@ -23,6 +23,7 @@ public class PluginChannelListener implements PluginMessageListener {
 			String subchannel = in.readUTF();
 			if (subchannel.equals("inventoryPayload")) {
 				if (ic.debugMode) Bukkit.getLogger().info("[InvCopy] Recieved inventoryPayload message.");
+				if (ic.noResponse) ic.noResponse = false;
 				in.readShort();
 				ic.unserialiseInventory(in.readAllBytes());
 			}
@@ -32,7 +33,7 @@ public class PluginChannelListener implements PluginMessageListener {
 				String uuidString = in.readUTF();
 				UUID uuid = UUID.fromString(uuidString);
 				if (ic.debugMode) Bukkit.getLogger().info("[InvCopy] Sending inventoryPayload message for: " + uuidString);
-				ic.forwardPluginMessage("pvp", "inventoryPayload",
+				ic.forwardPluginMessage(ic.serverTo, "inventoryPayload",
 						ic.serialiseInventory(oi.loadPlayer(Bukkit.getOfflinePlayer(uuid))));
 				in.close();
 			}
