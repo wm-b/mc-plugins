@@ -21,9 +21,17 @@ public class PluginChannelListener implements PluginMessageListener {
 		try {
 			DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
 			String subchannel = in.readUTF();
+			if (subchannel.equals("gotPlayers?")) {
+				if (ic.debugMode) Bukkit.getLogger().info("[InvCopy] Recieved youGotPlayers message.");
+				if (ic.debugMode) Bukkit.getLogger().info("[InvCopy] Sending IGotPlayers message.");
+				ic.forwardPluginMessage(ic.serverTo, "IGotPlayers");
+			}
+			if (subchannel.equals("IGotPlayers")) {
+				if (ic.debugMode) Bukkit.getLogger().info("[InvCopy] Recieved IGotPlayers message.");
+				if (ic.noResponse) ic.noResponse = false;
+			}
 			if (subchannel.equals("inventoryPayload")) {
 				if (ic.debugMode) Bukkit.getLogger().info("[InvCopy] Recieved inventoryPayload message.");
-				if (ic.noResponse) ic.noResponse = false;
 				in.readShort();
 				ic.unserialiseInventory(in.readAllBytes());
 			}

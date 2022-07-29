@@ -20,7 +20,7 @@ public class InvCopy extends JavaPlugin {
 	public final String serverTo = "pvp";
 	public boolean debugMode = false;
 	public boolean noResponse = false;
-	
+
 	@Override
 	public void onEnable() {
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -33,50 +33,80 @@ public class InvCopy extends JavaPlugin {
 	public void onDisable() {
 	}
 
+	public void requestInventory(String server, Player target, CommandSender sender) {
+
+		noResponse = true;
+
+		if (debugMode)
+			Bukkit.getLogger().info("[InvCopy] Sending youGotPlayers message.");
+		try {
+			forwardPluginMessage(server, "youGotPlayers");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+			@Override
+			public void run() {
+				if (noResponse) {
+					target.sendMessage(ChatColor.translateAlternateColorCodes('&',
+							"&8[&4Server&8] &cThere was a problem fetching your inventory. "
+									+ "This is most likely because nobody is online on the server you're trying to fetch your inventory from."));
+					Bukkit.getLogger().info("[InvCopy] " + server + "... No players?");
+					noResponse = false;
+					return;
+				}
+
+				if (debugMode)
+					Bukkit.getLogger().info("[InvCopy] Sending requestInventory message.");
+				try {
+					forwardPluginMessage(server, "requestInventory", serialisePlayer(target));
+
+				} catch (Exception e) {
+					sender.sendMessage(ChatColor.RED + "There was a problem!");
+					e.printStackTrace();
+				}
+
+			}
+		}, 2);
+	}
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("invcopy")) {
 			if (args[0].equals("debug")) {
 				if (debugMode) {
 					sender.sendMessage("[InvCopy] Debug Mode Off");
 					debugMode = false;
-				}
-				else {
+				} else {
 					sender.sendMessage("[InvCopy] Debug Mode On");
 					debugMode = true;
 				}
+				return true;
 			} else {
-				try {
-					if (debugMode) Bukkit.getLogger().info("[InvCopy] Main command called");
-					
-					Player target = Bukkit.getServer().getPlayer(args[0]);
-					
-					if (args.length < 2 || args[1].equalsIgnoreCase("newtowny")) {
-						forwardPluginMessage("newtowny", "requestInventory", serialisePlayer(target));
-					} else if (args[1].equalsIgnoreCase("towny")) {
-						forwardPluginMessage("towny", "requestInventory", serialisePlayer(target));
-					}
-					
-					noResponse = true;
-					Bukkit.getScheduler().runTaskLater(this, new Runnable() {
-						@Override
-						public void run() {
-							if (noResponse) target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4Server&8] &cThere was a problem fetching your inventory. "
-									+ "This is most likely because nobody is online on the server you're trying to fetch your inventory from."));
-							noResponse = false;
-						}
-					}, 2);
-					
-				} catch (Exception e) {
-					sender.sendMessage(ChatColor.RED + "There was a problem!");
-					e.printStackTrace();
+				if (debugMode)
+					Bukkit.getLogger().info("[InvCopy] Main command called.");
+
+				Player target = Bukkit.getServer().getPlayer(args[0]);
+
+				if (args.length < 2 || args[1].equalsIgnoreCase("newtowny")) {
+
+					requestInventory("newtowny", target, sender);
+
+				} else if (args[1].equalsIgnoreCase("towny")) {
+
+					requestInventory("towny", target, sender);
+
 				}
+				return true;
+
 			}
 		}
 		return false;
 	}
 
 	public byte[] serialiseInventory(Player p) throws IOException {
-		if (debugMode) Bukkit.getLogger().info("[InvCopy] Serialising an inventory belonging to: " + p.getName());
+		if (debugMode)
+			Bukkit.getLogger().info("[InvCopy] Serialising an inventory belonging to: " + p.getName());
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(bos);
 		dos.writeUTF(p.getUniqueId().toString());
@@ -94,11 +124,13 @@ public class InvCopy extends JavaPlugin {
 	}
 
 	public void unserialiseInventory(byte[] byteArray) throws IOException {
-		if (debugMode) Bukkit.getLogger().info("[InvCopy] Unserialising an inventory");
+		if (debugMode)
+			Bukkit.getLogger().info("[InvCopy] Unserialising an inventory");
 		ByteArrayInputStream bis = new ByteArrayInputStream(byteArray);
 		DataInputStream dis = new DataInputStream(bis);
 		Player p = getServer().getPlayer(UUID.fromString(dis.readUTF()));
-		if (debugMode) Bukkit.getLogger().info("[InvCopy] Inventory belongs to: " + p.getName());
+		if (debugMode)
+			Bukkit.getLogger().info("[InvCopy] Inventory belongs to: " + p.getName());
 
 		short contentsLength = dis.readShort();
 		byte[] contents = new byte[contentsLength];
@@ -119,23 +151,19 @@ public class InvCopy extends JavaPlugin {
 		}
 		dis.close();
 		bis.close();
-		p.getInventory().setContents(Serialisation.playerInventoryFromBase64(contents, armour, offHand, p.getInventory()).getContents());
+		p.getInventory().setContents(
+				Serialisation.playerInventoryFromBase64(contents, armour, offHand, p.getInventory()).getContents());
 	}
 
 	public byte[] serialisePlayer(Player p) throws IOException {
-		if (debugMode) Bukkit.getLogger().info("[InvCopy] Serialising player UUID of: " + p.getName());
+		if (debugMode)
+			Bukkit.getLogger().info("[InvCopy] Serialising player UUID of: " + p.getName());
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(bos);
 		out.writeUTF(p.getUniqueId().toString());
 		bos.close();
 		return bos.toByteArray();
 	}
-
-	// public OfflinePlayer unserialisePlayer(DataInputStream dis) throws IOException {
-	// 	UUID uuid = UUID.fromString(dis.readUTF());
-	//	dis.close();
-	//	return Bukkit.getServer().getOfflinePlayer(uuid);
-	//}
 
 	public void forwardPluginMessage(String server, String channel, byte[] byteArray) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -145,9 +173,23 @@ public class InvCopy extends JavaPlugin {
 		dos.writeUTF(channel);
 		dos.writeShort(byteArray.length);
 		dos.write(byteArray);
-		
+
 		((Player) Bukkit.getOnlinePlayers().toArray()[0]).sendPluginMessage(this, "BungeeCord", bos.toByteArray());
-		
+
+		dos.close();
+		bos.close();
+	}
+
+	public void forwardPluginMessage(String server, String channel) throws IOException {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		DataOutputStream dos = new DataOutputStream(bos);
+		dos.writeUTF("Forward");
+		dos.writeUTF(server);
+		dos.writeUTF(channel);
+		dos.writeShort(0);
+
+		((Player) Bukkit.getOnlinePlayers().toArray()[0]).sendPluginMessage(this, "BungeeCord", bos.toByteArray());
+
 		dos.close();
 		bos.close();
 	}
