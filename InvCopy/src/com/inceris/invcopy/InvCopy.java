@@ -52,7 +52,8 @@ public class InvCopy extends JavaPlugin {
 					target.sendMessage(ChatColor.translateAlternateColorCodes('&',
 							"&8[&4Server&8] &cThere was a problem fetching your inventory. "
 									+ "This is most likely because nobody is online on the server you're trying to fetch your inventory from."));
-					Bukkit.getLogger().info("[InvCopy] " + server + "... No players?");
+					if (debugMode)
+						Bukkit.getLogger().info("[InvCopy] " + server + "... No players?");
 					noResponse = false;
 					return;
 				}
