@@ -38,7 +38,7 @@ public class BrewAtRandom {
 		atsu.SendCommand(command);
 	}
 	
-	public static void cmd(String name) {
+	public static boolean cmd(String name) {
 		Bukkit.getScheduler().runTask(atsu, new Runnable() {
 			@Override
 			public void run() {
@@ -66,5 +66,7 @@ public class BrewAtRandom {
 					p.sendMessage(ChatColor.RED + "You can't carry any more potions!");
 			}
 		});
+		
+		return true;
 	}
 }

@@ -9,7 +9,7 @@ public class Broadcast {
 	
 	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
 
-	public static void cmd(String[] args) {
+	public static boolean cmd(String[] args) {
 		Bukkit.getScheduler().runTask(atsu, new Runnable() {
 			@Override
 			public void run() {
@@ -22,5 +22,7 @@ public class Broadcast {
 				Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
 			}
 		});
+		
+		return true;
 	}
 }

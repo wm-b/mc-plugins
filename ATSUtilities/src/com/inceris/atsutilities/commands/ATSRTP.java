@@ -53,7 +53,7 @@ public class ATSRTP {
 		return false;
 	}
 
-	public static void cmd(String[] args) {
+	public static boolean cmd(String[] args) {
 		Bukkit.getScheduler().runTaskAsynchronously(atsu, new Runnable() {
 			@Override
 			public void run() {
@@ -103,5 +103,7 @@ public class ATSRTP {
 				}
 			}
 		});
+		
+		return true;
 	}
 }

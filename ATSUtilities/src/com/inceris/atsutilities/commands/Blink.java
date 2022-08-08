@@ -12,7 +12,7 @@ public class Blink {
 	
 	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
 	
-	public static void cmd(String[] args) {
+	public static boolean cmd(String[] args) {
 
 		Bukkit.getScheduler().runTask(atsu, new Runnable() {
 			@Override
@@ -39,6 +39,8 @@ public class Blink {
 					p.sendMessage(ChatColor.RED + "There is a wall in the way!");
 			}
 		});
+		
+		return true;
 	}
 
 }
