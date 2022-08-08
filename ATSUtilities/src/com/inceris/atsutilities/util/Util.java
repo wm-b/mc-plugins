@@ -1,5 +1,6 @@
 package com.inceris.atsutilities.util;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +38,10 @@ public class Util {
 		} else {
 			return false;
 		}
+	}
+	
+	public static int randomNumberBetween(int min, int max) {
+		return ThreadLocalRandom.current().nextInt(min, max + 1);
 	}
 	
 }
