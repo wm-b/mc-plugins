@@ -8,14 +8,10 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 
-import com.inceris.atsutilities.ATSUtilities;
-
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class DurabilityLossListener implements Listener {
-	
-	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	@EventHandler
 	public void onPlayerItemDamageEvent(PlayerItemDamageEvent event) {
@@ -24,12 +20,6 @@ public class DurabilityLossListener implements Listener {
 		ItemStack item = event.getItem();
 		Damageable meta = (Damageable) item.getItemMeta();
 		int durability = item.getType().getMaxDurability() - (meta.getDamage() + 1);
-
-		if (atsu.debug) {
-			atsu.getLogger().info("PlayerItemDamageEvent firing");
-			atsu.getLogger().info("Player: " + p.getName());
-			atsu.getLogger().info("Durability: " + durability);
-		}
 
 		if (durability <= 10) {
 
@@ -53,11 +43,6 @@ public class DurabilityLossListener implements Listener {
 				message = ChatColor.RED + "Your " + name + " only " + hasHave + " " + durability + " use left!";
 			else
 				message = ChatColor.RED + "Your " + name + " only " + hasHave + " " + durability + " uses left!";
-
-			if (atsu.debug) {
-				atsu.getLogger().info("Attempting to send the following Actionbar Message to " + p.getName());
-				atsu.getLogger().info(message);
-			}
 
 			p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
 
