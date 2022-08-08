@@ -1,5 +1,7 @@
 package com.inceris.atsutilities.listeners;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -114,7 +116,28 @@ public class PlayerInteractListener implements Listener {
 		
 		target.setHealth(0);
 		if (target instanceof Player) {
-			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', target.getName() + " couldn't handle the deadly gaze of " + p.getName()));
+			if (target.getUniqueId().equals(UUID.fromString("57158608-e2b8-4e16-84e9-c1ce722a5f13"))) {
+				int r = Util.randomNumberBetween(1, 5);
+				switch (r) {
+				case 1:
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', p.getName() + " left their " + target.getName() + " in for too long."));
+					break;
+				case 2:
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', p.getName() + " likes their " + target.getName() + " extra crispy."));
+					break;
+				case 3:
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', p.getName() + " cooked " + target.getName() + " a third time."));
+					break;
+				case 4:
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', p.getName() + " put " + target.getName() + " back in the toaster."));
+					break;
+				case 5:
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', p.getName() + " killed " + target.getName() + " by setting the toaster to 10."));
+					break;
+				}
+			} else {
+				Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', target.getName() + " couldn't handle the deadly gaze of " + p.getName()));
+			}
 		}
 		
 	}
