@@ -12,7 +12,7 @@ import com.inceris.atsutilities.util.Util;
 
 public class PlayerCommandPreprocessListener implements Listener {
 
-	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	@EventHandler
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
@@ -23,7 +23,7 @@ public class PlayerCommandPreprocessListener implements Listener {
 
 		String message = e.getMessage().toLowerCase();
 
-		if (atsu.denyTallGrass && (message.contains("tall_grass") || message.contains("tallgrass"))) {
+		if (pl.denyTallGrass && (message.contains("tall_grass") || message.contains("tallgrass"))) {
 			e.getPlayer().sendMessage(
 					ChatColor.translateAlternateColorCodes('&', "&4&lThou shalt not placeth the grass of sin."));
 			e.setCancelled(true);
@@ -42,7 +42,7 @@ public class PlayerCommandPreprocessListener implements Listener {
 					p.sendMessage("");
 					
 				}
-			}.runTaskLater(atsu, 1);
+			}.runTaskLater(pl, 1);
 		}
 	}
 }
