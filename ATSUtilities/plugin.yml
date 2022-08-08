@@ -1,9 +1,9 @@
 name: ATSUtilities
 main: com.inceris.atsutilities.ATSUtilities
-version: 1.8.4
-api-version: 1.18
+version: 1.11
+api-version: 1.19
 author: Inceris
-depend: [LuckPerms]
+depend: [LuckPerms, WorldEdit, WorldGuard]
 commands:
    atsutilities:
       description: Main command
@@ -29,6 +29,11 @@ commands:
       description: Leap in the direction you're moving
       permission: atsutil.leap
       permission-message: You don't have <permission>
+   wb:
+      description: Welcome a player back to the server
+      permission: atsutil.use
+      permission-message: You don't have <permission>
+      aliases: [welcome]
    brewatrandom:
       description: Brew two random potions
       permission: atsutil.brewatrandom
