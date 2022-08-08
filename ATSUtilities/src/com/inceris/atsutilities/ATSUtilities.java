@@ -15,13 +15,16 @@ import com.inceris.atsutilities.commands.BrewAtRandom;
 import com.inceris.atsutilities.commands.Broadcast;
 import com.inceris.atsutilities.commands.CountdownCmd;
 import com.inceris.atsutilities.commands.Leap;
+import com.inceris.atsutilities.commands.WB;
 import com.inceris.atsutilities.listeners.AsyncPlayerChatListener;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
+import com.inceris.atsutilities.listeners.EntityDamageByEntityListener;
 import com.inceris.atsutilities.listeners.InventoryClickListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
 import com.inceris.atsutilities.listeners.PlayerCommandPreprocessListener;
 import com.inceris.atsutilities.listeners.PlayerDeathListener;
 import com.inceris.atsutilities.listeners.PlayerInteractListener;
+import com.inceris.atsutilities.listeners.PlayerJoinListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -32,6 +35,7 @@ import org.bukkit.enchantments.Enchantment;
 public class ATSUtilities extends JavaPlugin {
 
 	public static LuckPerms lp;
+	public String latestJoin = null;
 	public boolean denyTallGrass = false;
 	public boolean denyInfested = true;
 	public boolean debug = false;
@@ -61,6 +65,8 @@ public class ATSUtilities extends JavaPlugin {
 		pm.registerEvents(new PlayerInteractListener(), this);
 		pm.registerEvents(new PlayerCommandPreprocessListener(), this);
 		pm.registerEvents(new PlayerDeathListener(), this);
+		pm.registerEvents(new EntityDamageByEntityListener(), this);
+		pm.registerEvents(new PlayerJoinListener(), this);
 		
 		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 		if (provider != null) {
@@ -82,33 +88,31 @@ public class ATSUtilities extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		try {
 			if (label.equalsIgnoreCase("atsutilities") || label.equalsIgnoreCase("atsu")) {
-				ATSU.cmd(sender, args);
-				return true;
+				return ATSU.cmd(sender, args);
 			}
 			
 			if (label.equalsIgnoreCase("atsrtp")) {
-				ATSRTP.cmd(args);
-				return true;
+				return ATSRTP.cmd(args);
 			}
 
 			if (label.equalsIgnoreCase("bc") || label.equalsIgnoreCase("broadcast")) {
-				Broadcast.cmd(args);
-				return true;
+				return Broadcast.cmd(args);
 			}
 
 			if (label.equalsIgnoreCase("blink")) {
-				Blink.cmd(args);
-				return true;
+				return Blink.cmd(args);
 			}
 
 			if (label.equalsIgnoreCase("leap")) {
-				Leap.cmd(args);
-				return true;
+				return Leap.cmd(args);
 			}
 
 			if (label.equalsIgnoreCase("brewatrandom")) {
-				BrewAtRandom.cmd(args[0]);
-				return true;
+				return BrewAtRandom.cmd(args[0]);
+			}
+
+			if (label.equalsIgnoreCase("wb") || label.equalsIgnoreCase("welcome")) {
+				return WB.cmd(sender);
 			}
 
 			if (label.equalsIgnoreCase("countdown") || label.equalsIgnoreCase("cd")) {
