@@ -1,5 +1,7 @@
 package com.inceris.atsutilities.listeners;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -16,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 
 import com.inceris.atsutilities.ATSUtilities;
@@ -27,7 +30,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class PlayerInteractListener implements Listener {
 
-	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	@EventHandler
 	public void onItemUse(PlayerInteractEvent e) {
@@ -47,7 +50,7 @@ public class PlayerInteractListener implements Listener {
 			}
 
 			if (Items.checkItem(item, Items.prestigeRankupToken)) {
-				ConsoleCommandSender console = atsu.getServer().getConsoleSender();
+				ConsoleCommandSender console = pl.getServer().getConsoleSender();
 				Bukkit.dispatchCommand((CommandSender) console, "prestigeRankup " + p.getName());
 				inv.setItemInMainHand(new ItemStack(Material.AIR));
 
@@ -58,10 +61,10 @@ public class PlayerInteractListener implements Listener {
 			}
 
 			if (Items.checkItem(item, Items.deathRay)) {
-				deathRay(p);
+				deathRay(p, item, 0);
 			}
 			
-			if (atsu.denyTallGrass) {
+			if (pl.denyTallGrass) {
 				if (item.getType().equals(Material.TALL_GRASS) && e.getClickedBlock() != null) {
 					p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 							"&4&lThou shalt not placeth the grass of sin."));
@@ -70,7 +73,7 @@ public class PlayerInteractListener implements Listener {
 				}
 			}
 			
-			if (atsu.denyInfested) {
+			if (pl.denyInfested) {
 				if (item.getType().name().toLowerCase().contains("infested") && e.getClickedBlock() != null) {
 					p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 							"&4&lThou shalt not placeth the block of sin."));
@@ -98,22 +101,7 @@ public class PlayerInteractListener implements Listener {
 		return false;
 	}
 	
-	public void deathRay(Player p) {
-		Location l = p.getTargetBlock(null, 2).getLocation();
-		l.setDirection(p.getLocation().getDirection());
-		
-		RayTraceResult rtr = p.getWorld().rayTraceEntities(l, l.getDirection(), 1000, 0.25);
-		
-		if (rtr == null) {
-			return;
-		}
-		
-		if (!(rtr.getHitEntity() instanceof LivingEntity)) {
-			return;
-		}
-		
-		LivingEntity target = (LivingEntity) rtr.getHitEntity();
-		
+	public void spyglassKill(LivingEntity target, Player p) {
 		target.setHealth(0);
 		if (target instanceof Player) {
 			if (target.getUniqueId().equals(UUID.fromString("57158608-e2b8-4e16-84e9-c1ce722a5f13"))) {
@@ -139,7 +127,47 @@ public class PlayerInteractListener implements Listener {
 				Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', target.getName() + " couldn't handle the deadly gaze of " + p.getName()));
 			}
 		}
+	}
+	
+	public void deathRay(Player p, ItemStack item, int count) {
 		
+		List<LivingEntity> dontKill = new ArrayList<LivingEntity>();
+		dontKill.add(p);
+
+		if (!(p.getInventory().getItemInMainHand().equals(item))) {
+			return;
+		}
+		
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				
+				if (count < 40) {
+					deathRay(p, item, count + 1);
+				}
+
+				Location l = p.getTargetBlock(null, 2).getLocation();
+				l.setDirection(p.getLocation().getDirection());
+
+				RayTraceResult rtr = p.getWorld().rayTraceEntities(l, l.getDirection(), 1000, 0.25);
+
+				if (rtr == null) {
+					return;
+				}
+
+				if (!(rtr.getHitEntity() instanceof LivingEntity)) {
+					return;
+				}
+
+				LivingEntity target = (LivingEntity) rtr.getHitEntity();
+				
+				if (!dontKill.contains(target)) {
+					spyglassKill(target, p);
+					dontKill.add(target);
+				}
+
+			}
+		}.runTaskLater(pl, 2);
 	}
 	
 	public void laserSpyglass(Player p) {
@@ -161,7 +189,7 @@ public class PlayerInteractListener implements Listener {
 		p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
 				new TextComponent(Util.colours("&cTarget Acquired")));
 
-		Bukkit.getScheduler().runTaskLater(atsu, new Runnable() {
+		Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 			@Override
 			public void run() {
 				if (!Items.checkItem(p.getInventory().getItemInMainHand(), Items.laserSpyglass)) {
@@ -183,7 +211,7 @@ public class PlayerInteractListener implements Listener {
 				p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
 						new TextComponent(Util.colours("&cTarget warming up...")));
 				
-				Bukkit.getScheduler().runTaskLater(atsu, new Runnable() {
+				Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 					@Override
 					public void run() {
 						if (!Items.checkItem(p.getInventory().getItemInMainHand(), Items.laserSpyglass)) {
@@ -201,7 +229,7 @@ public class PlayerInteractListener implements Listener {
 						
 						target.setFireTicks(100);
 						
-						Bukkit.getScheduler().runTaskLater(atsu, new Runnable() {
+						Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 							@Override
 							public void run() {
 								if (!Items.checkItem(p.getInventory().getItemInMainHand(), Items.laserSpyglass)) {
@@ -216,9 +244,8 @@ public class PlayerInteractListener implements Listener {
 								if (rtrChecks(rtr, target)) {
 									return;
 								}
-								
-								target.setHealth(0);
-								Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', target.getName() + " couldn't handle the deadly gaze of " + p.getName()));
+
+								spyglassKill(target, p);
 							}
 						}, 40);
 						

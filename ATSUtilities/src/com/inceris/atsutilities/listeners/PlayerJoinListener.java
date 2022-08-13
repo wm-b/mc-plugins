@@ -1,5 +1,6 @@
 package com.inceris.atsutilities.listeners;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -14,7 +15,13 @@ public class PlayerJoinListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		
-		String name = e.getPlayer().getName();
+		Player p = e.getPlayer();
+		
+		if (p.hasPermission("pv.joinvanished")) {
+			return;
+		}
+		
+		String name = p.getName();
 		
 		pl.latestJoin = name;
 		
