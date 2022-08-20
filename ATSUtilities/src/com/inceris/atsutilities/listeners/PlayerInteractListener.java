@@ -61,7 +61,7 @@ public class PlayerInteractListener implements Listener {
 			}
 
 			if (Items.checkItem(item, Items.deathRay)) {
-				deathRay(p, item, 0);
+				deathRay(p, item, 0, new ArrayList<String>());
 			}
 			
 			if (pl.denyTallGrass) {
@@ -129,10 +129,9 @@ public class PlayerInteractListener implements Listener {
 		}
 	}
 	
-	public void deathRay(Player p, ItemStack item, int count) {
+	public void deathRay(Player p, ItemStack item, int count, List<String> dontKill) {
 		
-		List<LivingEntity> dontKill = new ArrayList<LivingEntity>();
-		dontKill.add(p);
+		dontKill.add(p.getUniqueId().toString());
 
 		if (!(p.getInventory().getItemInMainHand().equals(item))) {
 			return;
@@ -141,10 +140,6 @@ public class PlayerInteractListener implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				
-				if (count < 40) {
-					deathRay(p, item, count + 1);
-				}
 
 				Location l = p.getTargetBlock(null, 2).getLocation();
 				l.setDirection(p.getLocation().getDirection());
@@ -161,9 +156,15 @@ public class PlayerInteractListener implements Listener {
 
 				LivingEntity target = (LivingEntity) rtr.getHitEntity();
 				
-				if (!dontKill.contains(target)) {
+				String targetId = target.getUniqueId().toString();
+				
+				if (!dontKill.contains(targetId)) {
+					dontKill.add(targetId);
 					spyglassKill(target, p);
-					dontKill.add(target);
+				}
+				
+				if (count < 40) {
+					deathRay(p, item, count + 1, dontKill);
 				}
 
 			}
