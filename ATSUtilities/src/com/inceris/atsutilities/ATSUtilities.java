@@ -15,16 +15,23 @@ import com.inceris.atsutilities.commands.BrewAtRandom;
 import com.inceris.atsutilities.commands.Broadcast;
 import com.inceris.atsutilities.commands.CountdownCmd;
 import com.inceris.atsutilities.commands.Leap;
+import com.inceris.atsutilities.commands.Transform;
 import com.inceris.atsutilities.commands.WB;
 import com.inceris.atsutilities.listeners.AsyncPlayerChatListener;
 import com.inceris.atsutilities.listeners.DurabilityLossListener;
 import com.inceris.atsutilities.listeners.EntityDamageByEntityListener;
+import com.inceris.atsutilities.listeners.EntityDeathListener;
 import com.inceris.atsutilities.listeners.InventoryClickListener;
 import com.inceris.atsutilities.listeners.IronGolemDeathListener;
 import com.inceris.atsutilities.listeners.PlayerCommandPreprocessListener;
 import com.inceris.atsutilities.listeners.PlayerDeathListener;
 import com.inceris.atsutilities.listeners.PlayerInteractListener;
 import com.inceris.atsutilities.listeners.PlayerJoinListener;
+import com.inceris.atsutilities.listeners.PlayerQuitListener;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -39,6 +46,7 @@ public class ATSUtilities extends JavaPlugin {
 	public boolean denyTallGrass = false;
 	public boolean denyInfested = true;
 	public boolean debug = false;
+	public List<UUID> transformMobs = new ArrayList<UUID>();
 	public final Enchantment[] allowedEnchantments = new Enchantment[] {
 			Enchantment.DIG_SPEED,
 			Enchantment.DAMAGE_ALL,
@@ -67,6 +75,8 @@ public class ATSUtilities extends JavaPlugin {
 		pm.registerEvents(new PlayerDeathListener(), this);
 		pm.registerEvents(new EntityDamageByEntityListener(), this);
 		pm.registerEvents(new PlayerJoinListener(), this);
+		pm.registerEvents(new PlayerQuitListener(), this);
+		pm.registerEvents(new EntityDeathListener(), this);
 		
 		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
 		if (provider != null) {
@@ -117,6 +127,10 @@ public class ATSUtilities extends JavaPlugin {
 
 			if (label.equalsIgnoreCase("countdown") || label.equalsIgnoreCase("cd")) {
 				return CountdownCmd.cmd(sender, args);
+			}
+			
+			if ((label.equalsIgnoreCase("transform") || label.equalsIgnoreCase("tf")) && sender.hasPermission("atsutilities.transform")) {
+				return Transform.cmd(args);
 			}
 
 		} catch (Exception e) {
