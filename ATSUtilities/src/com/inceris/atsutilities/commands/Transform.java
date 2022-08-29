@@ -112,6 +112,12 @@ public class Transform {
 		case "LLAMA":
 			entityType = EntityType.LLAMA;
 			break;
+		case "BEE":
+			entityType = EntityType.BEE;
+			break;
+		case "WOLF":
+			entityType = EntityType.WOLF;
+			break;
 		}
 		
 		if (entityType == null) {
