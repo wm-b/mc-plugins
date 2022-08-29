@@ -172,6 +172,13 @@ public class Transform {
 		}
 
 		if (!p.getGameMode().equals(GameMode.SPECTATOR)) {
+			ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+			Bukkit.dispatchCommand(console,
+					"execute at " + p.getName() + " run particle minecraft:smoke ~ ~1 ~ 0.25 0.5 0.25 0 100");
+			Bukkit.dispatchCommand(console,
+					"execute at " + p.getName() + " run particle minecraft:large_smoke ~ ~1 ~ 0.25 0.5 0.25 0 20");
+			Bukkit.dispatchCommand(console,
+					"execute at " + p.getName() + " run playsound minecraft:entity.enderman.teleport master @a ~ ~ ~ 1 1");
 			atsu.transformMobs.remove(entity.getUniqueId());
 			entity.remove();
 			return;
