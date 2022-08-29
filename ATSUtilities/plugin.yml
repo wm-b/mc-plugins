@@ -1,6 +1,6 @@
 name: ATSUtilities
 main: com.inceris.atsutilities.ATSUtilities
-version: 1.11.5
+version: 1.12
 api-version: 1.19
 author: Inceris
 depend: [LuckPerms, WorldEdit, WorldGuard]
@@ -43,3 +43,9 @@ commands:
       permission: atsutil.countdown
       permission-message: You don't have <permission>
       aliases: [cd]
+   transform:
+      description: Transforms a player into a mob
+      usage: /<command> [player] [mob] [seconds]
+      permission: atsutil.transform
+      permission-message: You don't have <permission>
+      aliases: [tf]
