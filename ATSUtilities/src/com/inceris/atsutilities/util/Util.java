@@ -39,6 +39,15 @@ public class Util {
 			return false;
 		}
 	}
+
+	public static boolean regex(String message, String regex) {
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(message);
+		if (matcher.find()) {
+			return true;
+		}
+		return false;
+	}
 	
 	public static int randomNumberBetween(int min, int max) {
 		return ThreadLocalRandom.current().nextInt(min, max + 1);
