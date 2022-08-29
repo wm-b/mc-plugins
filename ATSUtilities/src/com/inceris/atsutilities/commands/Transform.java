@@ -64,9 +64,6 @@ public class Transform {
 		case "OCELOT":
 			entityType = EntityType.OCELOT;
 			break;
-		case "PARROT":
-			entityType = EntityType.PARROT;
-			break;
 		case "PIG":
 			entityType = EntityType.PIG;
 			break;
