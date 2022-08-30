@@ -1,6 +1,6 @@
 name: ATSUtilities
 main: com.inceris.atsutilities.ATSUtilities
-version: 1.12
+version: 1.13
 api-version: 1.19
 author: Inceris
 depend: [LuckPerms, WorldEdit, WorldGuard]
