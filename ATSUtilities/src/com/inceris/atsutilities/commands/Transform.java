@@ -118,6 +118,12 @@ public class Transform {
 		case "WOLF":
 			entityType = EntityType.WOLF;
 			break;
+		case "WITHER":
+			entityType = EntityType.WITHER;
+			break;
+		case "WARDEN":
+			entityType = EntityType.WARDEN;
+			break;
 		}
 		
 		if (entityType == null) {
