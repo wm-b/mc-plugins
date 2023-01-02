@@ -12,16 +12,14 @@ import org.bukkit.entity.Player;
 
 public class WB {
 
-	private static ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static final ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	public static boolean cmd(CommandSender sender, String[] args) {
 		
-		if (!(sender instanceof Player)) {
+		if (!(sender instanceof Player p)) {
 			return false;
 		}
-		
-		Player p = (Player) sender;
-		
+
 		if (!wbData(p, args)) {
 			return true;
 		}
@@ -39,28 +37,16 @@ public class WB {
 		
 		String name = pl.latestJoin;
 		
-		String message = "";
-		switch (Util.randomNumberBetween(1, 6)) {
-		case 1:
-			message = "welcome back " + name;
-			break;
-		case 2:
-			message = "wb " + name;
-			break;
-		case 3:
-			message = "weba " + name;
-			break;
-		case 4:
-			message = "hey " + name + "! welcome back";
-			break;
-		case 5:
-			message = "hey " + name + "! Welcome back";
-			break;
-		case 6:
-			message = "welcome back, " + name;
-			break;
-		}
-		
+		String message = switch (Util.randomNumberBetween(1, 6)) {
+			case 1 -> "welcome back " + name;
+			case 2 -> "wb " + name;
+			case 3 -> "weba " + name;
+			case 4 -> "hey " + name + "! welcome back";
+			case 5 -> "hey " + name + "! Welcome back";
+			case 6 -> "welcome back, " + name;
+			default -> "";
+		};
+
 		if (Util.randomNumberBetween(1, 2) == 2) {
 			message = Character.toUpperCase(message.charAt(0)) + message.substring(1);
 		}

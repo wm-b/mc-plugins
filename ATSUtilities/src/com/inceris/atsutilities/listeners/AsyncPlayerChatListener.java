@@ -14,26 +14,18 @@ import com.inceris.atsutilities.ATSUtilities;
 
 public class AsyncPlayerChatListener implements Listener {
 
-	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static final ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	public void sendMessageToPlayers(Set<Player> players, String message) {
-		Bukkit.getScheduler().runTaskLater(atsu, new Runnable() {
-			@Override
-			public void run() {
-				for (Player p : players) {
-					p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-				}
+		Bukkit.getScheduler().runTaskLater(atsu, () -> {
+			for (Player p : players) {
+				p.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
 			}
 		}, 1);
 	}
 
 	public void sendMessageToPlayer(Player player, String message) {
-		Bukkit.getScheduler().runTaskLater(atsu, new Runnable() {
-			@Override
-			public void run() {
-				player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-			}
-		}, 1);
+		Bukkit.getScheduler().runTaskLater(atsu, () -> player.sendMessage(ChatColor.translateAlternateColorCodes('&', message)), 1);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)

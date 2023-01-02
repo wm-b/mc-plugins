@@ -10,7 +10,7 @@ import com.inceris.atsutilities.ATSUtilities;
 
 public class PlayerJoinListener implements Listener {
 	
-	private static ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static final ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
@@ -28,14 +28,11 @@ public class PlayerJoinListener implements Listener {
 		new BukkitRunnable(){
 			@Override
 			public void run() {
-				
 				if(pl.latestJoin.equals(name)) {
 					pl.latestJoin = null;
 				}
-				
 			}
 		}.runTaskLater(pl, 1200);
-		
 	}
 	
 }

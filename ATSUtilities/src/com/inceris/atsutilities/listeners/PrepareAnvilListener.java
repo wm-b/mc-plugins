@@ -18,31 +18,29 @@ import com.inceris.atsutilities.ATSUtilities;
 
 public class PrepareAnvilListener implements Listener {
 	
-	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static final ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
 	
 	private Map<Enchantment, Integer> enchantedBook(ItemStack item) {
 		EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+		assert meta != null;
 		return meta.getStoredEnchants();
 	}
 	
-	private ItemStack putEnchantmentOnBook(ItemStack item, Enchantment enchantment, int level) {
+	private void putEnchantmentOnBook(ItemStack item, Enchantment enchantment, int level) {
 		EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();
+		assert meta != null;
 		meta.addStoredEnchant(enchantment, level, true);
 		item.setItemMeta(meta);
-		return item;
 	}
 	
 	private boolean allowedPlayerViewing(List<HumanEntity> viewers, Enchantment enchantment, int level) {
 		Player p = (Player) viewers.get(0);
 		int prestigeLevelRequired = level - enchantment.getMaxLevel();
 		if (prestigeLevelRequired > 0) {
-			if (p.hasPermission("atsutilities.prestige." + prestigeLevelRequired)) {
-				return true;
-			}
+			return p.hasPermission("atsutilities.prestige." + prestigeLevelRequired);
 		} else {
 			return true;
 		}
-		return false;
 	}
 	
 	private void generateResult(Enchantment enchantment, ItemStack base, ItemStack addition, ItemStack result, List<HumanEntity> viewers) {
@@ -82,13 +80,13 @@ public class PrepareAnvilListener implements Listener {
 				int resultLevel = baseEnchantLevel + 1;
 				if (allowedPlayerViewing(viewers, enchantment, resultLevel)) {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						result = putEnchantmentOnBook(result, enchantment, resultLevel);
+						putEnchantmentOnBook(result, enchantment, resultLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, resultLevel);
 					}
 				} else {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						result = putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
+						putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, baseEnchantLevel);
 					}
@@ -98,20 +96,20 @@ public class PrepareAnvilListener implements Listener {
 
 				if (allowedPlayerViewing(viewers, enchantment, additionEnchantLevel)) {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						result = putEnchantmentOnBook(result, enchantment, additionEnchantLevel);
+						putEnchantmentOnBook(result, enchantment, additionEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, additionEnchantLevel);
 					}
 				} else {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						result = putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
+						putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, baseEnchantLevel);
 					}
 				}
 			} else {
 					if (result.getType().equals(Material.ENCHANTED_BOOK)) {
-						result = putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
+						putEnchantmentOnBook(result, enchantment, baseEnchantLevel);
 					} else {
 						result.addUnsafeEnchantment(enchantment, baseEnchantLevel);
 					}

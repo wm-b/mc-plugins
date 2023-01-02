@@ -13,12 +13,10 @@ public class CountdownCmd {
 	
 	public static boolean cmd(CommandSender sender, String[] args) {
 		
-		if (!(sender instanceof Player)) {
+		if (!(sender instanceof Player p)) {
 			return false;
 		}
-		
-		Player p = (Player) sender;
-		
+
 		if (args[0].equalsIgnoreCase("stop")) {
 			Countdown.stop(p);
 			return true;

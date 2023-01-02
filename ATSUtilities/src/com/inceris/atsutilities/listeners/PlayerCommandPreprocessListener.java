@@ -12,14 +12,10 @@ import com.inceris.atsutilities.util.Util;
 
 public class PlayerCommandPreprocessListener implements Listener {
 
-	private static ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static final ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	@EventHandler
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
-
-		if (e.getMessage() == null) {
-			return;
-		}
 
 		String message = e.getMessage().toLowerCase();
 

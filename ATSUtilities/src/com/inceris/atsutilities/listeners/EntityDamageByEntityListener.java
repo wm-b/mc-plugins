@@ -18,7 +18,7 @@ import com.sk89q.worldguard.protection.regions.RegionQuery;
 
 public class EntityDamageByEntityListener implements Listener {
 	
-	private static ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static final ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {

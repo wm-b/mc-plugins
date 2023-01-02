@@ -8,7 +8,7 @@ import com.inceris.atsutilities.ATSUtilities;
 
 public class EntityDeathListener implements Listener {
 
-	private static ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
+	private static final ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
 
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent e) {

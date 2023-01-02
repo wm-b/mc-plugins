@@ -1,5 +1,7 @@
 package com.inceris.atsutilities.listeners;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -8,44 +10,40 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-
 public class DurabilityLossListener implements Listener {
 
-	@EventHandler
-	public void onPlayerItemDamageEvent(PlayerItemDamageEvent event) {
+    @EventHandler
+    public void onPlayerItemDamageEvent(PlayerItemDamageEvent event) {
 
-		Player p = event.getPlayer();
-		ItemStack item = event.getItem();
-		Damageable meta = (Damageable) item.getItemMeta();
-		int durability = item.getType().getMaxDurability() - (meta.getDamage() + 1);
+        Player p = event.getPlayer();
+        ItemStack item = event.getItem();
+        Damageable meta = (Damageable) item.getItemMeta();
+        assert meta != null;
+        int durability = item.getType().getMaxDurability() - (meta.getDamage() + 1);
 
-		if (durability <= 10) {
+        if (durability <= 10) {
 
-			String name = item.getType().name().toLowerCase();
-			
-			String nameArray[] = name.split("_");
-			name = "";
-			for (int i = 0; i < nameArray.length; i++) {
-				name += nameArray[i].substring(0, 1) + nameArray[i].substring(1, nameArray[i].length()) + " ";
-			}
-			name.trim();
+            StringBuilder name_ = new StringBuilder(item.getType().name().toLowerCase());
 
-			String hasHave = "has";
-			if (name.substring(name.length() - 1, name.length()) == "s")
-				hasHave = "have";
+            String[] nameArray = name_.toString().split("_");
+            name_ = new StringBuilder();
+            for (String s : nameArray) {
+                name_.append(s.charAt(0)).append(s.substring(1)).append(" ");
+            }
+            String name = name_.toString().trim();
 
-			String message = "";
-			if (durability <= 0)
-				message = ChatColor.RED + "Uh-oh! Your " + name + " " + hasHave + " broke!";
-			else if (durability == 1)
-				message = ChatColor.RED + "Your " + name + " only " + hasHave + " " + durability + " use left!";
-			else
-				message = ChatColor.RED + "Your " + name + " only " + hasHave + " " + durability + " uses left!";
+            String hasHave = name.charAt(name.length() - 1) == 's' ? "have" : "has";
 
-			p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+            String message = "";
+            if (durability <= 0)
+                message = ChatColor.RED + "Uh-oh! Your " + name + " " + hasHave + " broke!";
+            else if (durability == 1)
+                message = ChatColor.RED + "Your " + name + " only " + hasHave + " " + durability + " use left!";
+            else
+                message = ChatColor.RED + "Your " + name + " only " + hasHave + " " + durability + " uses left!";
 
-		}
-	}
+            p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
+
+        }
+    }
 }
