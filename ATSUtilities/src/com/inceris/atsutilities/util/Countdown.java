@@ -19,30 +19,6 @@ public class Countdown {
     private int cd;
     private boolean cont;
 
-    public Player getPlayer() {
-        return p;
-    }
-
-    public void setPlayer(Player p) {
-        this.p = p;
-    }
-
-    public int getCountdown() {
-        return cd;
-    }
-
-    public void setCountdown(int cd) {
-        this.cd = cd;
-    }
-
-    public boolean isContinue() {
-        return cont;
-    }
-
-    public void setContinue(boolean cont) {
-        this.cont = cont;
-    }
-
     public Countdown(Player p, int cd) {
 
         stop(p);
@@ -54,6 +30,21 @@ public class Countdown {
         cdList.add(this);
 
         countdown(this);
+    }
+
+    public static void stop(Player p) {
+
+        List<Countdown> toRemove = new ArrayList<Countdown>();
+
+        for (Countdown countdown : cdList) {
+            if (countdown.getPlayer().equals(p)) {
+                countdown.setContinue(false);
+                toRemove.add(countdown);
+            }
+        }
+
+        cdList.removeAll(toRemove);
+
     }
 
     private static void countdown(Countdown countdown) {
@@ -98,18 +89,27 @@ public class Countdown {
         }, 20);
     }
 
-    public static void stop(Player p) {
+    public Player getPlayer() {
+        return p;
+    }
 
-        List<Countdown> toRemove = new ArrayList<Countdown>();
+    public void setPlayer(Player p) {
+        this.p = p;
+    }
 
-        for (Countdown countdown : cdList) {
-            if (countdown.getPlayer().equals(p)) {
-                countdown.setContinue(false);
-                toRemove.add(countdown);
-            }
-        }
+    public int getCountdown() {
+        return cd;
+    }
 
-        cdList.removeAll(toRemove);
+    public void setCountdown(int cd) {
+        this.cd = cd;
+    }
 
+    public boolean isContinue() {
+        return cont;
+    }
+
+    public void setContinue(boolean cont) {
+        this.cont = cont;
     }
 }

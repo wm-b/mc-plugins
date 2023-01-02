@@ -11,6 +11,10 @@ import java.util.List;
 
 public class Items {
 
+    public static final ItemStack prestigeRankupToken = prestigeRankupToken();
+    public static final ItemStack laserSpyglass = constructItem(Material.SPYGLASS, "&c&lLaser Spyglass");
+    public static final ItemStack deathRay = constructItem(Material.SPYGLASS, "&4&lDeath Ray");
+
     public static boolean checkItem(ItemStack item, ItemStack against) {
         ItemMeta meta = item.getItemMeta();
         ItemMeta againstMeta = against.getItemMeta();
@@ -38,8 +42,6 @@ public class Items {
         };
     }
 
-    public static final ItemStack prestigeRankupToken = prestigeRankupToken();
-
     public static ItemStack prestigeRankupToken() {
         ItemStack item = constructItem(Material.PAPER, "&6&lPrestige Rank Token");
         ItemMeta meta = item.getItemMeta();
@@ -52,9 +54,5 @@ public class Items {
         item.setItemMeta(meta);
         return item;
     }
-
-    public static final ItemStack laserSpyglass = constructItem(Material.SPYGLASS, "&c&lLaser Spyglass");
-
-    public static final ItemStack deathRay = constructItem(Material.SPYGLASS, "&4&lDeath Ray");
 
 }

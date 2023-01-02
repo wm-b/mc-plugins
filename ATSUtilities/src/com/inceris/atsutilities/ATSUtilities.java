@@ -22,12 +22,7 @@ import java.util.UUID;
 
 public class ATSUtilities extends JavaPlugin {
 
-    public YamlConfiguration wbData = null;
     public final File wbDataFile = new File("plugins/ATSUtilities/wbData.yml");
-    public String latestJoin = null;
-    public boolean denyTallGrass = false;
-    public boolean denyInfested = true;
-    public boolean debug = false;
     public final List<UUID> transformMobs = new ArrayList<>();
     public final Enchantment[] allowedEnchantments = new Enchantment[]{
             Enchantment.DIG_SPEED,
@@ -42,6 +37,11 @@ public class ATSUtilities extends JavaPlugin {
             Enchantment.PROTECTION_PROJECTILE,
             Enchantment.DURABILITY
     };
+    public YamlConfiguration wbData = null;
+    public String latestJoin = null;
+    public boolean denyTallGrass = false;
+    public boolean denyInfested = true;
+    public boolean debug = false;
 
     @Override
     public void onEnable() {

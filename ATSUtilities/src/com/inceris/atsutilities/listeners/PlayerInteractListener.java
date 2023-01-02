@@ -137,7 +137,7 @@ public class PlayerInteractListener implements Listener {
                     return;
                 }
 
-				String targetId = target.getUniqueId().toString();
+                String targetId = target.getUniqueId().toString();
 
                 if (!dontKill.contains(targetId)) {
                     dontKill.add(targetId);
@@ -166,7 +166,7 @@ public class PlayerInteractListener implements Listener {
             return;
         }
 
-		p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR,
                 new TextComponent(Util.colours("&cTarget Acquired")));
 
         Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
@@ -192,39 +192,39 @@ public class PlayerInteractListener implements Listener {
                         new TextComponent(Util.colours("&cTarget warming up...")));
 
                 Bukkit.getScheduler().runTaskLater(pl, () -> {
-					if (!Items.checkItem(p.getInventory().getItemInMainHand(), Items.laserSpyglass)) {
-						return;
-					}
+                    if (!Items.checkItem(p.getInventory().getItemInMainHand(), Items.laserSpyglass)) {
+                        return;
+                    }
 
-					Location l1 = p.getTargetBlock(null, 2).getLocation();
-					l1.setDirection(p.getLocation().getDirection());
+                    Location l1 = p.getTargetBlock(null, 2).getLocation();
+                    l1.setDirection(p.getLocation().getDirection());
 
-					RayTraceResult rtr1 = p.getWorld().rayTraceEntities(l1, l1.getDirection(), 1000, 0.25);
+                    RayTraceResult rtr1 = p.getWorld().rayTraceEntities(l1, l1.getDirection(), 1000, 0.25);
 
-					if (rtrChecks(rtr1, target)) {
-						return;
-					}
+                    if (rtrChecks(rtr1, target)) {
+                        return;
+                    }
 
-					target.setFireTicks(100);
+                    target.setFireTicks(100);
 
-					Bukkit.getScheduler().runTaskLater(pl, () -> {
-						if (!Items.checkItem(p.getInventory().getItemInMainHand(), Items.laserSpyglass)) {
-							return;
-						}
+                    Bukkit.getScheduler().runTaskLater(pl, () -> {
+                        if (!Items.checkItem(p.getInventory().getItemInMainHand(), Items.laserSpyglass)) {
+                            return;
+                        }
 
-						Location l11 = p.getTargetBlock(null, 2).getLocation();
-						l11.setDirection(p.getLocation().getDirection());
+                        Location l11 = p.getTargetBlock(null, 2).getLocation();
+                        l11.setDirection(p.getLocation().getDirection());
 
-						RayTraceResult rtr11 = p.getWorld().rayTraceEntities(l11, l11.getDirection(), 1000, 0.25);
+                        RayTraceResult rtr11 = p.getWorld().rayTraceEntities(l11, l11.getDirection(), 1000, 0.25);
 
-						if (rtrChecks(rtr11, target)) {
-							return;
-						}
+                        if (rtrChecks(rtr11, target)) {
+                            return;
+                        }
 
-						spyglassKill(target, p);
-					}, 40);
+                        spyglassKill(target, p);
+                    }, 40);
 
-				}, 40);
+                }, 40);
 
             }
         }, 40);
