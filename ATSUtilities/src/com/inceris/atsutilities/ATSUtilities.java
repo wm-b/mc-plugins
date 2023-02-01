@@ -42,9 +42,15 @@ public class ATSUtilities extends JavaPlugin {
     public boolean denyTallGrass = false;
     public boolean denyInfested = true;
     public boolean debug = false;
+    private static ATSUtilities instance;
+
+    public static ATSUtilities getInstance() {
+        return instance;
+    }
 
     @Override
     public void onEnable() {
+        instance = this;
 
         this.saveDefaultConfig();
 
@@ -75,9 +81,12 @@ public class ATSUtilities extends JavaPlugin {
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerQuitListener(), this);
         pm.registerEvents(new EntityDeathListener(), this);
+        pm.registerEvents(new CountdownCmd(), this);
 
         Objects.requireNonNull(getCommand("wb")).setTabCompleter(new WbTabCompletion());
         Objects.requireNonNull(getCommand("welcome")).setTabCompleter(new WbTabCompletion());
+
+        Objects.requireNonNull(getCommand("countdown")).setTabCompleter(new CountdownCmd());
     }
 
     @Override
@@ -131,4 +140,5 @@ public class ATSUtilities extends JavaPlugin {
 
         return false;
     }
+
 }
