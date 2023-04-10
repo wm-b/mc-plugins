@@ -16,12 +16,18 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 public class InventoryClickListener implements Listener {
 
-    private static final ATSUtilities atsu = ATSUtilities.getPlugin(ATSUtilities.class);
+    private static final ATSUtilities pl = ATSUtilities.getPlugin(ATSUtilities.class);
 
     @EventHandler
     private void onInventoryClick(InventoryClickEvent e) {
 
         Inventory inventory = e.getInventory();
+        
+        if (inventory.equals(pl.lostandfoundInv) && !e.getWhoClicked().hasPermission("atsutil.lostandfound.edit")) {
+            e.setCancelled(true);
+            return;
+        }
+        
         if (inventory instanceof AnvilInventory inv) {
             if (e.getSlotType().equals(SlotType.RESULT)) {
                 Player p = (Player) inv.getViewers().get(0);
@@ -29,7 +35,7 @@ public class InventoryClickListener implements Listener {
                 ItemStack item = e.getCurrentItem();
                 if (item == null) return;
 
-                for (Enchantment enchantment : atsu.allowedEnchantments) {
+                for (Enchantment enchantment : pl.allowedEnchantments) {
                     int level = 0;
                     if (item.getType().equals(Material.ENCHANTED_BOOK)) {
                         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) item.getItemMeta();

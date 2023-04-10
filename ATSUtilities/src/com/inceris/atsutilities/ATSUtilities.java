@@ -3,12 +3,14 @@ package com.inceris.atsutilities;
 import com.inceris.atsutilities.commands.*;
 import com.inceris.atsutilities.listeners.*;
 import com.inceris.atsutilities.tabcompletion.WbTabCompletion;
+import com.inceris.atsutilities.util.InvSerialisation;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,17 +44,36 @@ public class ATSUtilities extends JavaPlugin {
     public boolean denyTallGrass = false;
     public boolean denyInfested = true;
     public boolean debug = false;
+    public Inventory lostandfoundInv = null;
     private static ATSUtilities instance;
 
     public static ATSUtilities getInstance() {
         return instance;
     }
+    public YamlConfiguration lostandfoundData = null;
+    public File lostandfoundFile = new File("plugins/ATSUtilities/lostandfound.yml");
 
     @Override
     public void onEnable() {
         instance = this;
 
         this.saveDefaultConfig();
+
+        if(!lostandfoundFile.exists()){
+            try {
+                boolean ignored = lostandfoundFile.createNewFile();
+                lostandfoundData = YamlConfiguration.loadConfiguration(lostandfoundFile);
+                lostandfoundData.addDefault("SerialisedInventory", InvSerialisation.toBase64(getServer().createInventory(null, 27, "Lost and Found")));
+                lostandfoundData.options().copyDefaults(true);
+                lostandfoundData.save(lostandfoundFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            lostandfoundData = YamlConfiguration.loadConfiguration(lostandfoundFile);
+        }
+
+        lostandfoundInv = InvSerialisation.toInventory(lostandfoundData.getString("SerialisedInventory"), null, "Lost and Found");
 
         if (!wbDataFile.exists()) {
             try {
@@ -73,6 +94,7 @@ public class ATSUtilities extends JavaPlugin {
         pm.registerEvents(new DurabilityLossListener(), this);
         pm.registerEvents(new PrepareAnvilListener(), this);
         pm.registerEvents(new InventoryClickListener(), this);
+        pm.registerEvents(new InventoryCloseListener(), this);
         pm.registerEvents(new AsyncPlayerChatListener(), this);
         pm.registerEvents(new PlayerInteractListener(), this);
         pm.registerEvents(new PlayerCommandPreprocessListener(), this);
@@ -132,6 +154,10 @@ public class ATSUtilities extends JavaPlugin {
 
             if ((label.equalsIgnoreCase("transform") || label.equalsIgnoreCase("tf")) && sender.hasPermission("atsutilities.transform")) {
                 return Transform.cmd(args);
+            }
+
+            if ((label.equalsIgnoreCase("lostandfound") || label.equalsIgnoreCase("laf")) && sender.hasPermission("atsutilities.lostandfound")) {
+                return LostAndFound.cmd(sender);
             }
 
         } catch (Exception e) {

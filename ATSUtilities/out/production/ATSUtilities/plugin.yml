@@ -1,0 +1,57 @@
+name: ATSUtilities
+main: com.inceris.atsutilities.ATSUtilities
+version: 2.1
+api-version: 1.19
+author: Inceris
+depend: [LuckPerms, WorldEdit, WorldGuard]
+commands:
+   atsutilities:
+      description: Main command
+      usage: /<command> [subcommand]
+      permission: atsutil.use
+      permission-message: You don't have <permission>
+      aliases: [atsu]
+   atsrtp:
+      description: Randomly teleports to a selected biome
+      usage: /<command> [player] [world] [radius] [biome]
+      permission: atsutil.use
+      permission-message: You don't have <permission>
+   broadcast:
+      description: Broadcasts a message to the whole server
+      permission: atsutil.bc
+      permission-message: You don't have <permission>
+      aliases: [bc]
+   blink:
+      description: A short-range forward teleport that can't go through walls
+      permission: atsutil.blink
+      permission-message: You don't have <permission>
+   leap:
+      description: Leap in the direction you're moving
+      permission: atsutil.leap
+      permission-message: You don't have <permission>
+   wb:
+      description: Welcome a player back to the server
+      permission: atsutil.use
+      permission-message: You don't have <permission>
+      aliases: [welcome, weba]
+   brewatrandom:
+      description: Brew two random potions
+      permission: atsutil.brewatrandom
+      permission-message: You don't have <permission>
+   countdown:
+      description: Counts down
+      permission: atsutil.countdown
+      permission-message: You don't have <permission>
+      aliases: [cd]
+   transform:
+      description: Transforms a player into a mob
+      usage: /<command> [player] [mob] [seconds]
+      permission: atsutil.transform
+      permission-message: You don't have <permission>
+      aliases: [tf]
+   lostandfound:
+      description: Opens the lost and found inventory
+      usage: /<command>
+      permission: atsutil.lostandfound
+      permission-message: You don't have <permission>
+      aliases: [laf]

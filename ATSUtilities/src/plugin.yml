@@ -1,6 +1,6 @@
 name: ATSUtilities
 main: com.inceris.atsutilities.ATSUtilities
-version: 2.0
+version: 2.1
 api-version: 1.19
 author: Inceris
 depend: [LuckPerms, WorldEdit, WorldGuard]
@@ -12,7 +12,7 @@ commands:
       permission-message: You don't have <permission>
       aliases: [atsu]
    atsrtp:
-      description: Randomly releports to a slected biome
+      description: Randomly teleports to a selected biome
       usage: /<command> [player] [world] [radius] [biome]
       permission: atsutil.use
       permission-message: You don't have <permission>
@@ -33,7 +33,7 @@ commands:
       description: Welcome a player back to the server
       permission: atsutil.use
       permission-message: You don't have <permission>
-      aliases: [welcome]
+      aliases: [welcome, weba]
    brewatrandom:
       description: Brew two random potions
       permission: atsutil.brewatrandom
@@ -49,3 +49,9 @@ commands:
       permission: atsutil.transform
       permission-message: You don't have <permission>
       aliases: [tf]
+   lostandfound:
+      description: Opens the lost and found inventory
+      usage: /<command>
+      permission: atsutil.lostandfound
+      permission-message: You don't have <permission>
+      aliases: [laf]
