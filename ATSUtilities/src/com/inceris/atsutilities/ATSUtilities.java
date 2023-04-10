@@ -152,11 +152,11 @@ public class ATSUtilities extends JavaPlugin {
                 return CountdownCmd.cmd(sender, args);
             }
 
-            if ((label.equalsIgnoreCase("transform") || label.equalsIgnoreCase("tf")) && sender.hasPermission("atsutilities.transform")) {
+            if ((label.equalsIgnoreCase("transform") || label.equalsIgnoreCase("tf")) && sender.hasPermission("atsutil.transform")) {
                 return Transform.cmd(args);
             }
 
-            if ((label.equalsIgnoreCase("lostandfound") || label.equalsIgnoreCase("laf")) && sender.hasPermission("atsutilities.lostandfound")) {
+            if ((label.equalsIgnoreCase("lostandfound") || label.equalsIgnoreCase("laf")) && sender.hasPermission("atsutil.lostandfound")) {
                 return LostAndFound.cmd(sender);
             }
 
