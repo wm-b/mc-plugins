@@ -1,0 +1,26 @@
+name: Cascade
+main: com.inceris.cascade.Cascade
+version: 1.0.2
+api-version: 1.19
+author: Inceris
+depend: [LuckPerms, WorldEdit, WorldGuard]
+commands:
+   cascade:
+      description: The main Cascade command
+      permission: cascade.use
+      permission-message: You don't have <permission>
+   broadcast:
+      description: Broadcasts a message to the whole server
+      permission: cascade.bc
+      permission-message: You don't have <permission>
+      aliases: [bc]
+   countdown:
+      description: Counts down
+      permission: cascade.countdown
+      permission-message: You don't have <permission>
+      aliases: [cd]
+   cascgear:
+      description: Opens the cascgear inventory
+      usage: /<command> [page]
+      permission: cascade.cascgear
+      permission-message: You don't have <permission>
