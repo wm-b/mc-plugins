@@ -1,2 +1,2 @@
-# inceris-plugins
-Repository for minecraft plugins coded by Inceris.
+# mc-plugins
+Repository for minecraft plugins.
